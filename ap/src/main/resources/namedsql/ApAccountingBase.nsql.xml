@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ApAccountingBase" longname="the namedsql about internal account transaction" package="cn.sunline.icore.ap.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <select cache="none" method="selectAll" type="sql" id="selTrxnNoBalancedData" longname="getting the unbalanced records by transaction sequence ">
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.trxn_ccy, sum(case a.debit_credit when 'D' then a.trxn_amt else - a.trxn_amt end) as trxn_amt 
+    	from
+    	    	tas_accounting_event a 
+    	where
+    	    	a.trxn_seq = #trxn_seq# and a.org_id = #org_id# 
+    	    	and a.double_entry_ind = 'Y' 
+    	group by
+    	    	a.trxn_ccy 
+    	having
+    	    	sum(case a.debit_credit when 'D' then a.trxn_amt else - a.trxn_amt end) !=0 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.trxn_ccy, sum(case a.debit_credit when 'D' then a.trxn_amt else - a.trxn_amt end) as trxn_amt 
+    	from
+    	    	aps_accounting_event a 
+    	where
+    	    	a.trxn_seq = #trxn_seq# and a.org_id = #org_id# 
+    	    	and a.double_entry_ind = 'Y' 
+    	group by
+    	    	a.trxn_ccy 
+    	having
+    	    	sum(case a.debit_credit when 'D' then a.trxn_amt else - a.trxn_amt end) !=0 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trxn_seq" ref="SysDict.A.trxn_seq" jdbcType="VARCHAR" javaType="BaseType.U_SEQNO" mode="in" longname="transaction sequence" parameterType="condition"/>
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApAccounting.ApTrxnNoBalancedData"/>
+    </select>
+    <dynamicSelect cache="none" method="selectAll selectPageWithCount" type="sql" id="selAcctAliasInfos" longname="query accounting alias info">
+        <parameterMap class="java.util.Map">
+            <parameter property="accounting_alias" ref="SysDict.A.accounting_alias" jdbcType="VARCHAR" javaType="BaseType.U_BYTE32" mode="in" longname="accounting alias" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApAccounting.ApAccountingEventCtrl"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select * from app_accountingevent_ctrl]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="accounting_alias != &quot;&quot; &amp;&amp; accounting_alias !=null" type="If">
+                        <str type="Str"><![CDATA[accounting_alias = #accounting_alias#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by accounting_alias desc]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select * from app_accountingevent_ctrl]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="accounting_alias != &quot;&quot; &amp;&amp; accounting_alias !=null" type="If">
+                        <str type="Str"><![CDATA[accounting_alias = #accounting_alias#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by accounting_alias desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectPageWithCount" type="sql" id="selAccountingEvent" longname="get accounting event by transaction seq">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	aps_accounting_event a 
+    	where
+    	    	a.trxn_seq=#trxn_seq# and a.org_id=#org_id#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trxn_seq" ref="SysDict.A.trxn_seq" jdbcType="VARCHAR" javaType="BaseType.U_SEQNO" mode="in" longname="transaction sequence" parameterType="condition"/>
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApAccounting.ApAccountingEvent"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selBusiInfoCount" longname="enquiring if there is any business by accounting_alias code">
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	count(*) 
+    	from
+    	    	tap_business a 
+    	where
+    	    	a.accounting_alias = #accounting_alias# 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	count(*) 
+    	from
+    	    	tap_business a 
+    	where
+    	    	a.accounting_alias = #accounting_alias# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="accounting_alias" ref="SysDict.A.accounting_alias" jdbcType="VARCHAR" javaType="BaseType.U_BYTE32" mode="in" longname="accounting alias" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="int"/>
+    </select>
+</sqls>

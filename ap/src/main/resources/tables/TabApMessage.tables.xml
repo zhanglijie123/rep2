@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="TabApMessage" package="cn.sunline.icore.ap.tables" longname="TabApMessage" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <table id="app_message" name="app_message" longname="app_message" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="msg_code" longname="消息通知代码" type="BaseType.U_BYTE20" ref="SysDict.A.msg_code" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="msg_name" longname="消息通知名称" type="BaseType.U_SHORTDESC" ref="SysDict.A.msg_name" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="send_ind" longname="send indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.send_ind" primarykey="false" final="false" nullable="false" desc="文件发送标志" identity="false" allowSubType="true"/>
+            <field id="send_time" longname="发送时间" type="BaseType.U_BYTE8" ref="SysDict.A.send_time" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="delay_ind" longname="延迟指示" type="MsEnumType.E_YESORNO" ref="SysDict.A.delay_ind" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="delay_day" longname="延迟天数" type="BaseType.U_LONG" ref="SysDict.A.delay_day" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="msg_tmpl" longname="消息通知模板" type="BaseType.U_LONGESTDESC" ref="SysDict.A.msg_tmpl" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="remark" longname="remark" type="BaseType.U_SHORTDESC" ref="SysDict.A.remark" primarykey="false" final="false" nullable="true" desc="备注" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="msg_code" operate="selectOne deleteOne updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_message_idx1" type="primarykey" fields="msg_code org_id">
+                <ddls/>
+            </index>
+        </indexes>
+        <description><![CDATA[msg_code为预定义，代码中会直接引用；
+不同法人，需要配置同一套msg_code的不同模板，org_id不同；]]></description>
+    </table>
+    <table id="aps_message" name="aps_message" longname="aps_message" category="B" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="msg_id" longname="消息通知id" type="BaseType.U_SEQNO" ref="SysDict.A.msg_id" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="msg_code" longname="消息通知代码" type="BaseType.U_BYTE20" ref="SysDict.A.msg_code" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="msg_name" longname="消息通知名称" type="BaseType.U_SHORTDESC" ref="SysDict.A.msg_name" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="send_ind" longname="send indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.send_ind" primarykey="false" final="false" nullable="true" desc="文件发送标志" identity="false" allowSubType="true"/>
+            <field id="send_time" longname="发送时间" type="BaseType.U_BYTE8" ref="SysDict.A.send_time" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="delay_ind" longname="延迟指示" type="MsEnumType.E_YESORNO" ref="SysDict.A.delay_ind" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="delay_day" longname="延迟天数" type="BaseType.U_LONG" ref="SysDict.A.delay_day" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="register_date" longname="登记日期" type="BaseType.U_DATE" ref="SysDict.A.register_date" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="plan_date" longname="计划日期" type="BaseType.U_DATETIME" ref="SysDict.A.plan_date" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="send_date" longname="发送日期" type="BaseType.U_DATETIME" ref="SysDict.A.send_date" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="mobile_phone_no" longname="mobile phone number" type="BaseType.U_PHONENO" ref="SysDict.A.mobile_phone_no" primarykey="false" final="false" nullable="true" desc="手机号" identity="false" allowSubType="true"/>
+            <field id="doc_type" longname="identity document type" type="BaseType.U_IDTYPE" ref="SysDict.A.doc_type" primarykey="false" final="false" nullable="true" desc="证件种类" identity="false" allowSubType="true"/>
+            <field id="doc_no" longname="document number" type="BaseType.U_BYTE64" ref="SysDict.A.doc_no" primarykey="false" final="false" nullable="true" desc="证件号码" identity="false" allowSubType="true"/>
+            <field id="sms_msg_status" longname="SMS message notification status" type="EnumType.E_MSGSTATUS" ref="SysDict.A.sms_msg_status" primarykey="false" final="false" nullable="false" desc="短信消息通知状态" identity="false" allowSubType="true"/>
+            <field id="wx_msg_status" longname="WeChat message notification status" type="EnumType.E_MSGSTATUS" ref="SysDict.A.wx_msg_status" primarykey="false" final="false" nullable="true" desc="微信消息通知状态" identity="false" allowSubType="true"/>
+            <field id="trxn_seq" longname="交易流水" type="BaseType.U_SEQNO" ref="SysDict.A.trxn_seq" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="msg_tmpl" longname="消息通知模板" type="BaseType.U_LONGESTDESC" ref="SysDict.A.msg_tmpl" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="msg_text" longname="消息通知内容" type="BaseType.U_LONGESTDESC" ref="SysDict.A.msg_text" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="mobile_no" longname="手机号" type="BaseType.U_MOBILENO" ref="SysDict.A.mobile_no" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="msg_id" operate="selectOne updateOne"/>
+            <index id="odb2" type="index" fields="sms_msg_status" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="aps_message_idx1" type="primarykey" fields="msg_id org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+</schema>

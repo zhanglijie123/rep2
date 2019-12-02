@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ApSmsBase" longname="sms" package="cn.sunline.icore.ap.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <update method="update" id="updateSmsSendStatus" longname="update sms send status">
+        <sql type="oracle"><![CDATA[
+    	update
+    	    	apb_sms_book 
+    	set
+    	    	sms_send_status='1' ,data_sync_file_id=#data_sync_file_id#,data_sync_ind='Y'
+    	where
+    	    	org_id = #org_id# and sms_send_status='0' 
+    	    	and sms_poll_send_way='B' and data_sync_ind='N'
+    		and rownum<=#query_counts#]]></sql>
+        <sql type="mysql"><![CDATA[
+    	update
+    	    	apb_sms_book 
+    	set
+    	    	sms_send_status='1' ,data_sync_file_id=#data_sync_file_id#,data_sync_ind='Y'
+    	where
+    	    	org_id = #org_id# and sms_send_status='0' 
+    	    	and sms_poll_send_way='B' and data_sync_ind='N'
+    		limit 0,#query_counts#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="data_sync_file_id" ref="SysDict.A.data_sync_file_id" jdbcType="VARCHAR" javaType="BaseType.U_SHORTDESC" mode="in" longname="data synchronism file id" parameterType="condition"/>
+            <parameter property="query_counts" ref="SysDict.A.query_counts" jdbcType="VARCHAR" javaType="BaseType.U_LONG" mode="in" longname="query counts" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectAll" type="sql" id="selProSendSms" longname="query send SMS information">
+        <sql><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	apb_sms_book 
+    	WHERE
+    	    	org_id=#org_id# and sms_send_status=#sms_send_status#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="sms_send_status" ref="SysDict.A.sms_send_status" jdbcType="VARCHAR" javaType="EnumType.E_SMSSENDSTATUS" mode="in" longname="sms send status" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApSms.ApSmsSendInfo"/>
+    </select>
+</sqls>

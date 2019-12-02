@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SrvApBatchFile" kind="business" longname="file batch service" package="cn.sunline.icore.ap.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <service id="fileBatchApply" name="fileBatchApply" longname="file batch application">
+        <interface>
+            <input packMode="false">
+                <field id="fileBatchIn" type="ComApFile.ApFileIn" required="false" multi="false" array="false" longname="file batch application input" desc="文件批量申请输入"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="qryBatchResultOut" name="queryBatchResult" longname="query file batch processing result">
+        <interface>
+            <input packMode="false">
+                <field id="busi_batch_code" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="batch business code" ref="SysDict.A.busi_batch_code"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="batchResultOut" type="ComApFile.ApBatchResultOut" required="false" multi="false" array="false" longname="file batch result"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

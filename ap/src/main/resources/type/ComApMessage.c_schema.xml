@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ComApMessage" package="cn.sunline.icore.dc.type" longname="ComApMessage" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <complexType id="ApGenMessage" longname="生成消息信息" dict="false" abstract="false" introduct="false">
+        <element id="busi_org_id" longname="business organization id" type="BaseType.U_ORGID" ref="SysDict.A.busi_org_id" required="false" desc="业务法人" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="msg_code" longname="Message notification code" type="BaseType.U_BYTE20" ref="SysDict.A.msg_code" required="false" desc="消息通知代码" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="field_map" longname="Variable parameter" type="map" ref="SysDict.A.field_map" required="false" desc="变量参数" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_seq" longname="transaction sequence" type="BaseType.U_SEQNO" ref="SysDict.A.trxn_seq" required="false" desc="交易流水" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mobile_phone_no" longname="mobile phone number" type="BaseType.U_PHONENO" ref="SysDict.A.mobile_phone_no" required="false" desc="手机号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="doc_type" longname="identity document type" type="BaseType.U_IDTYPE" ref="SysDict.A.doc_type" required="false" desc="证件种类" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="doc_no" longname="document number" type="BaseType.U_BYTE64" ref="SysDict.A.doc_no" required="false" desc="证件号码" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_date" longname="transaction date" type="BaseType.U_DATE" ref="SysDict.A.trxn_date" required="false" desc="交易日期" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="msg_type" longname="Message type" type="EnumType.E_MSGTYPE" ref="SysDict.A.msg_type" required="false" desc="消息类型" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+</schema>

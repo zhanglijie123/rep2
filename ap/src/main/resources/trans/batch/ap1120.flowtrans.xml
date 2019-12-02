@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1120" longname="file batch application" kind="M" package="cn.sunline.icore.ap.trans.batch" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.batch.intf">
+        <input packMode="true">
+            <field id="busi_batch_code" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="batch business code" ref="SysDict.A.busi_batch_code"/>
+            <field id="busi_batch_id" type="BaseType.U_BYTE10" required="false" multi="false" array="false" longname="batch business id" ref="SysDict.A.busi_batch_id"/>
+            <field id="file_name" type="BaseType.U_MIDDESC" required="false" multi="false" array="false" longname="file name" ref="SysDict.A.file_name"/>
+            <field id="file_server_path" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="file server path" ref="SysDict.A.file_server_path"/>
+            <field id="timing_process_ind" type="MsEnumType.E_YESORNO" required="false" multi="false" array="false" longname="Timing processing indication" ref="SysDict.A.timing_process_ind"/>
+            <field id="timing_process_time" type="BaseType.U_DATETIME" required="false" multi="false" array="false" longname="Timing processing time" ref="SysDict.A.timing_process_time"/>
+            <field id="batch_charges_ind" type="MsEnumType.E_YESORNO" required="false" multi="false" array="false" longname="batch charges indication" ref="SysDict.A.batch_charges_ind"/>
+            <field id="chrg_code" type="BaseType.U_FEECODE" required="false" multi="false" array="false" longname="charge code" ref="SysDict.A.chrg_code"/>
+            <field id="deduct_chrg_acct" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="deduct charge account" ref="SysDict.A.deduct_chrg_acct"/>
+            <field id="deduct_chrg_ccy" type="BaseType.U_CURRENCY" required="false" multi="false" array="false" longname="deduct charge currency" ref="SysDict.A.deduct_chrg_ccy"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApBatchFile.fileBatchApply" id="SrvApBatchFile.fileBatchApply" longname="file batch application">
+            <in_mappings by_interface="true">
+                <mapping src="batch_charges_ind" dest="fileBatchIn.batch_charges_ind" by_interface="true" on_top="true"/>
+                <mapping src="busi_batch_code" dest="fileBatchIn.busi_batch_code" by_interface="true" on_top="true"/>
+                <mapping src="busi_batch_id" dest="fileBatchIn.busi_batch_id" by_interface="true" on_top="true"/>
+                <mapping src="chrg_code" dest="fileBatchIn.chrg_code" by_interface="true" on_top="true"/>
+                <mapping src="deduct_chrg_acct" dest="fileBatchIn.deduct_chrg_acct" by_interface="true" on_top="true"/>
+                <mapping src="deduct_chrg_ccy" dest="fileBatchIn.deduct_chrg_ccy" by_interface="true" on_top="true"/>
+                <mapping src="file_name" dest="fileBatchIn.file_name" by_interface="true" on_top="true"/>
+                <mapping src="file_server_path" dest="fileBatchIn.file_server_path" by_interface="true" on_top="true"/>
+                <mapping src="timing_process_ind" dest="fileBatchIn.timing_process_ind" by_interface="true" on_top="true"/>
+                <mapping src="timing_process_time" dest="fileBatchIn.timing_process_time" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="SrvApTrxn.registerApsTransaction" id="SrvApTrxn.registerApsTransaction" longname="register flow">
+            <in_mappings by_interface="true"/>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

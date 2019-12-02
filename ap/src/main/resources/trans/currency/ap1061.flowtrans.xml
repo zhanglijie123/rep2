@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1061" longname="maintain currency information" kind="M" package="cn.sunline.icore.ap.trans.currency" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.currency.intf">
+        <input packMode="true">
+            <field id="ccy_code" type="BaseType.U_CURRENCY" required="false" multi="false" array="false" longname="currency code" ref="SysDict.A.ccy_code"/>
+            <field id="ccy_name" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="currency name" ref="SysDict.A.ccy_name"/>
+            <field id="ccy_num_code" type="BaseType.U_BYTE3" required="false" multi="false" array="false" longname="currency numeric code" desc="货币数字代码" ref="SysDict.A.ccy_num_code"/>
+            <field id="country_code" type="BaseType.U_COUNTRY" required="false" multi="false" array="false" longname="country code" ref="SysDict.A.country_code"/>
+            <field id="ccy_minor_unit" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="currency minor unit" desc="币种精度位" ref="SysDict.A.ccy_minor_unit"/>
+            <field id="cale_interest_unit" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="cale interest unit" desc="计息精度位" ref="SysDict.A.cale_interest_unit"/>
+            <field id="ccy_change_unit" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="currency change unit" desc="货币找零位" ref="SysDict.A.ccy_change_unit"/>
+            <field id="accrual_base_day" type="EnumType.E_ACCRUALBASEDAY" required="false" multi="false" array="false" longname="accrual base day" desc="按日计算年基准天数" ref="SysDict.A.accrual_base_day"/>
+            <field id="data_version" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="data version" desc="数据版本号" ref="SysDict.A.data_version"/>
+            <field id="operater_ind" type="MsEnumType.E_DATAOPERATE" required="false" multi="false" array="false" longname="operater indicate" desc="操作标志" ref="SysDict.A.operater_ind"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApCurrency.mntCcyInfo" id="SrvApCurrency.mntCcyInfo" longname="maintain currency information">
+            <in_mappings by_interface="true">
+                <mapping src="accrual_base_day" dest="cplIn.accrual_base_day" by_interface="true" on_top="true"/>
+                <mapping src="cale_interest_unit" dest="cplIn.cale_interest_unit" by_interface="true" on_top="true"/>
+                <mapping src="ccy_change_unit" dest="cplIn.ccy_change_unit" by_interface="true" on_top="true"/>
+                <mapping src="ccy_code" dest="cplIn.ccy_code" by_interface="true" on_top="true"/>
+                <mapping src="ccy_minor_unit" dest="cplIn.ccy_minor_unit" by_interface="true" on_top="true"/>
+                <mapping src="ccy_name" dest="cplIn.ccy_name" by_interface="true" on_top="true"/>
+                <mapping src="ccy_num_code" dest="cplIn.ccy_num_code" by_interface="true" on_top="true"/>
+                <mapping src="country_code" dest="cplIn.country_code" by_interface="true" on_top="true"/>
+                <mapping src="data_version" dest="cplIn.data_version" by_interface="true" on_top="true"/>
+                <mapping src="operater_ind" dest="cplIn.operater_ind" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

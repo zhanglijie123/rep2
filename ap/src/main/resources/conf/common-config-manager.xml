@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!-- [Template id=应用公共服务 longname=应用公共服务] -->
+<CommonConfig
+	hsmIp="${加密机IP|127.0.0.1}"
+	hsmPort="${加密机端口|4444}"
+	cvkIndex="${cvkIndex|01}"
+	iwkIndex="${iwkIndex|02}"
+	pwkIndex="${pwkIndex|03}"
+	ppkIndex="${ppkIndex|02}"
+	rsaIndex="${rsaIndex|03}"
+	coreZKURL="${核心注册URL| }"
+	adurl="${adurl| }"
+	adadminUser="${adadminUser| }"
+	adadminPwd="${adadminPwd| }"
+	aduserAttr="${aduserAttr| }"
+	adbase="${adbase| }"
+	aduserFilter="${aduserFilter| }"
+	adconnTimeOut="${adconnTimeOut| }"
+	embossFileEncryptKey="${embossFileEncryptKey| }">
+</CommonConfig>
+<!-- [End] -->

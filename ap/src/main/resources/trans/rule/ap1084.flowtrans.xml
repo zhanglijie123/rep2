@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1084" longname="query rule scene list" kind="Q" package="cn.sunline.icore.ap.trans.rule" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.rule.intf">
+        <input packMode="false">
+            <field id="rule_scene_code" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="rule scene" ref="SysDict.A.rule_scene_code"/>
+            <field id="rule_id" type="BaseType.U_RULEID" required="false" multi="false" array="false" longname="rule id" ref="SysDict.A.rule_id"/>
+            <field id="rule_desc" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="rule_describe" ref="SysDict.A.rule_desc"/>
+        </input>
+        <output asParm="true" packMode="false">
+            <fields id="list01" required="false" multi="true" longname="rule definition" array="false">
+                <field id="mapping_sort" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="mapping sort" desc="匹配次序" ref="SysDict.A.mapping_sort"/>
+                <field id="rule_desc" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="rule_describe" ref="SysDict.A.rule_desc"/>
+                <field id="mapping_result" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="mapping result" ref="SysDict.A.mapping_result"/>
+                <field id="rule_id" type="BaseType.U_RULEID" required="false" multi="false" array="false" longname="rule id" ref="SysDict.A.rule_id"/>
+                <field id="data_version" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="data version" ref="SysDict.A.data_version"/>
+                <field id="rule_scene_code" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="rule scene" ref="SysDict.A.rule_scene_code"/>
+            </fields>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApRule.queryRuleScene" id="queryRuleScene" longname="query rule scene">
+            <in_mappings by_interface="true">
+                <mapping src="rule_desc" dest="ruleSimple.rule_desc" by_interface="true" on_top="true"/>
+                <mapping src="rule_id" dest="ruleSimple.rule_id" by_interface="true" on_top="true"/>
+                <mapping src="rule_scene_code" dest="ruleSimple.rule_scene_code" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="queryList" dest="list01" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

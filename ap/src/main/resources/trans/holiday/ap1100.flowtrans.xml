@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1100" longname="query holiday information" kind="Q" package="cn.sunline.icore.ap.trans.holiday" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.holiday.intf">
+        <input packMode="true">
+            <field id="holiday_code" type="BaseType.U_BYTE8" required="false" multi="false" array="false" longname="holiday code" ref="SysDict.A.holiday_code"/>
+            <field id="holiday_class" type="EnumType.E_HOLIDAYCLASS" required="false" multi="false" array="false" longname="holiday class" ref="SysDict.A.holiday_class"/>
+            <field id="holiday_year" type="BaseType.U_BYTE4" required="false" multi="false" array="false" longname="holiday year" ref="SysDict.A.holiday_year"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <fields id="list01" required="false" multi="true" longname="holiday list information" array="false">
+                <field id="holiday_code" type="BaseType.U_BYTE8" required="false" multi="false" array="false" longname="holiday code" ref="SysDict.A.holiday_code"/>
+                <field id="holiday_class" type="EnumType.E_HOLIDAYCLASS" required="false" multi="false" array="false" longname="holiday class" ref="SysDict.A.holiday_class"/>
+                <field id="holiday_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="holiday date" ref="SysDict.A.holiday_date"/>
+                <field id="holiday_ind" type="MsEnumType.E_YESORNO" required="false" multi="false" array="false" longname="holiday indication" ref="SysDict.A.holiday_ind"/>
+                <field id="remark" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="remark" ref="SysDict.A.remark"/>
+                <field id="data_version" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="data version" ref="SysDict.A.data_version"/>
+            </fields>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApHoliday.queryHolidayList" longname="query holiday information">
+            <in_mappings by_interface="true">
+                <mapping src="holiday_class" dest="holiday_class" by_interface="true" on_top="true"/>
+                <mapping src="holiday_code" dest="holiday_code" by_interface="true" on_top="true"/>
+                <mapping src="holiday_year" dest="holiday_year" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="queryList" dest="list01" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

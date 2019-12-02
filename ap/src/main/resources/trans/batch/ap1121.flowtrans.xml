@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1121" longname="file batch processing result query" kind="Q" package="cn.sunline.icore.ap.trans.batch" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.batch.intf">
+        <input packMode="true">
+            <field id="busi_batch_code" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="batch business code" ref="SysDict.A.busi_batch_code"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="file_handling_status" type="EnumType.E_FILEDEALSTATUS" required="false" multi="false" array="false" longname="file deal status" ref="SysDict.A.file_handling_status"/>
+            <field id="success_total_count" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="success total count" ref="SysDict.A.success_total_count"/>
+            <field id="success_total_amt" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="success total amount" ref="SysDict.A.success_total_amt"/>
+            <field id="file_name" type="BaseType.U_MIDDESC" required="false" multi="false" array="false" longname="file name" ref="SysDict.A.file_name"/>
+            <field id="file_server_path" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="file server path" ref="SysDict.A.file_server_path"/>
+            <field id="deduct_chrg_acct" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="deduct charge account" ref="SysDict.A.deduct_chrg_acct"/>
+            <field id="deduct_chrg_ccy" type="BaseType.U_CURRENCY" required="false" multi="false" array="false" longname="deduct charge currency" ref="SysDict.A.deduct_chrg_ccy"/>
+            <field id="calc_chrg_amt" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="calculate charge amount" ref="SysDict.A.calc_chrg_amt"/>
+            <field id="calc_chrg_ccy" type="BaseType.U_CURRENCY" required="false" multi="false" array="false" longname="calculate charge currency" ref="SysDict.A.calc_chrg_ccy"/>
+            <field id="trxn_seq" type="BaseType.U_SEQNO" required="false" multi="false" array="false" longname="transaction sequence" ref="SysDict.A.trxn_seq"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApBatchFile.qryBatchResultOut" id="SrvApBatchFile.qryBatchResultOut" longname="file batch processing result query">
+            <in_mappings by_interface="true">
+                <mapping src="busi_batch_code" dest="busi_batch_code" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="batchResultOut.calc_chrg_amt" dest="calc_chrg_amt" by_interface="true" on_top="true"/>
+                <mapping src="batchResultOut.calc_chrg_ccy" dest="calc_chrg_ccy" by_interface="true" on_top="true"/>
+                <mapping src="batchResultOut.deduct_chrg_acct" dest="deduct_chrg_acct" by_interface="true" on_top="true"/>
+                <mapping src="batchResultOut.deduct_chrg_ccy" dest="deduct_chrg_ccy" by_interface="true" on_top="true"/>
+                <mapping src="batchResultOut.file_handling_status" dest="file_handling_status" by_interface="true" on_top="true"/>
+                <mapping src="batchResultOut.file_name" dest="file_name" by_interface="true" on_top="true"/>
+                <mapping src="batchResultOut.file_server_path" dest="file_server_path" by_interface="true" on_top="true"/>
+                <mapping src="batchResultOut.success_total_amt" dest="success_total_amt" by_interface="true" on_top="true"/>
+                <mapping src="batchResultOut.success_total_count" dest="success_total_count" by_interface="true" on_top="true"/>
+                <mapping src="batchResultOut.trxn_seq" dest="trxn_seq" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

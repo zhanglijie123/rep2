@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1103" longname="get the work date" kind="Q" package="cn.sunline.icore.ap.trans.holiday" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.holiday.intf">
+        <input packMode="true">
+            <field id="trxn_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="transaction date" ref="SysDict.A.trxn_date"/>
+            <field id="branch_id" type="BaseType.U_BRANCHID" required="false" multi="false" array="false" longname="branch id" ref="SysDict.A.branch_id"/>
+            <field id="holiday_code" type="BaseType.U_BYTE8" required="false" multi="false" array="false" longname="holiday code" ref="SysDict.A.holiday_code"/>
+            <field id="holiday_class" type="EnumType.E_HOLIDAYCLASS" required="false" multi="false" array="false" longname="holiday class" ref="SysDict.A.holiday_class"/>
+            <field id="assign_days" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="assign days" ref="SysDict.A.assign_days"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="work_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="work date" ref="SysDict.A.work_date"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApHoliday.getWorkDate" longname="get work date">
+            <in_mappings by_interface="true">
+                <mapping src="assign_days" dest="cplIn.assign_days" by_interface="true" on_top="true"/>
+                <mapping src="branch_id" dest="cplIn.branch_id" by_interface="true" on_top="true"/>
+                <mapping src="holiday_class" dest="cplIn.holiday_class" by_interface="true" on_top="true"/>
+                <mapping src="holiday_code" dest="cplIn.holiday_code" by_interface="true" on_top="true"/>
+                <mapping src="trxn_date" dest="cplIn.trxn_date" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="work_date" dest="work_date" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

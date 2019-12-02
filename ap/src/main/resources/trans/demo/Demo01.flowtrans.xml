@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Demo01" longname="demo01 forward transaction" kind="F" package="cn.sunline.icore.ap.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.intf">
+        <input packMode="true">
+            <field id="recon_code" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="recon code" ref="SysDict.A.recon_code"/>
+            <field id="teller_id" type="BaseType.U_USERID" required="false" multi="false" array="false" longname="teller id" ref="SysDict.A.teller_id"/>
+            <field id="branch_id" type="BaseType.U_BRANCHID" required="false" multi="false" array="false" longname="branch id" ref="SysDict.A.branch_id"/>
+            <field id="trxn_ccy" type="BaseType.U_CURRENCY" required="false" multi="false" array="false" longname="transaction ccy" ref="SysDict.A.trxn_ccy"/>
+            <field id="trxn_amt" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="transaction amount" ref="SysDict.A.trxn_amt"/>
+            <field id="trxn_acct_no" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="transaction account no" ref="SysDict.A.trxn_acct_no"/>
+            <field id="trxn_acct_name" type="BaseType.U_ACCTNAME" required="false" multi="false" array="false" longname="transaction account name" ref="SysDict.A.trxn_acct_name"/>
+            <field id="debit_credit" type="MsEnumType.E_DEBITCREDIT" required="false" multi="false" array="false" longname="debit credit" ref="SysDict.A.debit_credit"/>
+            <field id="counterparty_acct_no" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="counterparty account no" ref="SysDict.A.counterparty_acct_no"/>
+            <field id="counterparty_acct_na" type="BaseType.U_ACCTNAME" required="false" multi="false" array="false" longname="counterparty account name" ref="SysDict.A.counterparty_acct_na"/>
+            <field id="trxn_remark" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="transaction remark" ref="SysDict.A.trxn_remark"/>
+            <field id="customer_remark" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="customer remark" ref="SysDict.A.customer_remark"/>
+            <fields id="demo_map" scope="map" required="false" multi="false" longname="demo map" array="false">
+                <field id="string_key" type="string" required="false" multi="false" array="false" longname="key1"/>
+                <field id="int_key" type="int" required="false" multi="false" array="false" longname="key2"/>
+                <field id="data_key" type="date" required="false" multi="false" array="false" longname="key3"/>
+            </fields>
+            <fields id="identity" scope="TabApBasic.app_identity" required="false" multi="true" longname="identity type" array="false">
+                <field id="doc_type" type="BaseType.U_IDTYPE" required="false" multi="false" array="false" longname="identity document type" desc="证件种类" ref="SysDict.A.doc_type"/>
+                <field id="doc_desc" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="identity document desc" ref="SysDict.A.doc_desc"/>
+            </fields>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApTrxn.registerApsTransaction" id="SrvApTrxn.registerApsTransaction" longname="register transaction">
+            <in_mappings by_interface="true">
+                <mapping src="counterparty_acct_na" dest="trxn_info.counterparty_acct_na" by_interface="true" on_top="true"/>
+                <mapping src="counterparty_acct_no" dest="trxn_info.counterparty_acct_no" by_interface="true" on_top="true"/>
+                <mapping src="customer_remark" dest="trxn_info.customer_remark" by_interface="true" on_top="true"/>
+                <mapping src="debit_credit" dest="trxn_info.debit_credit" by_interface="true" on_top="true"/>
+                <mapping src="trxn_acct_name" dest="trxn_info.trxn_acct_name" by_interface="true" on_top="true"/>
+                <mapping src="trxn_acct_no" dest="trxn_info.trxn_acct_no" by_interface="true" on_top="true"/>
+                <mapping src="trxn_amt" dest="trxn_info.trxn_amt" by_interface="true" on_top="true"/>
+                <mapping src="trxn_ccy" dest="trxn_info.trxn_ccy" by_interface="true" on_top="true"/>
+                <mapping src="trxn_remark" dest="trxn_info.trxn_remark" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="SrvApDemo.addCustomerMoney" id="addCustomerMoney" longname="added customer account">
+            <in_mappings by_interface="true">
+                <mapping src="debit_credit" dest="tranInfo.debit_credit" by_interface="true" on_top="true"/>
+                <mapping src="trxn_acct_no" dest="tranInfo.trxn_acct_no" by_interface="true" on_top="true"/>
+                <mapping src="trxn_amt" dest="tranInfo.trxn_amt" by_interface="true" on_top="true"/>
+                <mapping src="trxn_ccy" dest="tranInfo.trxn_ccy" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="SrvApDemo.addBankMoney" id="addBankMoney" longname="added bank account">
+            <in_mappings by_interface="true">
+                <mapping src="debit_credit" dest="debit_credit" by_interface="true" on_top="true"/>
+                <mapping src="trxn_amt" dest="trxn_amt" by_interface="true" on_top="true"/>
+                <mapping src="trxn_ccy" dest="trxn_ccy" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SrvApHoliday" kind="business" longname="holiday parameter maintenance" package="cn.sunline.icore.ap.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <service id="queryHolidayList" name="queryHolidayList" longname="query holiday list information">
+        <interface>
+            <input packMode="false">
+                <field id="holiday_code" type="BaseType.U_BYTE8" required="false" multi="false" array="false" longname="holiday code" ref="SysDict.A.holiday_code"/>
+                <field id="holiday_year" type="BaseType.U_BYTE4" required="false" multi="false" array="false" longname="holiday year" ref="SysDict.A.holiday_year"/>
+                <field id="holiday_class" type="EnumType.E_HOLIDAYCLASS" required="false" multi="false" array="false" longname="holiday class" ref="SysDict.A.holiday_class"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="queryList" type="ComApBasic.ApHolidayInfo" required="false" multi="true" array="false" longname="holiday list information"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="queryHoliday" name="queryHoliday" longname="query holiday  information">
+        <interface>
+            <input packMode="false">
+                <field id="holiday_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="holiday date" desc="假日日期" ref="SysDict.A.holiday_date"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="queryList" type="ComApBasic.ApHolidayQueryOut" required="false" multi="false" array="false" longname="holiday list information"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="modifyHoliday" name="modifyHoliday" longname="holiday information maintenance">
+        <interface>
+            <input packMode="false">
+                <field id="holidayList" type="ComApBasic.ApHolidayWithInd" required="false" multi="false" array="false" longname="holiday list information"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="scanHolidaty" name="scanHolidaty" longname="explore holiday information">
+        <interface>
+            <input packMode="false">
+                <field id="holiday_code" type="BaseType.U_BYTE8" required="false" multi="false" array="false" longname="holiday code" ref="SysDict.A.holiday_code"/>
+                <field id="holiday_class" type="EnumType.E_HOLIDAYCLASS" required="false" multi="false" array="false" longname="holiday class" ref="SysDict.A.holiday_class"/>
+                <field id="holiday_year" type="BaseType.U_BYTE4" required="false" multi="false" array="false" longname="holiday year" ref="SysDict.A.holiday_year"/>
+                <field id="holiday_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="holiday date" desc="假日日期" ref="SysDict.A.holiday_date"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="queryList" type="ComApBasic.ApHolidayInfo" required="false" multi="true" array="false" longname="holiday list information"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="getWorkDate" name="getWorkDate" longname="get work date">
+        <interface>
+            <input packMode="false">
+                <field id="cplIn" type="ComApBasic.ApWorkdayInfo" required="false" multi="false" array="false" longname="get work date"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="work_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="work date" ref="SysDict.A.work_date"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

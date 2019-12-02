@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1101" longname="holiday information maintenance" kind="P" package="cn.sunline.ltts.sys.trans.holiday" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.sys.trans.holiday.intf">
+        <input packMode="true">
+            <field id="operater_ind" type="MsEnumType.E_DATAOPERATE" required="false" multi="false" array="false" longname="operater indicate" ref="SysDict.A.operater_ind"/>
+            <field id="holiday_code" type="BaseType.U_BYTE8" required="false" multi="false" array="false" longname="holiday code" ref="SysDict.A.holiday_code"/>
+            <field id="holiday_class" type="EnumType.E_HOLIDAYCLASS" required="false" multi="false" array="false" longname="holiday class" ref="SysDict.A.holiday_class"/>
+            <field id="holiday_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="holiday date" ref="SysDict.A.holiday_date"/>
+            <field id="holiday_ind" type="MsEnumType.E_YESORNO" required="false" multi="false" array="false" longname="holiday indication" ref="SysDict.A.holiday_ind"/>
+            <field id="remark" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="remark" ref="SysDict.A.remark"/>
+            <field id="data_version" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="data version" ref="SysDict.A.data_version"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApHoliday.modifyHoliday" longname="holiday information maintenance">
+            <in_mappings by_interface="true">
+                <mapping src="operater_ind" dest="holidayList.operater_ind" by_interface="true" on_top="true"/>
+                <mapping src="holiday_code" dest="holidayList.holiday_code" by_interface="true" on_top="true"/>
+                <mapping src="holiday_class" dest="holidayList.holiday_class" by_interface="true" on_top="true"/>
+                <mapping src="holiday_date" dest="holidayList.holiday_date" by_interface="true" on_top="true"/>
+                <mapping src="holiday_ind" dest="holidayList.holiday_ind" by_interface="true" on_top="true"/>
+          		<mapping src="remark" dest="holidayList.remark" by_interface="true" on_top="true"/>
+          		<mapping src="data_version" dest="holidayList.data_version" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="SrvApTrxn.registerApsTransaction" longname="register flow">
+            <in_mappings by_interface="true"/>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+</flowtran>

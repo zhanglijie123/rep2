@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="TabApDevelop" package="cn.sunline.icore.ap.tables" longname="development assistance" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <table id="apb_word" name="apb_word" longname="root" category="B" virtual="false" abstract="false">
+        <fields>
+            <field id="en_word" longname="en word" type="BaseType.U_BYTE32" ref="SysDict.A.en_word" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="abbreviation" longname="abbreviation" type="BaseType.U_BYTE32" ref="SysDict.A.abbreviation" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="remark" longname="remark" type="BaseType.U_SHORTDESC" ref="SysDict.A.remark" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <indexes>
+            <index id="apb_word_idx1" type="primarykey" fields="en_word">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="apb_dictionary" name="apb_dictionary" longname="dictionary" category="B" virtual="false" abstract="false">
+        <fields>
+            <field id="ch_field" longname="chinese field" type="BaseType.U_BYTE64" ref="SysDict.A.ch_field" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="en_field" longname="en field" type="BaseType.U_BYTE64" ref="SysDict.A.en_field" primarykey="false" final="false" nullable="true" desc="可以在后面补" identity="false" allowSubType="true"/>
+            <field id="ide_id" longname="ide field id" type="BaseType.U_FIELDNAME" ref="SysDict.A.ide_id" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="remark" longname="remark" type="BaseType.U_SHORTDESC" ref="SysDict.A.remark" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <indexes>
+            <index id="apb_dictionary_idx1" type="primarykey" fields="ch_field">
+                <ddls/>
+            </index>
+            <index id="apb_dictionary_idx2" type="unique" fields="ide_id">
+                <ddls/>
+            </index>
+        </indexes>
+        <description><![CDATA[为保证字典的唯一性，定义字典时需要在此表注册]]></description>
+    </table>
+    <table id="apb_auto_eod" name="apb_auto_eod" longname="automatically run the task table" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="auto_dayend_exe_id" longname="auto dayend execute id" type="BaseType.U_BYTE30" ref="SysDict.A.auto_dayend_exe_id" primarykey="false" final="false" nullable="false" desc="自动跑批执行id" identity="false" allowSubType="true"/>
+            <field id="run_status" longname="run status" type="MsEnumType.E_YESORNO" ref="SysDict.A.run_status" primarykey="false" final="false" default="N" nullable="false" identity="false" allowSubType="true"/>
+            <field id="begin_time" longname="begin time" type="BaseType.U_DATETIME" ref="SysDict.A.begin_time" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="end_time" longname="end time" type="BaseType.U_DATETIME" ref="SysDict.A.end_time" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="auto_dayend_exe_result" longname="auto dayend execute result" type="EnumType.E_DAYENDRESULT" ref="SysDict.A.auto_dayend_exe_result" primarykey="false" final="false" nullable="false" desc="自动跑批执行结果" identity="false" allowSubType="true"/>
+            <field id="multi_switch_ind" longname="multi date switch indicator" type="MsEnumType.E_YESORNO" ref="SysDict.A.multi_switch_ind" primarykey="false" final="false" nullable="true" desc="multi date switch indicator" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="index" fields="run_status" operate="selectAll"/>
+            <index id="odb2" type="unique" fields="auto_dayend_exe_id" operate="updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="apb_auto_eod_idx1" type="primarykey" fields="auto_dayend_exe_id org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="apb_encrypt" name="apb_encrypt" longname="encrypt book" category="B" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="table_name" longname="db table name" type="BaseType.U_TABLENAME" ref="SysDict.A.table_name" primarykey="false" final="false" nullable="true" desc="数据库表名" identity="false" allowSubType="true"/>
+            <field id="encrypt_status" longname="encrypt status" type="MsEnumType.E_YESORNO" ref="SysDict.A.encrypt_status" primarykey="false" final="false" nullable="true" desc="加密状态" identity="false" allowSubType="true"/>
+            <field id="error_text" longname="error text" type="BaseType.U_LONGESTDESC" ref="SysDict.A.error_text" primarykey="false" final="false" nullable="true" desc="错误信息" identity="false" allowSubType="true"/>
+            <field id="process_number" longname="processing number" type="BaseType.U_LONG" ref="SysDict.A.process_number" primarykey="false" final="false" nullable="true" desc="处理条数" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="table_name" operate="selectOne deleteOne updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="apb_encrypt_inx1" type="primarykey" fields="table_name">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+</schema>

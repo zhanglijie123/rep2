@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<serviceType id="SrvIoApPushMessage" kind="interface" longname="push message" package="cn.sunline.icore.iobus.servicetype.ap" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <service id="pushDropListChange" name="pushDropListChange" longname="push drop list change to app">
+        <interface>
+            <input packMode="false">
+                <field id="pushChangeIn" type="ComIoApPushMessage.IoApPushDropListChangeIn" required="false" multi="false" array="false" longname="push drop list change in"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="returnMsg" type="ComIoApPushMessage.IoApPushDropListChangeOut" required="false" multi="false" array="false" longname="return message"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="noticeMidPlat" name="noticeMidPlat" longname="notice middle plat">
+        <interface>
+            <input packMode="false">
+                <field id="source" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="source"/>
+                <field id="filetp" type="BaseType.U_LONGDESC" required="false" multi="false" array="false" longname="file type" desc="文件类型" ref="SysDict.A.filetp"/>
+                <field id="params" type="string" required="false" multi="false" array="false" longname="extra info"/>
+                <field id="fileList" type="ComIoApPushMessage.IoApFileList" required="false" multi="true" array="false" longname="file list"/>
+                <field id="trxn_code" type="BaseType.U_TRXNCODE" required="false" multi="false" array="false" longname="transaction code" desc="交易码" ref="SysDict.A.trxn_code"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="returnMsg" type="BaseType.U_BYTE512" required="false" multi="false" array="false" longname="return message"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="sendMessage" name="sendMessage" longname="信息发送">
+        <interface>
+            <input packMode="false">
+                <field id="noteId" type="BaseType.U_NOTEID" required="false" multi="false" array="false" longname="noteId" desc="流水号" ref="SysDict.A.noteId"/>
+                <field id="category" type="BaseType.U_CATEGORY" required="false" multi="false" array="false" longname="category" desc="消息分类" ref="SysDict.A.category"/>
+                <field id="orgId" type="BaseType.U_ORGID" required="false" multi="false" array="false" longname="orgId" desc="机构id" ref="SysDict.A.orgId"/>
+                <field id="userId" type="BaseType.U_USERID" required="false" multi="false" array="false" longname="userId" desc="用户id" ref="SysDict.A.userId"/>
+                <field id="custNo" type="BaseType.U_CUSTNO" required="false" multi="false" array="false" longname="custNo" desc="客户号" ref="SysDict.A.custNo"/>
+                <field id="to" type="BaseType.U_TO" required="false" multi="false" array="false" longname="to" desc="目的地" ref="SysDict.A.to"/>
+                <field id="filePath" type="BaseType.U_FILEPATH" required="false" multi="false" array="false" longname="filePath" desc="文件路径" ref="SysDict.A.filePath"/>
+                <field id="fileFormatId" type="BaseType.U_FILEFORMATID" required="false" multi="false" array="false" longname="fileFormatId" desc="上传文件格式id" ref="SysDict.A.fileFormatId"/>
+                <field id="startDateTime" type="BaseType.U_STARTDATETIME" required="false" multi="false" array="false" longname="startDateTime" desc="开始时间" ref="SysDict.A.startDateTime"/>
+                <field id="channel" type="BaseType.U_CHANNEL" required="false" multi="false" array="false" longname="channel" desc="渠道" ref="SysDict.A.channel"/>
+                <field id="language" type="BaseType.U_LANGUAGE" required="false" multi="false" array="false" longname="language" desc="语言" ref="SysDict.A.language"/>
+                <field id="tmplId" type="BaseType.U_TMPLID" required="false" multi="false" array="false" longname="tmplId" desc="模板编号" ref="SysDict.A.tmplId"/>
+                <field id="params" type="ComIoApPushMessage.ApMessageParm" required="false" multi="false" array="false" longname="params" desc="参数信息"/>
+                <field id="priority" type="BaseType.U_PRIORITY" required="false" multi="false" array="false" longname="priority" desc="优先级" ref="SysDict.A.priority"/>
+                <field id="sync" type="BaseType.U_SYNC" required="false" multi="false" array="false" longname="sync" desc="同步发送" ref="SysDict.A.sync"/>
+                <field id="template" type="ComIoApPushMessage.ApMessageDefineContents" required="false" multi="false" array="false" longname="template"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

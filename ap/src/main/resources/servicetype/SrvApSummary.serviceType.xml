@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<serviceType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SrvApSummary" kind="business" longname="Summary parameter maintenance" package="cn.sunline.edsp.busi.ap.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+	<service id="queryTrxnOptionalSummayList" name="queryTrxnOptionalSummayList" longname="Transaction optional summary code list query">
+        <interface>
+            <input packMode="false">
+                <field id="target_trxn_code" type="BaseType.U_TRXNCODE" required="false" multi="false" array="false" longname="transaction code" desc="目标交易码"/>
+                <field id="target_recon_code" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="recon code" desc="目标对账代码"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="queryList" type="ComApBasic.ApSummaryOptionalList" required="false" multi="true" array="false" longname="holiday list information"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

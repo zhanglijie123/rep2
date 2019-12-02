@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1152" longname="query limit register" kind="Q" package="cn.sunline.icore.ap.trans.limit" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.intf">
+        <input packMode="true">
+            <field id="limit_owner_id" type="BaseType.U_BYTE64" required="false" multi="false" array="false" longname="limit owner id" ref="SysDict.A.limit_owner_id"/>
+            <field id="limit_statis_no" type="BaseType.U_BYTE16" required="false" multi="false" array="false" longname="limit statis no" ref="SysDict.A.limit_statis_no"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <fields id="list01" scope="ComApLimit.ApLimitStatisResult" required="false" multi="true" longname="query limit register" array="false">
+                <field id="limit_owner_id" type="BaseType.U_BYTE64" required="false" multi="false" array="false" longname="limit owner id" ref="SysDict.A.limit_owner_id"/>
+                <field id="limit_statis_no" type="BaseType.U_BYTE16" required="false" multi="false" array="false" longname="limit statis no" ref="SysDict.A.limit_statis_no"/>
+                <field id="used_limit" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="used limit" ref="SysDict.A.used_limit"/>
+                <field id="limit_update_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="limit update date" ref="SysDict.A.limit_update_date"/>
+                <field id="limit_reset_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="limit reset date" ref="SysDict.A.limit_reset_date"/>
+                <field id="org_id" type="BaseType.U_ORGID" required="false" multi="false" array="false" longname="organization id" ref="SysDict.A.org_id"/>
+            </fields>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApLimitParam.queryLimitStatisList" id="SrvApLimitParam.queryLimitStatisList" longname="query limit register">
+            <in_mappings by_interface="true">
+                <mapping src="limit_owner_id" dest="limit_owner_id" by_interface="true" on_top="true"/>
+                <mapping src="limit_statis_no" dest="limit_statis_no" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="list01" dest="list01" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

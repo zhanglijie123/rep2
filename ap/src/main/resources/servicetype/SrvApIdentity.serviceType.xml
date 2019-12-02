@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SrvApIdentity" kind="business" longname="identity type parameter maintenance" package="cn.sunline.icore.ap.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <service id="queryIdentityList" name="queryIdentityList" longname="query the list of identity type parameter">
+        <interface>
+            <input packMode="false">
+                <field id="doc_type" type="BaseType.U_IDTYPE" required="false" multi="false" array="false" longname="identity document type" desc="证件种类" ref="SysDict.A.doc_type"/>
+                <field id="doc_desc" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="identity document desc" ref="SysDict.A.doc_desc"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="queryList" type="ComApBasic.ApIdentityInfo" required="false" multi="true" array="false" longname="the list of identity type parameter"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

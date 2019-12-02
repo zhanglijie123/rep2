@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="TabApSystem" package="cn.sunline.icore.ap.tables" longname="application basic" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <table id="app_date" name="app_date" longname="system date" category="P" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="busi_org_id" longname="organization id" type="BaseType.U_ORGID" ref="SysDict.A.busi_org_id" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="last_date" longname="last date" type="BaseType.U_DATE" ref="SysDict.A.last_date" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="trxn_date" longname="transaction date" type="BaseType.U_DATE" ref="SysDict.A.trxn_date" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="next_date" longname="next date" type="BaseType.U_DATE" ref="SysDict.A.next_date" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="bal_sheet_date" longname="balance sheet date" type="BaseType.U_DATE" ref="SysDict.A.bal_sheet_date" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="busi_org_id" operate="selectOne updateOne selectOneWithLock"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_date_idx1" type="primarykey" fields="busi_org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_data_clean" name="app_data_clean" longname="data partition &amp;&amp; clean" category="P" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="table_name" longname="db table name" type="BaseType.U_TABLENAME" ref="SysDict.A.table_name" primarykey="false" final="false" nullable="true" desc="Table name" identity="false" allowSubType="true"/>
+            <field id="table_desc" longname="db table describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.table_desc" primarykey="false" final="false" nullable="true" desc="Table Description" identity="false" allowSubType="true"/>
+            <field id="data_clean_strategy" longname="data clean strategy" type="EnumType.E_DATACLEANSTRATEGY" ref="SysDict.A.data_clean_strategy" primarykey="false" final="false" nullable="true" desc="Data cleaning strategy" identity="false" allowSubType="true"/>
+            <field id="del_impl_class" longname="delete implement class" type="BaseType.U_BYTE200" ref="SysDict.A.del_impl_class" primarykey="false" final="false" nullable="true" desc="Delete the implementation class.  when the cleaning policy is 'delete'" identity="false" allowSubType="true"/>
+            <field id="data_reserve_days" longname="data reserve days" type="BaseType.U_LONG" ref="SysDict.A.data_reserve_days" primarykey="false" final="false" nullable="true" desc="Data retention days, cleanup strategy for 'partition' to fill in, batch will delete more than the number of days to retain the partition." identity="false" allowSubType="true"/>
+			<field id="date_column_name" longname="date column name" type="BaseType.U_SHORTDESC" ref="SysDict.A.date_column_name" primarykey="false" final="false" nullable="true" desc="日期列名" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="table_name" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_data_clean_idx1" type="primarykey" fields="table_name">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_service" name="app_service" longname="service Define" category="P" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="service_owner" longname="service owner" type="BaseType.U_BYTE64" ref="SysDict.A.service_owner" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="service_id" longname="service id" type="BaseType.U_BYTE64" ref="SysDict.A.service_id" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="create_buffer_ind" longname="create buffer indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.create_buffer_ind" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="service_owner service_id" operate="selectOne"/>
+            <index id="odb2" type="index" fields="service_owner create_buffer_ind" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_service_idx1" type="primarykey" fields="service_owner service_id">
+                <ddls/>
+            </index>
+            <index id="app_service_idx2" type="index" fields="service_owner create_buffer_ind">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_report" name="app_report" longname="reprot control" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="report_id" longname="report id" type="BaseType.U_BYTE64" ref="SysDict.A.report_id" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="report_no" longname="report no" type="BaseType.U_BYTE64" ref="SysDict.A.report_no" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="gen_frequency" longname="generate frequency" type="EnumType.E_CYCLETYPE" ref="SysDict.A.gen_frequency" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="report_name" longname="report name" type="BaseType.U_MIDDESC" ref="SysDict.A.report_name" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="expiry_date" longname="expiry date" type="BaseType.U_DATE" ref="SysDict.A.expiry_date" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="keeping_days" longname="keeping days" type="BaseType.U_LONG" ref="SysDict.A.keeping_days" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="upload_ind" longname="upload indicate" type="MsEnumType.E_YESORNO" ref="SysDict.A.upload_ind" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="register_log_ind" longname="register log indicate" type="MsEnumType.E_YESORNO" ref="SysDict.A.register_log_ind" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="report_type" longname="report type" type="EnumType.E_REPORTTYPE" ref="SysDict.A.report_type" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="report_file_type" longname="report file type" type="EnumType.E_REPORTFILETYPE" ref="SysDict.A.report_file_type" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="remote_dir_code" longname="remote directory code" type="BaseType.U_BYTE32" ref="SysDict.A.remote_dir_code" primarykey="false" final="false" nullable="true" desc="远程目录编码" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="report_id gen_frequency" operate="selectOne deleteOne updateOne"/>
+            <index id="obd2" type="index" fields="report_id" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_report_inx1" type="primarykey" fields="report_id gen_frequency org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+</schema>

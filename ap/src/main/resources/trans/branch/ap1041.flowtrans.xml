@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="ap1041" longname="branch information maintenance" kind="P" package="cn.sunline.icore.ap.trans.branch" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.icore.ap.trans.branch.intf">
+        <input packMode="false">
+            <field id="operater_ind" type="MsEnumType.E_DATAOPERATE" required="false" multi="false" array="false" longname="operater indicate" ref="SysDict.A.operater_ind"/>
+            <field id="branch_id" type="BaseType.U_BRANCHID" required="false" multi="false" array="false" longname="branch id" ref="SysDict.A.branch_id"/>
+            <field id="branch_name" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="branch name" ref="SysDict.A.branch_name"/>
+            <field id="real_branch_ind" type="MsEnumType.E_YESORNO" required="false" multi="false" array="false" longname="real branch indication" ref="SysDict.A.real_branch_ind"/>
+            <field id="branch_address" type="BaseType.U_MIDDESC" required="false" multi="false" array="false" longname="branch_address" ref="SysDict.A.branch_address"/>
+            <field id="branch_phone" type="BaseType.U_PHONENO" required="false" multi="false" array="false" longname="branch phone" ref="SysDict.A.branch_phone"/>
+            <field id="branch_mail" type="BaseType.U_EMAIL" required="false" multi="false" array="false" longname="Branch E-mail" desc="机构电子邮箱" ref="SysDict.A.branch_mail"/>
+            <field id="postcode" type="BaseType.U_BYTE10" required="false" multi="false" array="false" longname="postcode" ref="SysDict.A.postcode"/>
+            <field id="contacts_name" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="contact name" ref="SysDict.A.contacts_name"/>
+            <field id="contacts_phone" type="BaseType.U_PHONENO" required="false" multi="false" array="false" longname="contacts phone" ref="SysDict.A.contacts_phone"/>
+            <field id="contacts_mail" type="BaseType.U_EMAIL" required="false" multi="false" array="false" longname="Contacts E-mail" desc="联系电子邮箱" ref="SysDict.A.contacts_mail"/>
+            <field id="branch_function_class" type="BaseType.U_BYTE8" required="false" multi="false" array="false" longname="branch function clase" ref="SysDict.A.branch_function_class"/>
+            <field id="swift_no" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="swift_no" ref="SysDict.A.swift_no"/>
+            <field id="holiday_code" type="BaseType.U_BYTE8" required="false" multi="false" array="false" longname="holiday code" ref="SysDict.A.holiday_code"/>
+            <field id="data_version" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="data version" ref="SysDict.A.data_version"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApBranch.modifyBranch" id="SrvApBranch.modifyBranch" longname="branch information modification">
+            <in_mappings by_interface="true">
+                <mapping src="branch_address" dest="branch.branch_address" by_interface="true" on_top="true"/>
+                <mapping src="branch_function_class" dest="branch.branch_function_class" by_interface="true" on_top="true"/>
+                <mapping src="branch_id" dest="branch.branch_id" by_interface="true" on_top="true"/>
+                <mapping src="branch_name" dest="branch.branch_name" by_interface="true" on_top="true"/>
+                <mapping src="branch_phone" dest="branch.branch_phone" by_interface="true" on_top="true"/>
+                <mapping src="branch_mail" dest="branch.branch_mail" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="contacts_name" dest="branch.contacts_name" by_interface="true" on_top="true"/>
+                <mapping src="contacts_phone" dest="branch.contacts_phone" by_interface="true" on_top="true"/>
+                <mapping src="contacts_mail" dest="branch.contacts_mail" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="data_version" dest="branch.data_version" by_interface="true" on_top="true"/>
+                <mapping src="holiday_code" dest="branch.holiday_code" by_interface="true" on_top="true"/>
+                <mapping src="postcode" dest="branch.postcode" by_interface="true" on_top="true"/>
+                <mapping src="real_branch_ind" dest="branch.real_branch_ind" by_interface="true" on_top="true"/>
+                <mapping src="swift_no" dest="branch.swift_no" by_interface="true" on_top="true"/>
+                <mapping src="operater_ind" dest="operater_ind" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="SrvApTrxn.registerApsTransaction" id="SrvApTrxn.registerApsTransaction" longname="register flow">
+            <in_mappings by_interface="true"/>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

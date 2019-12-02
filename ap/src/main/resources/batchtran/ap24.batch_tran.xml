@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<batch_transaction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap24" longname="writing down file about accrual" package="cn.sunline.icore.ap.batchtran" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.ap.batchtran.intf">
+        <input packMode="true"/>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+</batch_transaction>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1145" longname="enquiry accounting event" kind="Q" package="cn.sunline.edsp.busi.ap.trans.packet" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.ap.trans.packet.intf">
+        <input packMode="true">
+            <field id="trxn_seq" type="BaseType.U_SEQNO" required="false" multi="false" array="false" longname="transaction sequence" ref="SysDict.A.trxn_seq"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <fields id="list01" required="false" multi="true" longname="output" array="false">
+                <field id="trxn_seq" type="BaseType.U_SEQNO" required="false" multi="false" array="false" longname="transaction sequence" ref="SysDict.A.trxn_seq"/>
+                <field id="data_sort" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="data sort" ref="SysDict.A.data_sort"/>
+                <field id="acct_no" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="account no" ref="SysDict.A.acct_no"/>
+                <field id="sub_acct_seq" type="BaseType.U_SUBACCTSEQ" required="false" multi="false" array="false" longname="subclass account sequence" ref="SysDict.A.sub_acct_seq"/>
+                <field id="trxn_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="transaction date" ref="SysDict.A.trxn_date"/>
+                <field id="double_entry_ind" type="MsEnumType.E_YESORNO" required="false" multi="false" array="false" longname="double entry bookkeeping indication" ref="SysDict.A.double_entry_ind"/>
+                <field id="debit_credit" type="MsEnumType.E_DEBITCREDIT" required="false" multi="false" array="false" longname="debit credit" ref="SysDict.A.debit_credit"/>
+                <field id="trxn_ccy" type="BaseType.U_CURRENCY" required="false" multi="false" array="false" longname="transaction ccy" ref="SysDict.A.trxn_ccy"/>
+                <field id="trxn_amt" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="transaction amount" ref="SysDict.A.trxn_amt"/>
+                <field id="acct_branch" type="BaseType.U_BRANCHID" required="false" multi="false" array="false" longname="account branch" ref="SysDict.A.acct_branch"/>
+                <field id="accounting_alias" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="accounting alias" ref="SysDict.A.accounting_alias"/>
+                <field id="accounting_subject" type="EnumType.E_ACCOUNTINGSUBJECT" required="false" multi="false" array="false" longname="accounting subject" desc="会计主体" ref="SysDict.A.accounting_subject"/>
+                <field id="bal_attributes" type="BaseType.U_BYTE8" required="false" multi="false" array="false" longname="balance attributes" ref="SysDict.A.bal_attributes"/>
+                <field id="summary_code" type="BaseType.U_BYTE8" required="false" multi="false" array="false" longname="summary code" ref="SysDict.A.summary_code"/>
+                <field id="summary_name" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="summary name" ref="SysDict.A.summary_name"/>
+                <field id="prod_id" type="BaseType.U_PRODUCTCODE" required="false" multi="false" array="false" longname="product code" ref="SysDict.A.prod_id"/>
+            </fields>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApAccouting.getAccountingEvent" id="getAccountingEvent" longname="get information of accounting event">
+            <in_mappings by_interface="true">
+                <mapping src="trxn_seq" dest="trxn_seq" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="accEven" dest="list01" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

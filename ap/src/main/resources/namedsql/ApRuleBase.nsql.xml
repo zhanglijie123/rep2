@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ApRuleBase" longname="rule base namedsql" package="cn.sunline.icore.ap.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <select cache="none" method="selectAll" type="sql" id="selDistinctAuthId" longname="select distict scene auth id">
+        <sql><![CDATA[
+    	select
+    	    	distinct scene_auth_id 
+    	from
+    	    	app_scene_auth 
+    	]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selTrxnCtrlInfo" longname="select transaction control info">
+        <parameterMap class="java.util.Map">
+            <parameter property="trxn_event_id" ref="SysDict.A.trxn_event_id" jdbcType="VARCHAR" javaType="BaseType.U_EVENT" mode="in" longname="transaction event id" parameterType="condition"/>
+            <parameter property="trxn_ctrl_type" ref="SysDict.A.trxn_ctrl_type" jdbcType="VARCHAR" javaType="EnumType.E_TRXNCTRLTYPE" mode="in" longname="transaction control type" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBasic.ApTrxnControl"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from app_trxn_control]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="trxn_event_id!=null &amp;&amp; trxn_event_id!=''" type="If">
+                        <str type="Str"><![CDATA[trxn_event_id = #trxn_event_id#]]></str>
+                    </if>
+                    <if test="trxn_ctrl_type!=null" type="If">
+                        <str type="Str"><![CDATA[trxn_ctrl_type=#trxn_ctrl_type#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by trxn_event_id,trxn_ctrl_type,trxn_ctrl_run_cond]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selSceneAuth" longname="select scene auth info">
+        <parameterMap class="java.util.Map">
+            <parameter property="scene_auth_id" ref="SysDict.A.scene_auth_id" jdbcType="VARCHAR" javaType="BaseType.U_BYTE32" mode="in" longname="scene authorization id" parameterType="condition"/>
+            <parameter property="role_id" ref="SysDict.A.role_id" jdbcType="VARCHAR" javaType="BaseType.U_ROLEID" mode="in" longname="role id" parameterType="condition"/>
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBasic.ApSceneAuthInfo"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select * from app_scene_auth ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="scene_auth_id !=null &amp;&amp; scene_auth_id!=''" type="If">
+                        <str type="Str"><![CDATA[scene_auth_id=#scene_auth_id#]]></str>
+                    </if>
+                    <if test="role_id!=null &amp;&amp; role_id!=''" type="If">
+                        <str type="Str"><![CDATA[role_id=#role_id#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[org_id=#org_id#]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by  scene_auth_id]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+</sqls>

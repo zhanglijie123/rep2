@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Aplt" displayName="application Platform Plugin Extensions" activator="cn.sunline.icore.ap.plugin.ApltPlugin" order="3500" enable="true" failOnInitError="true" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <description><![CDATA[应用平台插件扩展]]></description>
+    <extension-points>
+        <point id="trans.logger" name="transaction information logger" pointType="additional">
+            <clazz>cn.sunline.icore.ap.spi.ITransLogger</clazz>
+        </point>
+        <point id="checkbit.strategy" name="sequence check bit strategy" pointType="additional">
+            <clazz>cn.sunline.icore.ap.spi.ISeqCheckBitStrategy</clazz>
+            <description><![CDATA[流水校验位]]></description>
+        </point>
+    </extension-points>
+    <extensions>
+        <extension id="batch.callback.aplt" name="aplt batch callback implementation" point="msap.MsBatchTransactionProcessCallBackSPI" enable="true" singleton="true" errorProcessMode="throwError">
+            <clazzImpl>cn.sunline.icore.ap.callback.BatchTransactionProcessCallBackImpl</clazzImpl>
+        </extension>
+        <extension id="checkbit.strategy.krungsri" name="krungsri account no check bit strategy" point="Aplt.checkbit.strategy" enable="true" singleton="true" errorProcessMode="throwError">
+            <clazzImpl>cn.sunline.icore.ap.plugin.impl.ApKrungsriAcctStrategy</clazzImpl>
+        </extension>
+        <extension id="aplt.msap.MsPointExtensionSPI" name="msap extension point" point="msap.MsPointExtensionSPI" enable="true" singleton="true" errorProcessMode="throwError">
+            <clazzImpl>cn.sunline.icore.ap.callback.MsPointExtensionSPIImpl</clazzImpl>
+        </extension>
+        <extension id="aplt.OnlineEnginePlugin.callback" name="联机引擎回调点aplt扩展实现" point="msap.MsTransactionProcessCallBackSPI" enable="true" singleton="true" errorProcessMode="throwError">
+            <clazzImpl>cn.sunline.icore.ap.spi.impl.ApOnlineEngineExtensionPointImpl</clazzImpl>
+        </extension>
+        <extension id="batchTransCustomManager.impl" name="获取批处理客户化信息扩展实现" point="batch_trans_custom.batchTransCustomManager" enable="true" singleton="true" errorProcessMode="throwError">
+            <clazzImpl>cn.sunline.icore.ap.plugin.impl.BsapBatchTranCustomManagerImpl</clazzImpl>
+        </extension>
+    </extensions>
+    <components/>
+</plugin>

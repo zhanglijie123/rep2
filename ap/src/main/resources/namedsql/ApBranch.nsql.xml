@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ApBranch" longname="branch infomation namedsql" package="cn.sunline.icore.ap.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <dynamicSelect cache="none" method="selectPageWithCount selectAll" type="sql" id="selBranchList" longname="branch infomation list inquire">
+        <parameterMap class="ComApBranch.ApBranchParmCondtion">
+            <parameter property="branch_id" ref="SysDict.A.branch_id" jdbcType="VARCHAR" javaType="BaseType.U_BRANCHID" mode="in" longname="branch id" parameterType="condition"/>
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="branch_name" ref="SysDict.A.branch_name" jdbcType="VARCHAR" javaType="BaseType.U_SHORTDESC" mode="in" longname="branch name" parameterType="condition"/>
+            <parameter property="real_branch_ind" ref="SysDict.A.real_branch_ind" jdbcType="VARCHAR" javaType="MsEnumType.E_YESORNO" mode="in" longname="real branch indication" parameterType="condition"/>
+            <parameter property="branch_function_class" ref="SysDict.A.branch_function_class" jdbcType="VARCHAR" javaType="BaseType.U_BYTE8" mode="in" longname="branch function clase" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBranch.ApBranchInfo"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[SELECT * from apb_branch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="branch_id != null &amp;&amp; branch_id!= ''" type="If">
+                        <str type="Str"><![CDATA[branch_id=#branch_id#]]></str>
+                    </if>
+                    <if test="branch_name != null &amp;&amp; branch_name!= ''" type="If">
+                        <str type="Str"><![CDATA[branch_name like concat('%' , concat(#branch_name# , '%'))]]></str>
+                    </if>
+                    <if test="real_branch_ind != null" type="If">
+                        <str type="Str"><![CDATA[real_branch_ind=#real_branch_ind#]]></str>
+                    </if>
+                    <if test="branch_function_class != null &amp;&amp; branch_function_class!=''" type="If">
+                        <str type="Str"><![CDATA[branch_function_class=#branch_function_class#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[org_id=#org_id#]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by org_id, branch_id]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll selectPageWithCount" type="sql" id="selBranchRelation" longname="sbranch relation infomation inquire">
+        <parameterMap class="java.util.Map">
+            <parameter property="brch_relation_code" ref="SysDict.A.brch_relation_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE8" mode="in" longname="branch relation code" parameterType="condition"/>
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="real_branch_ind" ref="SysDict.A.real_branch_ind" jdbcType="VARCHAR" javaType="MsEnumType.E_YESORNO" mode="in" longname="real branch indication" parameterType="condition"/>
+            <parameter property="ccy_code" ref="SysDict.A.ccy_code" jdbcType="VARCHAR" javaType="BaseType.U_CURRENCY" mode="in" longname="currency code" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBranch.ApBranchRelation"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select a.org_id,
+       a.branch_id,
+       b.ccy_code,
+       a.branch_name,
+       b.parent_brch_id,
+       b.brch_relation_code,
+       a.data_create_user,
+       a.data_create_time,
+       a.data_update_user,
+       a.data_update_time,
+       ifnull(b.data_version, 0) as data_version
+  from apb_branch a
+  left join apb_branch_relation b on a.branch_id = b.branch_id
+                                 and a.org_id = b.org_id
+     and b.brch_relation_code = #brch_relation_code#]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.org_id = #org_id#]]></str>
+                    <if test="real_branch_ind!=null" type="If">
+                        <str type="Str"><![CDATA[a.real_branch_ind = #real_branch_ind#]]></str>
+                    </if>
+                    <if test="ccy_code!=null &amp;&amp; ccy_code!=''" type="If">
+                        <str type="Str"><![CDATA[ccy_code = #ccy_code#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.branch_id]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll selectPageWithCount" type="sql" id="selBranchJunior" longname="query branch junior">
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="brch_relation_code" ref="SysDict.A.brch_relation_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE8" mode="in" longname="branch relation code" parameterType="condition"/>
+            <parameter property="real_branch_ind" ref="SysDict.A.real_branch_ind" jdbcType="VARCHAR" javaType="MsEnumType.E_YESORNO" mode="in" longname="real branch indication" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="TabApBranch.apb_branch_junior"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[
+            select a.* from apb_branch_junior a left join apb_branch b 
+						on a.branch_id = b.branch_id and a.org_id = b.org_id]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.org_id = #org_id#]]></str>
+                    <if test="brch_relation_code!=null &amp;&amp; brch_relation_code!=''" type="If">
+                        <str type="Str"><![CDATA[a.brch_relation_code = #brch_relation_code#]]></str>
+                    </if>
+                    <if test="real_branch_ind!=null" type="If">
+                        <str type="Str"><![CDATA[b.real_branch_ind = #real_branch_ind#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicDelete method="delete" id="delBranchJunior" longname="delete branch junior">
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="brch_relation_code" ref="SysDict.A.brch_relation_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE8" mode="in" longname="branch relation code" parameterType="condition"/>
+            <parameter property="real_branch_ind" ref="SysDict.A.real_branch_ind" jdbcType="VARCHAR" javaType="MsEnumType.E_YESORNO" mode="in" longname="real branch indication" parameterType="condition"/>
+        </parameterMap>
+        <dynamicSql>
+            <str type="Str"><![CDATA[delete from apb_branch_junior a where exists
+             (select 1 from apb_branch b]]></str>
+            <where type="Where">
+                <and type="And">
+                	<str type="Str"><![CDATA[a.branch_id = b.branch_id]]></str>
+                	<str type="Str"><![CDATA[b.org_id = #org_id#]]></str>                   
+                </and>                               
+            </where>            
+            <str type="Str"><![CDATA[)]]></str>
+            <str type="Str"><![CDATA[and a.org_id = #org_id#]]></str>
+            <str type="Str"><![CDATA[and a.brch_relation_code = #brch_relation_code#]]></str>
+            <if test="real_branch_ind!=null" type="If">
+                 <str type="Str"><![CDATA[and a.real_branch_ind=#real_branch_ind#]]></str>
+            </if>           
+        </dynamicSql>
+    </dynamicDelete>
+    <dynamicSelect cache="none" method="selectAll selectPageWithCount" type="sql" id="selBranchSenior" longname="query branch senior">
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="brch_relation_code" ref="SysDict.A.brch_relation_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE8" mode="in" longname="branch relation code" parameterType="condition"/>
+            <parameter property="real_branch_ind" ref="SysDict.A.real_branch_ind" jdbcType="VARCHAR" javaType="MsEnumType.E_YESORNO" mode="in" longname="real branch indication" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="TabApBranch.apb_branch_senior"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[
+            select a.* from apb_branch_senior a left join apb_branch b 
+						on a.branch_id = b.branch_id and a.org_id = b.org_id]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.org_id = #org_id#]]></str>
+                    <if test="brch_relation_code!=null &amp;&amp; brch_relation_code!=''" type="If">
+                        <str type="Str"><![CDATA[a.brch_relation_code = #brch_relation_code#]]></str>
+                    </if>
+                    <if test="real_branch_ind!=null" type="If">
+                        <str type="Str"><![CDATA[b.real_branch_ind = #real_branch_ind#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicDelete method="delete" id="delBranchSenior" longname="delete branch senior">
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="brch_relation_code" ref="SysDict.A.brch_relation_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE8" mode="in" longname="branch relation code" parameterType="condition"/>
+            <parameter property="real_branch_ind" ref="SysDict.A.real_branch_ind" jdbcType="VARCHAR" javaType="MsEnumType.E_YESORNO" mode="in" longname="real branch indication" parameterType="condition"/>
+        </parameterMap>
+        <dynamicSql>
+            <str type="Str"><![CDATA[delete from apb_branch_senior a where exists
+        	(select 1 from apb_branch b]]></str>
+            <where type="Where">
+                <and type="And">
+                	<str type="Str"><![CDATA[a.branch_id = b.branch_id]]></str>
+                	<str type="Str"><![CDATA[b.org_id = #org_id#]]></str>                   
+                </and>                               
+            </where>            
+            <str type="Str"><![CDATA[)]]></str>
+            <str type="Str"><![CDATA[and a.org_id = #org_id#]]></str>
+            <str type="Str"><![CDATA[and a.brch_relation_code = #brch_relation_code#]]></str>
+            <if test="real_branch_ind!=null" type="If">
+                 <str type="Str"><![CDATA[and a.real_branch_ind=#real_branch_ind#]]></str>
+            </if>     
+        </dynamicSql>
+    </dynamicDelete>
+    <select cache="none" method="selectAll" type="sql" id="selBranchRelationByGroup" longname="branch relation inquire by group">
+        <sql><![CDATA[
+    	select
+    	    	brch_relation_code,ccy_code 
+    	from
+    	    	apb_branch_relation 
+       where org_id = #org_id#
+    	group by
+    	    	brch_relation_code,ccy_code
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.util.Map"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selBranchMaxLevel" longname="get max level by the relation of branch">
+        <sql><![CDATA[
+    	select
+    	    	max(brch_level) as brch_level
+    	from
+    	    	apb_branch_junior 
+       where org_id = #org_id# AND brch_relation_code=#brch_relation_code# AND branch_id=#branch_id# AND ccy_code=#ccy_code#
+    	
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="brch_relation_code" ref="SysDict.A.brch_relation_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE8" mode="in" longname="branch relation code" parameterType="condition"/>
+            <parameter property="branch_id" ref="SysDict.A.branch_id" jdbcType="VARCHAR" javaType="BaseType.U_BRANCHID" mode="in" longname="branch id" parameterType="condition"/>
+            <parameter property="ccy_code" ref="SysDict.A.ccy_code" jdbcType="VARCHAR" javaType="BaseType.U_CURRENCY" mode="in" longname="currency code" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.Long"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selBranchListByLevel" longname="get branch list by branch relation code and level">
+        <sql><![CDATA[
+    	select
+    	    	b.parent_brch_id,a.child_brch_id 
+    	from
+    	    	apb_branch_junior a 
+    	join
+    	    	apb_branch_relation b 
+    	    	    	on a.org_id=b.org_id and a.child_brch_id=b.branch_id 
+    	    	    	and a.brch_relation_code=b.brch_relation_code and a.ccy_code=b.ccy_code 
+    	where
+    	    	a.org_id=#org_id# 
+    	    	and a.brch_relation_code=#brch_relation_code# and a.branch_id=#branch_id# 
+    	    	and a.ccy_code=#ccy_code# and a.brch_level=#brch_level# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="brch_relation_code" ref="SysDict.A.brch_relation_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE8" mode="in" longname="branch relation code" parameterType="condition"/>
+            <parameter property="branch_id" ref="SysDict.A.branch_id" jdbcType="VARCHAR" javaType="BaseType.U_BRANCHID" mode="in" longname="branch id" parameterType="condition"/>
+            <parameter property="ccy_code" ref="SysDict.A.ccy_code" jdbcType="VARCHAR" javaType="BaseType.U_CURRENCY" mode="in" longname="currency code" parameterType="condition"/>
+            <parameter property="brch_level" ref="SysDict.A.brch_level" jdbcType="VARCHAR" javaType="BaseType.U_LONG" mode="in" longname="branch level" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBranch.ApBranchSeniorJunior"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selBranchJuniorListByLevel" longname="get a list of subordinate organizations based on agency relationship codes and levels">
+        <sql><![CDATA[
+    	select
+    	    	a.parent_brch_id, a.branch_id as a.child_brch_id 
+    	from
+    	    	apb_branch_senior a 
+    	where
+    	    	a.org_id=#org_id# 
+    	    	and a.brch_relation_code=#brch_relation_code# and a.parent_brch_id=#branch_id# 
+    	    	and a.ccy_code=#ccy_code# and a.brch_level=#brch_level# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="brch_relation_code" ref="SysDict.A.brch_relation_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE8" mode="in" longname="branch relation code" parameterType="condition"/>
+            <parameter property="branch_id" ref="SysDict.A.branch_id" jdbcType="VARCHAR" javaType="BaseType.U_BRANCHID" mode="in" longname="branch id" parameterType="condition"/>
+            <parameter property="ccy_code" ref="SysDict.A.ccy_code" jdbcType="VARCHAR" javaType="BaseType.U_CURRENCY" mode="in" longname="currency code" parameterType="condition"/>
+            <parameter property="brch_level" ref="SysDict.A.brch_level" jdbcType="VARCHAR" javaType="BaseType.U_LONG" mode="in" longname="branch level" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBranch.ApBranchSeniorJunior"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selBranchValueAndDesc" longname="query branch id and branch name">
+        <sql><![CDATA[select distinct a.branch_id as drop_list_value, a.branch_name as drop_list_desc from apb_branch a]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="dynamicBranch" longname="dynamic branch inquire">
+        <sql><![CDATA[SELECT
+    	    	branch_id drop_list_value,branch_name drop_list_desc 
+    	FROM
+    	    	apb_branch
+    	]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+    </select>
+</sqls>

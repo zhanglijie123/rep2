@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<componentSchema id="ApAppcCompImpl" package="cn.sunline.icore.ap.component" longname="通讯组件实现定义" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[通讯组件实现定义]]></description>
+    <componentImplementation id="AppcTcp" longname="基于Tcp短连接的通讯组件" type="ApBaseComp.Appc">
+        <implementation.java class="cn.sunline.icore.ap.component.appc.ApAppcTcpImpl"/>
+        <properties>
+            <property name="ip" type="string" longname="地址"/>
+            <property name="port" type="int" longname="端口"/>
+            <property name="connectTimeoutInMs" type="int" default="5000" longname="连接超时时间"/>
+            <property name="sendTimeoutInMs" type="int" default="5000" longname="发送超时时间"/>
+            <property name="recvTimeoutInMs" type="int" default="30000" longname="接收超时时间"/>
+            <property name="lengthPrefixLength" type="int" default="8" longname="长度域字段长度"/>
+            <property name="encoding" type="string" default="GB18030" longname="字符集"/>
+            <property name="paddingChar" type="string" default="0" longname="填充字符"/>
+            <property name="leftPadding" type="boolean" default="true" longname="是否左填充"/>
+        </properties>
+    </componentImplementation>
+</componentSchema>

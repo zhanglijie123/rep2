@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ComApAccounting" package="cn.sunline.icore.ap.type" longname="internal accounts  accounting type" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <complexType id="ApAccountingEventIn" longname="the composite datatypes about accounting event" dict="false" abstract="false" introduct="false">
+        <element id="double_entry_ind" longname="double entry bookkeeping indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.double_entry_ind" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="debit_credit" longname="debit credit" type="MsEnumType.E_DEBITCREDIT" ref="SysDict.A.debit_credit" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_ccy" longname="transaction ccy" type="BaseType.U_CURRENCY" ref="SysDict.A.trxn_ccy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_amt" longname="transaction amount" type="BaseType.U_MONEY" ref="SysDict.A.trxn_amt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acct_branch" longname="account branch" type="BaseType.U_BRANCHID" ref="SysDict.A.acct_branch" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="accounting_alias" longname="accounting alias" type="BaseType.U_BYTE32" ref="SysDict.A.accounting_alias" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="accounting_subject" longname="accounting subject" type="EnumType.E_ACCOUNTINGSUBJECT" ref="SysDict.A.accounting_subject" required="false" desc="会计主体" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bal_attributes" longname="balance attributes" type="BaseType.U_BYTE8" ref="SysDict.A.bal_attributes" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acct_no" longname="account no" type="BaseType.U_ACCTNO" ref="SysDict.A.acct_no" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sub_acct_seq" longname="subclass account sequence" type="BaseType.U_SUBACCTSEQ" ref="SysDict.A.sub_acct_seq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrg_code" longname="charge code" type="BaseType.U_FEECODE" ref="SysDict.A.chrg_code" required="false" desc="费用编号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_date" longname="transaction date" type="BaseType.U_DATE" ref="SysDict.A.trxn_date" required="false" desc="交易日期" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="gl_ref_code" longname="gl reference code" type="BaseType.U_BYTE32" ref="SysDict.A.gl_ref_code" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="summary_code" longname="summary code" type="BaseType.U_BYTE8" ref="SysDict.A.summary_code" required="false" desc="摘要代码" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="summary_name" longname="summary name" type="BaseType.U_SHORTDESC" ref="SysDict.A.summary_name" required="false" desc="摘要描述" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prod_id" longname="product code" type="BaseType.U_PRODUCTCODE" ref="SysDict.A.prod_id" required="false" desc="产品编号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="accrue_type" longname="accrue type" type="EnumType.E_ACCRUETYPE" ref="SysDict.A.accrue_type" required="false" desc="计提种类" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="opp_acct_no" longname="opponent account no" type="BaseType.U_ACCTNO" ref="SysDict.A.opp_acct_no" required="false" desc="对方账号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="out_opp_acct_no" longname="out opponent account no" type="BaseType.U_ACCTNO" ref="SysDict.A.out_opp_acct_no" required="false" desc="转出对手方账号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <description><![CDATA[会计事件登记输入]]></description>
+    </complexType>
+    <complexType id="ApTrxnNoBalancedData" longname="the informatiom of imbalance" dict="false" abstract="false" introduct="false">
+        <element id="ccy_code" longname="currency code" type="BaseType.U_CURRENCY" ref="SysDict.A.ccy_code" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_amt" longname="transaction amount" type="BaseType.U_MONEY" ref="SysDict.A.trxn_amt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <description><![CDATA[根据交易流水查询余额]]></description>
+    </complexType>
+    <complexType id="ApRegLedgerBal" longname="registering ledger balance" dict="false" abstract="false" introduct="false">
+        <element id="acct_branch" longname="account branch" type="BaseType.U_BRANCHID" ref="SysDict.A.acct_branch" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ccy_code" longname="currency code" type="BaseType.U_CURRENCY" ref="SysDict.A.ccy_code" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="accounting_subject" longname="accounting subject" type="EnumType.E_ACCOUNTINGSUBJECT" ref="SysDict.A.accounting_subject" required="false" desc="会计主体" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="accounting_alias" longname="accounting alias" type="BaseType.U_BYTE32" ref="SysDict.A.accounting_alias" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bal_attributes" longname="balance attributes" type="BaseType.U_BYTE8" ref="SysDict.A.bal_attributes" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bal_type" longname="type of balance" type="MsEnumType.E_DEBITCREDIT" ref="SysDict.A.bal_type" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acct_bal" longname="account balance" type="BaseType.U_MONEY" ref="SysDict.A.acct_bal" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <description><![CDATA[分户账余额登记输入]]></description>
+    </complexType>
+    <complexType id="ApRecordAccure" longname="registering accrue" dict="false" abstract="false" introduct="false">
+        <element id="accrue_type" longname="accrue type" type="EnumType.E_ACCRUETYPE" ref="SysDict.A.accrue_type" required="false" desc="计提种类" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acct_branch" longname="account branch" type="BaseType.U_BRANCHID" ref="SysDict.A.acct_branch" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="accounting_alias" longname="accounting alias" type="BaseType.U_BYTE32" ref="SysDict.A.accounting_alias" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ccy_code" longname="currency code" type="BaseType.U_CURRENCY" ref="SysDict.A.ccy_code" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bal_attributes" longname="balance attributes" type="BaseType.U_BYTE8" ref="SysDict.A.bal_attributes" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="budget_inst_amt" longname="accrue amount" type="BaseType.U_MONEY" ref="SysDict.A.budget_inst_amt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <description><![CDATA[利息计提登记输入]]></description>
+    </complexType>
+    <complexType id="ApAccountingEventCtrl" longname="accounting events contrl" dict="false" abstract="false" introduct="false">
+        <element id="accounting_alias" longname="accounting alias" type="BaseType.U_BYTE32" ref="SysDict.A.accounting_alias" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bal_attributes" longname="balance attributes" type="BaseType.U_BYTE8" ref="SysDict.A.bal_attributes" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="accounting_subject" longname="accounting subject" type="EnumType.E_ACCOUNTINGSUBJECT" ref="SysDict.A.accounting_subject" required="false" desc="会计主体" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ledger_check_ind" longname="ledger check indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.ledger_check_ind" required="false" desc="总分核对标志" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="remark" type="BaseType.U_SHORTDESC" ref="SysDict.A.remark" required="false" desc="备注" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="gl_code" longname="gl code" type="BaseType.U_SUBJECTNO" ref="SysDict.A.gl_code" required="false" desc="gl code" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <description><![CDATA[会计事件控制参数]]></description>
+    </complexType>
+    <complexType id="ApAccountingEvent" longname="accounting event" dict="false" abstract="false" introduct="false">
+        <element id="trxn_seq" longname="transaction sequence" type="BaseType.U_SEQNO" ref="SysDict.A.trxn_seq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_sort" longname="data sort" type="BaseType.U_LONG" ref="SysDict.A.data_sort" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acct_no" longname="account no" type="BaseType.U_ACCTNO" ref="SysDict.A.acct_no" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sub_acct_seq" longname="subclass account sequence" type="BaseType.U_SUBACCTSEQ" ref="SysDict.A.sub_acct_seq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_date" longname="transaction date" type="BaseType.U_DATE" ref="SysDict.A.trxn_date" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="double_entry_ind" longname="double entry bookkeeping indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.double_entry_ind" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="debit_credit" longname="debit credit" type="MsEnumType.E_DEBITCREDIT" ref="SysDict.A.debit_credit" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_ccy" longname="transaction ccy" type="BaseType.U_CURRENCY" ref="SysDict.A.trxn_ccy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_amt" longname="transaction amount" type="BaseType.U_MONEY" ref="SysDict.A.trxn_amt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acct_branch" longname="account branch" type="BaseType.U_BRANCHID" ref="SysDict.A.acct_branch" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="accounting_alias" longname="accounting alias" type="BaseType.U_BYTE32" ref="SysDict.A.accounting_alias" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="accounting_subject" longname="accounting subject" type="EnumType.E_ACCOUNTINGSUBJECT" ref="SysDict.A.accounting_subject" required="false" desc="会计主体" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bal_attributes" longname="balance attributes" type="BaseType.U_BYTE8" ref="SysDict.A.bal_attributes" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="summary_code" longname="summary code" type="BaseType.U_BYTE8" ref="SysDict.A.summary_code" required="false" desc="摘要代码" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="summary_name" longname="summary name" type="BaseType.U_SHORTDESC" ref="SysDict.A.summary_name" required="false" desc="摘要描述" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prod_id" longname="product code" type="BaseType.U_PRODUCTCODE" ref="SysDict.A.prod_id" required="false" desc="产品编号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <description><![CDATA[会计事件]]></description>
+    </complexType>
+    <complexType id="ApGlParaCtrl" longname="the composition of  gl parameter control" dict="false" abstract="false" introduct="false">
+        <element id="accounting_alias" longname="accounting alias" type="BaseType.U_BYTE32" ref="SysDict.A.accounting_alias" required="false" desc="核算别名" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bal_attributes" longname="balance attributes" type="BaseType.U_BYTE8" ref="SysDict.A.bal_attributes" required="false" desc="余额属性" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="remark" type="BaseType.U_SHORTDESC" ref="SysDict.A.remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="operater_ind" longname="operater indicate" type="MsEnumType.E_DATAOPERATE" ref="SysDict.A.operater_ind" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ledger_check_ind" longname="ledger check indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.ledger_check_ind" required="false" desc="总分核对标志" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="accounting_subject" longname="accounting subject" type="EnumType.E_ACCOUNTINGSUBJECT" ref="SysDict.A.accounting_subject" required="false" desc="会计主体" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="gl_code" longname="gl code" type="BaseType.U_SUBJECTNO" ref="SysDict.A.gl_code" required="false" desc="核算代码" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_version" longname="data version" type="BaseType.U_LONG" ref="SysDict.A.data_version" required="false" desc="data version" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <description><![CDATA[会计事件控制参数]]></description>
+    </complexType>
+</schema>

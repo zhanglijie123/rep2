@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1180" longname="Scene Auth query" kind="Q" package="cn.sunline.icore.ap.trans.transaction" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.transaction.intf">
+        <input packMode="true">
+            <field id="scene_auth_id" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="scene authorization id" desc="场景授权ID" ref="SysDict.A.scene_auth_id"/>
+            <field id="role_id" type="BaseType.U_ROLEID" required="false" multi="false" array="false" longname="role id" desc="角色id" ref="SysDict.A.role_id"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <fields id="list01" required="false" multi="true" longname="queryOut" array="false">
+                <field id="scene_auth_id" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="scene authorization id" desc="场景授权ID" ref="SysDict.A.scene_auth_id"/>
+                <field id="role_id" type="BaseType.U_ROLEID" required="false" multi="false" array="false" longname="role id" desc="角色id" ref="SysDict.A.role_id"/>
+                <field id="data_version" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="data version" desc="数据版本号" ref="SysDict.A.data_version"/>
+            </fields>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApSceneAuth.querySceneAuth" id="SrvApSceneAuth.querySceneAuth" longname="querySceneAuth">
+            <in_mappings by_interface="true">
+                <mapping src="role_id" dest="queryIn.role_id" by_interface="true" on_top="true"/>
+                <mapping src="scene_auth_id" dest="queryIn.scene_auth_id" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="queryOut" dest="list01" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

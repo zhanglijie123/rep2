@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ApAttribute" longname="attribute &amp; limit namedsql" package="cn.sunline.icore.ap.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <select cache="none" method="selectAll" type="sql" id="selAttrInfo" longname="attribute infomation inquire">
+        <sql><![CDATA[select * from app_attribute 
+where org_id = #org_id# 
+and  attr_level = #attr_level#
+order by attr_position]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="attr_level" ref="SysDict.A.attr_level" jdbcType="VARCHAR" javaType="EnumType.E_OWNERLEVEL" mode="in" longname="attribute level" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApAttr.ApAttrInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selAttrMutexInfo" longname="attribute mutex infomation inquire">
+        <sql><![CDATA[select * from app_attribute_mutex
+where org_id = #org_id# 
+and  attr_level = #attr_level#
+order by attr_mutex_id]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="attr_level" ref="SysDict.A.attr_level" jdbcType="VARCHAR" javaType="EnumType.E_OWNERLEVEL" mode="in" longname="attribute level" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApAttr.ApAttrMutexInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selAttrCtlInfo" longname="attribute control infomation inquire">
+        <sql><![CDATA[select * from app_attribute_control
+where org_id = #org_id# 
+and  attr_level = #attr_level#
+order by attr_ctrl_id]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="attr_level" ref="SysDict.A.attr_level" jdbcType="VARCHAR" javaType="EnumType.E_OWNERLEVEL" mode="in" longname="attribute level" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApAttr.ApAttrCtlInfo"/>
+    </select>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selAppLimitParam" longname="limit parameter inquire">
+        <parameterMap class="ComApLimit.ApLimitBasicInfoLstQryIn">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="limit_no" ref="SysDict.A.limit_no" jdbcType="VARCHAR" javaType="BaseType.U_LIMITNO" mode="in" longname="limit no" parameterType="condition"/>
+            <parameter property="limit_desc" ref="SysDict.A.limit_desc" jdbcType="VARCHAR" javaType="BaseType.U_SHORTDESC" mode="in" longname="limit describe" parameterType="condition"/>
+            <parameter property="limit_ctrl_class" ref="SysDict.A.limit_ctrl_class" jdbcType="VARCHAR" javaType="EnumType.E_LIMITCTRLCLASS" mode="in" longname="limit control class" parameterType="condition"/>
+            <parameter property="limit_reset_cycle" ref="SysDict.A.limit_reset_cycle" jdbcType="VARCHAR" javaType="EnumType.E_CYCLETYPE" mode="in" longname="limit reset cycle" parameterType="condition"/>
+            <parameter property="limit_ccy" ref="SysDict.A.limit_ccy" jdbcType="VARCHAR" javaType="BaseType.U_BYTE3" mode="in" longname="limit currency" parameterType="condition"/>
+            <parameter property="limit_statis_no" ref="SysDict.A.limit_statis_no" jdbcType="VARCHAR" javaType="BaseType.U_BYTE16" mode="in" longname="limit statis no" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApLimit.ApLimitBasicInfo"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select * from app_limit ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[org_id=#org_id#]]></str>
+                    <if test="limit_no!=null &amp;&amp; limit_no!=''" type="If">
+                        <str type="Str"><![CDATA[limit_no=#limit_no#]]></str>
+                    </if>
+                    <if test="limit_desc!=null &amp;&amp; limit_desc!=''" type="If">
+                        <str type="Str"><![CDATA[limit_desc like concat('%' , concat(#limit_desc# , '%')) ]]></str>
+                    </if>
+                    <if test="limit_ctrl_class!=null" type="If">
+                        <str type="Str"><![CDATA[limit_ctrl_class=#limit_ctrl_class#]]></str>
+                    </if>
+                    <if test="limit_reset_cycle!=null" type="If">
+                        <str type="Str"><![CDATA[limit_reset_cycle=#limit_reset_cycle#]]></str>
+                    </if>
+                    <if test="limit_ccy!=null &amp;&amp; limit_ccy!=''" type="If">
+                        <str type="Str"><![CDATA[limit_ccy=#limit_ccy#]]></str>
+                    </if>
+                    <if test="limit_statis_no!=null &amp;&amp; limit_statis_no!=''" type="If">
+                        <str type="Str"><![CDATA[limit_statis_no=#limit_statis_no#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by limit_no]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selApbLimitStatis" longname="limit statis inquire">
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="limit_owner_id" ref="SysDict.A.limit_owner_id" jdbcType="VARCHAR" javaType="BaseType.U_BYTE64" mode="in" longname="limit owner id" parameterType="condition"/>
+            <parameter property="limit_statis_no" ref="SysDict.A.limit_statis_no" jdbcType="VARCHAR" javaType="BaseType.U_BYTE16" mode="in" longname="limit statis no" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApLimit.ApLimitStatisResult"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select * from apb_limit_statis]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[org_id=#org_id#]]></str>
+                    <if test="limit_owner_id !=null&amp;&amp;limit_owner_id!=''" type="If">
+                        <str type="Str"><![CDATA[limit_owner_id=#limit_owner_id#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[limit_statis_no=#limit_statis_no#]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by limit_owner_id]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selApbLimitDrive" longname="limit drive inquire">
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="limit_no" ref="SysDict.A.limit_no" jdbcType="VARCHAR" javaType="BaseType.U_LIMITNO" mode="in" longname="limit no" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApLimit.ApLimitDriveInfo"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select * from app_limit_drive]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[org_id=#org_id#]]></str>
+                    <if test="limit_no!=null &amp;&amp; limit_no!=''" type="If">
+                        <str type="Str"><![CDATA[limit_no=#limit_no#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by limit_no]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selApbCustomLimit" longname="custom limit inquire">
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="limit_no" ref="SysDict.A.limit_no" jdbcType="VARCHAR" javaType="BaseType.U_LIMITNO" mode="in" longname="limit no" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApAttr.ApCustomLimitInfo"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select * from apb_custom_limit]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[org_id=#org_id#]]></str>
+                    <if test="limit_no!=null &amp;&amp; limit_no!=''" type="If">
+                        <str type="Str"><![CDATA[limit_no=#limit_no#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by limit_no]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selAttrDfeCount" longname="query count from atrribute definet">
+        <sql><![CDATA[select count(*) from app_attribute a where a.attr_level=#attr_level#
+]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="attr_level" ref="SysDict.A.attr_level" jdbcType="VARCHAR" javaType="EnumType.E_OWNERLEVEL" mode="in" longname="attribute level" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="int"/>
+    </select>
+    <update method="update" id="updateAttrDueOwnerId" longname="modify owner id of the attribute due register book">
+        <sql><![CDATA[
+    	update app_attribute_due
+    	set	attr_owner_id = #new_owner_id# 
+    	where attr_level = #attr_level# 
+    	  and attr_owner_id = #attr_owner_id#
+    	  and org_id=#org_id#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="attr_level" ref="SysDict.A.attr_level" jdbcType="VARCHAR" javaType="EnumType.E_OWNERLEVEL" mode="in" longname="attribute level" parameterType="condition"/>
+            <parameter property="attr_owner_id" ref="SysDict.A.attr_owner_id" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="attribute owner id" parameterType="condition"/>
+            <parameter property="new_owner_id" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="new attribute owner id" parameterType="condition"/>          
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectAll" type="sql" id="dynamicDropAttr" longname="dynamic drop atrribute inquery">
+        <sql><![CDATA[
+    	select
+    	    	drop_list_type drop_list_value,drop_list_name drop_list_desc 
+    	from
+    	    	msp_drop 
+    	where
+    	    	drop_list_type in (
+    	    	    	SELECT
+    	    	    	    	ref_drop_list 
+    	    	    	FROM
+    	    	    	    	app_attribute 
+    	    	    	GROUP BY
+    	    	    	    	ref_drop_list
+    	    	)
+    	]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+    </select>
+</sqls>

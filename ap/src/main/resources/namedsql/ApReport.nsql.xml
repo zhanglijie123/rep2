@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ApReport" longname="ap report" package="cn.sunline.icore.cbs.ap.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selTrxnListReport" longname="transaction sequence inquire report">
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="trxn_seq" ref="SysDict.A.trxn_seq" jdbcType="VARCHAR" javaType="BaseType.U_SEQNO" mode="in" longname="transaction sequence" parameterType="condition"/>
+            <parameter property="trxn_date" ref="SysDict.A.trxn_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="transaction date" parameterType="condition"/>
+            <parameter property="busi_seq" ref="SysDict.A.busi_seq" jdbcType="VARCHAR" javaType="BaseType.U_SEQNO" mode="in" longname="buisness sequence" parameterType="condition"/>
+            <parameter property="channel_id" ref="SysDict.A.channel_id" jdbcType="VARCHAR" javaType="BaseType.U_CHANNEL" mode="in" longname="channel id" parameterType="condition"/>
+            <parameter property="trxn_teller" ref="SysDict.A.trxn_teller" jdbcType="VARCHAR" javaType="BaseType.U_USERID" mode="in" longname="transaction teller" parameterType="condition"/>
+            <parameter property="branch_id" ref="SysDict.A.branch_id" jdbcType="VARCHAR" javaType="BaseType.U_BRANCHID" mode="in" longname="branch id" parameterType="condition"/>
+            <parameter property="trxn_code" ref="SysDict.A.trxn_code" jdbcType="VARCHAR" javaType="BaseType.U_TRXNCODE" mode="in" longname="transaction code" parameterType="condition"/>
+            <parameter property="recon_code" ref="SysDict.A.recon_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE32" mode="in" longname="recon code" parameterType="condition"/>
+            <parameter property="cash_trxn_ind" ref="SysDict.A.cash_trxn_ind" jdbcType="VARCHAR" javaType="MsEnumType.E_CASHTRXN" mode="in" longname="cash or trxn" parameterType="condition"/>
+            <parameter property="trxn_ccy" ref="SysDict.A.trxn_ccy" jdbcType="VARCHAR" javaType="BaseType.U_CURRENCY" mode="in" longname="transaction ccy" parameterType="condition"/>
+            <parameter property="trxn_amt" ref="SysDict.A.trxn_amt" jdbcType="VARCHAR" javaType="BaseType.U_MONEY" mode="in" longname="transaction amount" parameterType="condition"/>
+            <parameter property="trxn_acct_no" ref="SysDict.A.trxn_acct_no" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="transaction account no" parameterType="condition"/>
+            <parameter property="trxn_status" ref="SysDict.A.trxn_status" jdbcType="VARCHAR" javaType="MsEnumType.E_TRXNSTATUS" mode="in" longname="transaction status" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApReport.ApTranFlowReportOut"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[SELECT * FROM aps_transaction]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[org_id=#org_id#]]></str>
+                    <if test="trxn_seq!=null &amp;&amp; trxn_seq!=''" type="If">
+                        <str type="Str"><![CDATA[trxn_seq=#trxn_seq#]]></str>
+                    </if>
+                    <if test="trxn_date!=null &amp;&amp; trxn_date!=''" type="If">
+                        <str type="Str"><![CDATA[trxn_date=#trxn_date#]]></str>
+                    </if>
+                    <if test="busi_seq!=null &amp;&amp; busi_seq!=''" type="If">
+                        <str type="Str"><![CDATA[busi_seq=#busi_seq#]]></str>
+                    </if>
+                    <if test="channel_id!=null &amp;&amp; channel_id!=''" type="If">
+                        <str type="Str"><![CDATA[channel_id=#channel_id#]]></str>
+                    </if>
+                    <if test="trxn_teller!=null &amp;&amp; trxn_teller!=''" type="If">
+                        <str type="Str"><![CDATA[trxn_teller=#trxn_teller#]]></str>
+                    </if>
+                    <if test="branch_id!=null &amp;&amp; branch_id!=''" type="If">
+                        <str type="Str"><![CDATA[branch_id=#branch_id#]]></str>
+                    </if>
+                    <if test="trxn_code!=null &amp;&amp; trxn_code!=''" type="If">
+                        <str type="Str"><![CDATA[trxn_code=#trxn_code#]]></str>
+                    </if>
+                    <if test="recon_code!=null &amp;&amp; recon_code!=''" type="If">
+                        <str type="Str"><![CDATA[recon_code=#recon_code#]]></str>
+                    </if>
+                    <if test="cash_trxn_ind!=null" type="If">
+                        <str type="Str"><![CDATA[cash_trxn_ind=#cash_trxn_ind#]]></str>
+                    </if>
+                    <if test="trxn_ccy!=null &amp;&amp; trxn_ccy!=''" type="If">
+                        <str type="Str"><![CDATA[trxn_ccy=#trxn_ccy#]]></str>
+                    </if>
+                    <if test="trxn_amt!=null &amp;&amp; trxn_amt!=''" type="If">
+                        <str type="Str"><![CDATA[trxn_amt=#trxn_amt#]]></str>
+                    </if>
+                    <if test="trxn_acct_no!=null &amp;&amp; trxn_acct_no !=''" type="If">
+                        <str type="Str"><![CDATA[trxn_acct_no=#trxn_acct_no#]]></str>
+                    </if>
+                    <if test="trxn_status!=null" type="If">
+                        <str type="Str"><![CDATA[trxn_status=#trxn_status#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by data_create_time desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+</sqls>

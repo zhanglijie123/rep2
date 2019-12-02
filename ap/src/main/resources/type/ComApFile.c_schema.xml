@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ComApFile" package="cn.sunline.icore.ap.type" longname="file batch related compound type" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <complexType id="ApFileIn" longname="file batch application input" dict="false" abstract="false" introduct="false">
+        <element id="busi_batch_code" longname="batch business code" type="BaseType.U_BYTE32" ref="SysDict.A.busi_batch_code" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="busi_batch_id" longname="batch business id" type="BaseType.U_BYTE10" ref="SysDict.A.busi_batch_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_server_path" longname="file server path" type="BaseType.U_SHORTDESC" ref="SysDict.A.file_server_path" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_name" longname="file name" type="BaseType.U_MIDDESC" ref="SysDict.A.file_name" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="timing_process_ind" longname="Timing processing indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.timing_process_ind" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="timing_process_time" longname="Timing processing time" type="BaseType.U_DATETIME" ref="SysDict.A.timing_process_time" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="batch_charges_ind" longname="batch charges indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.batch_charges_ind" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrg_code" longname="charge code" type="BaseType.U_FEECODE" ref="SysDict.A.chrg_code" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="deduct_chrg_acct" longname="deduct charge account" type="BaseType.U_ACCTNO" ref="SysDict.A.deduct_chrg_acct" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="deduct_chrg_ccy" longname="deduct charge currency" type="BaseType.U_CURRENCY" ref="SysDict.A.deduct_chrg_ccy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApRecvFileIn" longname="file receives the input dataset" dict="false" abstract="false" introduct="false">
+        <element id="file_id" longname="file id" type="BaseType.U_BYTE20" ref="SysDict.A.file_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_name" longname="file name" type="BaseType.U_MIDDESC" ref="SysDict.A.file_name" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_server_path" longname="file server path" type="BaseType.U_SHORTDESC" ref="SysDict.A.file_server_path" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_local_path" longname="file local path" type="BaseType.U_SHORTDESC" ref="SysDict.A.file_local_path" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApDataGroupNo" longname="group by hash values" dict="false" abstract="false" introduct="false">
+        <element id="hash_value" longname="hash value" type="BaseType.U_LONG" ref="SysDict.A.hash_value" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApSendFileIn" longname="file is sent to the input dataset" dict="false" abstract="false" introduct="false">
+        <element id="file_id" longname="file id" type="BaseType.U_BYTE20" ref="SysDict.A.file_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_name" longname="file name" type="BaseType.U_MIDDESC" ref="SysDict.A.file_name" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_server_path" longname="file server path" type="BaseType.U_SHORTDESC" ref="SysDict.A.file_server_path" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_local_path" longname="file local path" type="BaseType.U_SHORTDESC" ref="SysDict.A.file_local_path" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="append_ok_ind" longname="append success file indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.append_ok_ind" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApBatchResultOut" longname="file batch processing result output" dict="false" abstract="false" introduct="false">
+        <element id="success_total_count" longname="success total count" type="BaseType.U_LONG" ref="SysDict.A.success_total_count" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="success_total_amt" longname="success total amount" type="BaseType.U_MONEY" ref="SysDict.A.success_total_amt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_handling_status" longname="file deal status" type="EnumType.E_FILEDEALSTATUS" ref="SysDict.A.file_handling_status" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_name" longname="file name" type="BaseType.U_MIDDESC" ref="SysDict.A.file_name" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_server_path" longname="file server path" type="BaseType.U_SHORTDESC" ref="SysDict.A.file_server_path" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="deduct_chrg_acct" longname="deduct charge account" type="BaseType.U_ACCTNO" ref="SysDict.A.deduct_chrg_acct" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="deduct_chrg_ccy" longname="deduct charge currency" type="BaseType.U_CURRENCY" ref="SysDict.A.deduct_chrg_ccy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="calc_chrg_amt" longname="calculate charge amount" type="BaseType.U_MONEY" ref="SysDict.A.calc_chrg_amt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="calc_chrg_ccy" longname="calculate charge currency" type="BaseType.U_CURRENCY" ref="SysDict.A.calc_chrg_ccy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_seq" longname="transaction sequence" type="BaseType.U_SEQNO" ref="SysDict.A.trxn_seq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApBatchSend" longname="file send book information" dict="false" abstract="false" introduct="false">
+        <element id="file_id" longname="file id" type="BaseType.U_BYTE20" ref="SysDict.A.file_id" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_name" longname="file name" type="BaseType.U_MIDDESC" ref="SysDict.A.file_name" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_server_path" longname="file server path" type="BaseType.U_SHORTDESC" ref="SysDict.A.file_server_path" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_local_path" longname="file local path" type="BaseType.U_SHORTDESC" ref="SysDict.A.file_local_path" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="send_ind" longname="send indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.send_ind" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="append_ok_ind" longname="append success file indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.append_ok_ind" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="hash_value" longname="hash value" type="BaseType.U_LONG" ref="SysDict.A.hash_value" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="send_count" longname="file send count" type="BaseType.U_LONG" ref="SysDict.A.send_count" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApBatchRecv" longname="file receive book information" dict="false" abstract="false" introduct="false">
+        <element id="file_id" longname="file id" type="BaseType.U_BYTE20" ref="SysDict.A.file_id" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_name" longname="file name" type="BaseType.U_MIDDESC" ref="SysDict.A.file_name" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_server_path" longname="file server path" type="BaseType.U_SHORTDESC" ref="SysDict.A.file_server_path" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_local_path" longname="file local path" type="BaseType.U_SHORTDESC" ref="SysDict.A.file_local_path" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="receive_ind" longname="receive indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.receive_ind" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="hash_value" longname="hash value" type="BaseType.U_LONG" ref="SysDict.A.hash_value" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="recevice_count" longname="file recevice count" type="BaseType.U_LONG" ref="SysDict.A.recevice_count" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApRemoteFileList" longname="remote file" dict="false" abstract="false" introduct="false">
+        <element id="file_name" longname="file name" type="BaseType.U_MIDDESC" ref="SysDict.A.file_name" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApSetRequestData" longname="set request data" dict="false" abstract="false" introduct="false">
+        <element id="success_total_count" longname="success total count" type="BaseType.U_LONG" ref="SysDict.A.success_total_count" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="success_total_amt" longname="success total amount" type="BaseType.U_MONEY" ref="SysDict.A.success_total_amt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="calc_chrg_ccy" longname="calculate charge currency" type="BaseType.U_CURRENCY" ref="SysDict.A.calc_chrg_ccy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="calc_chrg_amt" longname="calculate charge amount" type="BaseType.U_MONEY" ref="SysDict.A.calc_chrg_amt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_seq" longname="transaction sequence" type="BaseType.U_SEQNO" ref="SysDict.A.trxn_seq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="return_file_id" longname="return file id" type="BaseType.U_BYTE20" ref="SysDict.A.return_file_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApBatchLoadData" longname="file import data collection" dict="false" abstract="false" introduct="false">
+        <element id="file_id" longname="file id" type="BaseType.U_BYTE20" ref="SysDict.A.file_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_name" longname="file name" type="BaseType.U_MIDDESC" ref="SysDict.A.file_name" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_local_path" longname="file local path" type="BaseType.U_SHORTDESC" ref="SysDict.A.file_local_path" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="busi_batch_code" longname="batch business code" type="BaseType.U_BYTE32" ref="SysDict.A.busi_batch_code" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="busi_batch_id" longname="batch business id" type="BaseType.U_BYTE10" ref="SysDict.A.busi_batch_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApFileHeadInfo" longname="file header information" dict="false" abstract="false" introduct="false">
+        <element id="head_total_count" longname="header total count" type="BaseType.U_LONG" ref="SysDict.A.head_total_count" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApFileRetHeadInfo" longname="return header file information" dict="false" abstract="false" introduct="false">
+        <element id="total_count" longname="total count" type="BaseType.U_LONG" ref="SysDict.A.total_count" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="success_total_count" longname="success total count" type="BaseType.U_LONG" ref="SysDict.A.success_total_count" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApFileReversalData" longname="file file reversal details" dict="false" abstract="false" introduct="false">
+        <element id="trxn_seq" longname="transaction sequence" type="BaseType.U_SEQNO" ref="SysDict.A.trxn_seq" required="false" desc="交易流水" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="busi_seq" longname="buisness sequence" type="BaseType.U_SEQNO" ref="SysDict.A.busi_seq" required="false" desc="业务流水" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="busi_batch_code" longname="batch business code" type="BaseType.U_BYTE32" ref="SysDict.A.busi_batch_code" required="false" desc="文件批量号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="original_trxn_seq" longname="original transaction sequence" type="BaseType.U_SEQNO" ref="SysDict.A.original_trxn_seq" required="false" desc="原交易流水" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="reversal_type" longname="reversal type" type="MsEnumType.E_REVERSALTYPE" ref="SysDict.A.reversal_type" required="false" desc="冲账分类" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrg_reversal_ind" longname="charge reversal indicator" type="MsEnumType.E_YESORNO" ref="SysDict.A.chrg_reversal_ind" required="false" desc="手续费回冲标志" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="voch_reversal_ind" longname="voch reversal indicator" type="MsEnumType.E_YESORNO" ref="SysDict.A.voch_reversal_ind" required="false" desc="凭证回冲标志" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="unfroze_reversal_ind" longname="unfroze reversal indicator" type="MsEnumType.E_YESORNO" ref="SysDict.A.unfroze_reversal_ind" required="false" desc="解冻回冲标志" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_detail_handling_status" longname="file detail handling status" type="EnumType.E_FILEDETAILDEALSTATUS" ref="SysDict.A.file_detail_handling_status" required="false" desc="文件明细处理状态" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="error_id" longname="error id" type="BaseType.U_SHORTDESC" ref="SysDict.A.error_id" required="false" desc="错误ID" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="error_code" longname="error code " type="BaseType.U_SHORTDESC" ref="SysDict.A.error_code" required="false" desc="错误代码" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="error_text" longname="error text" type="BaseType.U_LONGESTDESC" ref="SysDict.A.error_text" required="false" desc="错误信息" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_create_user" longname="data create user" type="BaseType.U_USERID" ref="SysDict.A.data_create_user" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_create_time" longname="data create time" type="BaseType.U_DATETIME" ref="SysDict.A.data_create_time" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_update_user" longname="data update user" type="BaseType.U_USERID" ref="SysDict.A.data_update_user" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_update_time" longname="data update time" type="BaseType.U_DATETIME" ref="SysDict.A.data_update_time" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_version" longname="data version" type="BaseType.U_LONG" ref="SysDict.A.data_version" required="false" default="1" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApFileNotice" longname="file notice" dict="false" abstract="false" introduct="false">
+        <element id="filenm" longname="file name" type="BaseType.U_MIDDESC" ref="SysDict.A.filenm" required="false" desc="文件名" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="flpath" longname="file path" type="BaseType.U_MIDDESC" ref="SysDict.A.flpath" required="false" desc="文件路径" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="filemd" longname="file md5" type="BaseType.U_LONGDESC" ref="SysDict.A.filemd" required="false" desc="文件MD5" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+</schema>

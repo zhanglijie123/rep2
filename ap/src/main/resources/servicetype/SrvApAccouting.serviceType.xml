@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<serviceType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SrvApAccouting" kind="business" longname="internal accounts accounting service" package="cn.sunline.icore.ap.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <description><![CDATA[IOBUS相关服务]]></description>
+    <service id="checkBalance" name="checkBalance" longname="checking balance">
+        <interface>
+            <input packMode="false"/>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="regAccountingEvent" name="regAccountingEvent" longname="registering accounting events">
+        <description><![CDATA[会计事件登记服务]]></description>
+        <interface>
+            <input packMode="false">
+                <field id="ioAccountingEventIn" type="ComApAccounting.ApAccountingEventIn" required="false" multi="false" array="false" longname="input"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="regAccure" name="regAccure" longname="registering accrue">
+        <description><![CDATA[利息计提汇总登记服务]]></description>
+        <interface>
+            <input packMode="false">
+                <field id="input" type="ComApAccounting.ApRecordAccure" required="false" multi="false" array="false" longname="input"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="regLedgerBal" name="regLedgerBal" longname="registering ledger balance">
+        <description><![CDATA[分户账余额登记服务]]></description>
+        <interface>
+            <input packMode="false">
+                <field id="input" type="ComApAccounting.ApRegLedgerBal" required="false" multi="false" array="false" longname="input"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="selAliasInfos" name="selAliasInfos" longname="query accout alias info">
+        <interface>
+            <input packMode="false">
+                <field id="accounting_alias" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="accounting alias" desc="核算别名" ref="SysDict.A.accounting_alias"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="aliasInfo" type="ComApAccounting.ApAccountingEventCtrl" required="false" multi="true" array="false" longname="alias info"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="getAccountingEvent" name="getAccountingEvent" longname="get information of accounting event">
+        <interface>
+            <input packMode="false">
+                <field id="trxn_seq" type="BaseType.U_SEQNO" required="false" multi="false" array="false" longname="transaction sequence" ref="SysDict.A.trxn_seq"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="accEven" type="ComApAccounting.ApAccountingEvent" required="false" multi="true" array="false" longname="accounting event"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="maintainingGlParmCtrl" name="maintainingGlParmCtrl" longname="the maintenance of gl parameters">
+        <description><![CDATA[会计事件控制参数维护服务]]></description>
+        <interface>
+            <input packMode="false">
+                <field id="input" type="ComApAccounting.ApGlParaCtrl" required="false" multi="false" array="false" longname="gl parameter"/>
+            </input>
+            <output asParm="true" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="qryGlParmCtrl" name="qryGlParmCtrl" longname="query accounting alias information">
+        <description><![CDATA[会计事件控制参数查询服务]]></description>
+        <interface>
+            <input packMode="false">
+                <field id="accounting_alias" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="accounting alias" desc="核算别名" ref="SysDict.A.accounting_alias"/>
+                <field id="bal_attributes" type="BaseType.U_BYTE8" required="false" multi="false" array="false" longname="balance attributes" desc="余额属性" ref="SysDict.A.bal_attributes"/>
+                <field id="errer_ctrl_ind" type="MsEnumType.E_YESORNO" required="false" multi="false" array="false" longname="errer ctrol indication" desc="控制报错标志" ref="SysDict.A.errer_ctrl_ind"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="apGlParaCtrl" type="ComApAccounting.ApGlParaCtrl" required="false" multi="false" array="false" longname="ApGlParaCtrl"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

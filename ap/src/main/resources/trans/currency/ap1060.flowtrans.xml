@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1060" longname="query currency information" kind="Q" package="cn.sunline.icore.ap.trans.currency" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.currency.intf">
+        <input packMode="true">
+            <field id="ccy_code" type="BaseType.U_CURRENCY" required="false" multi="false" array="false" longname="currency code" ref="SysDict.A.ccy_code"/>
+            <field id="ccy_name" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="currency name" ref="SysDict.A.ccy_name"/>
+            <field id="country_code" type="BaseType.U_COUNTRY" required="false" multi="false" array="false" longname="country code" ref="SysDict.A.country_code"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <fields id="list01" required="false" multi="true" longname="currency information list" array="false">
+                <field id="ccy_code" type="BaseType.U_CURRENCY" required="false" multi="false" array="false" longname="currency code" ref="SysDict.A.ccy_code"/>
+                <field id="ccy_name" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="currency name" ref="SysDict.A.ccy_name"/>
+                <field id="ccy_num_code" type="BaseType.U_BYTE3" required="false" multi="false" array="false" longname="currency numeric code" ref="SysDict.A.ccy_num_code"/>
+                <field id="country_code" type="BaseType.U_COUNTRY" required="false" multi="false" array="false" longname="country code" ref="SysDict.A.country_code"/>
+                <field id="ccy_minor_unit" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="currency minor unit" ref="SysDict.A.ccy_minor_unit"/>
+                <field id="cale_interest_unit" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="cale interest unit" ref="SysDict.A.cale_interest_unit"/>
+                <field id="ccy_change_unit" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="currency change unit" ref="SysDict.A.ccy_change_unit"/>
+                <field id="data_version" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="data version" ref="SysDict.A.data_version"/>
+            </fields>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApCurrency.queryCurrencyList" id="SrvApCurrency.queryCurrencyList" longname="query currency parameters list">
+            <in_mappings by_interface="true">
+                <mapping src="ccy_code" dest="ccy_code" by_interface="true" on_top="true"/>
+                <mapping src="ccy_name" dest="ccy_name" by_interface="true" on_top="true"/>
+                <mapping src="country_code" dest="country_code" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="queryList" dest="list01" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

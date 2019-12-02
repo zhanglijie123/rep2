@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="ComApSms" package="cn.sunline.icore.ap.type" longname="ap sms" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <complexType id="ApSmsSendInput" longname="sms send input" dict="false" abstract="false" introduct="false">
+        <element id="trxn_event_id" longname="transaction event id" type="BaseType.U_EVENT" ref="SysDict.A.trxn_event_id" required="true" desc="交易事件ID" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="func_scene_type" longname="function scene type" type="EnumType.E_FUNCSCENETYPE" ref="SysDict.A.func_scene_type" required="true" desc="功能场景类别" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApSmsBatchContent" longname="batch sms content" dict="false" abstract="false" introduct="false">
+        <element id="cust_no" longname="customer number" type="BaseType.U_CUSTNO" ref="SysDict.A.cust_no" required="false" desc="客户号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mobile_phone_no" longname="mobile phone number" type="BaseType.U_PHONENO" ref="SysDict.A.mobile_phone_no" required="false" desc="手机号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sms_content" longname="sms content" type="BaseType.U_LONGESTDESC" ref="SysDict.A.sms_content" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApSmsAssembleIn" longname="sms assemble input" dict="false" abstract="false" introduct="false">
+        <element id="sms_template_no" longname="sms template number" type="BaseType.U_BYTE30" ref="SysDict.A.sms_template_no" required="false" desc="短信模板号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sms_language" longname="sms language" type="BaseType.U_BYTE8" ref="SysDict.A.sms_language" required="false" desc="短信语言" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sms_separator_ind" longname="sms separator indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.sms_separator_ind" required="false" desc="短信分隔符标志" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sms_separator" longname="sms separator" type="BaseType.U_BYTE10" ref="SysDict.A.sms_separator" required="false" desc="短信分隔符" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApSmsSendIn" longname="send sms input" dict="false" abstract="false" introduct="false">
+        <element id="sms_content" longname="sms content" type="BaseType.U_LONGESTDESC" ref="SysDict.A.sms_content" required="false" desc="短信内容" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mobile_phone_no" longname="mobile phone number" type="BaseType.U_PHONENO" ref="SysDict.A.mobile_phone_no" required="false" desc="手机号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sms_template_no" longname="sms template number" type="BaseType.U_BYTE30" ref="SysDict.A.sms_template_no" required="false" desc="短信模板号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApSmsSendInfo" longname="sms send information" dict="false" abstract="false" introduct="false">
+        <element id="mobile_phone_no" longname="mobile phone number" type="BaseType.U_PHONENO" ref="SysDict.A.mobile_phone_no" required="false" desc="手机号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sms_content" longname="sms content" type="BaseType.U_LONGESTDESC" ref="SysDict.A.sms_content" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_seq" longname="transaction sequence" type="BaseType.U_SEQNO" ref="SysDict.A.trxn_seq" required="false" desc="交易流水" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="serial_no" longname="serial no" type="BaseType.U_LONG" ref="SysDict.A.serial_no" required="false" desc="序号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+</schema>

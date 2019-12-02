@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ApBasic" longname="business parameter namedsql" package="cn.sunline.icore.ap.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selIdentityList" longname="indetity list inquire">
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="doc_type" ref="SysDict.A.doc_type" jdbcType="VARCHAR" javaType="BaseType.U_IDTYPE" mode="in" longname="identity document type" parameterType="condition"/>
+            <parameter property="doc_desc" ref="SysDict.A.doc_desc" jdbcType="VARCHAR" javaType="BaseType.U_SHORTDESC" mode="in" longname="identity document desc" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBasic.ApIdentityInfo"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select * from app_identity]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[org_id=#org_id#]]></str>
+                    <if test="doc_type!=null &amp;&amp; doc_type!=''" type="If">
+                        <str type="Str"><![CDATA[doc_type like concat('%' , concat(#doc_type# , '%'))]]></str>
+                    </if>
+                    <if test="doc_desc!=null &amp;&amp; doc_desc!=''" type="If">
+                        <str type="Str"><![CDATA[doc_desc like concat('%' , concat(#doc_desc# , '%'))]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by doc_type]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount selectAll" type="sql" id="selHolidayList" longname="holiday infomation list inquire">
+        <parameterMap class="java.util.Map">
+            <parameter property="holiday_code" ref="SysDict.A.holiday_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE8" mode="in" longname="holiday code" parameterType="condition"/>
+            <parameter property="holiday_year" ref="SysDict.A.holiday_year" jdbcType="VARCHAR" javaType="BaseType.U_BYTE4" mode="in" longname="holiday year" parameterType="condition"/>
+            <parameter property="holiday_class" ref="SysDict.A.holiday_class" jdbcType="VARCHAR" javaType="EnumType.E_HOLIDAYCLASS" mode="in" longname="holiday class" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBasic.ApHolidayInfo"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select * from app_holiday]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[holiday_code=#holiday_code#]]></str>
+                    <str type="Str"><![CDATA[holiday_date like  concat(#holiday_year#,'%')]]></str>
+                    <if test="holiday_class!=null" type="If">
+                        <str type="Str"><![CDATA[holiday_class=#holiday_class#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by holiday_date]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectAll" type="sql" id="dynamicDropBrchRelayionCode" longname="dynamic branch branch relation inquire">
+        <sql><![CDATA[select brch_relation_code drop_list_value,brch_relation_desc drop_list_desc from app_branch_relation]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="dynamicDropHolidayCode" longname="dynamic holiday drop list inquire">
+        <sql><![CDATA[select holiday_code drop_list_value, holiday_code drop_list_desc from app_holiday group by holiday_code]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selRoleBrowseBranch" longname="branch inquire by role">
+        <sql><![CDATA[
+    	select
+    	    	branch_id 
+    	FROM
+    	    	apb_branch 
+    	where
+    	    	instr(#role_collection#, '@' || branch_id ) > 0 
+    	union
+    	select
+    	    	distinct a.resource_value 
+    	from
+    	    	ctp_role_assign a 
+    	where
+    	    	instr(#role_collection#, a.role_id || ',' ) > 0 and a.resource_type = 'C' 
+    	    	and a.org_id = #busi_org_id# 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	branch_id 
+    	FROM
+    	    	apb_branch 
+    	where
+    	    	instr(#role_collection#, concat('@',branch_id)) > 0 
+    	union
+    	select
+    	    	distinct a.resource_value 
+    	from
+    	    	ctp_role_assign a 
+    	where
+    	    	instr(#role_collection#, concat(a.role_id,',')) > 0 and a.resource_type = 'C' 
+    	    	and a.org_id = #busi_org_id# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="role_collection" ref="SysDict.A.role_collection" jdbcType="VARCHAR" javaType="BaseType.U_BYTE400" mode="in" longname="role collection" parameterType="condition"/>
+            <parameter property="busi_org_id" ref="SysDict.A.busi_org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="business organization id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.util.List"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="dynamicBrowseBranchList" longname="branch inquire by role">
+        <sql><![CDATA[
+    	select
+    	    	branch_id as drop_list_value,branch_name as drop_list_desc 
+    	FROM
+    	    	apb_branch 
+    	where
+    	    	instr(#role_collection#, '@' || branch_id ) > 0 
+    	union
+    	select
+    	    	distinct b.branch_id as drop_list_value,b.branch_name as drop_list_desc 
+    	from
+    	    	ctp_role_assign a 
+    	inner join
+    	    	apb_branch b 
+    	    	    	on a.resource_value = b.branch_id 
+    	where
+    	    	instr(#role_collection#, a.role_id || ',' ) > 0 and a.resource_type = 'C' 
+    	    	and a.org_id = #busi_org_id# 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	branch_id as drop_list_value,branch_name as drop_list_desc 
+    	FROM
+    	    	apb_branch 
+    	where
+    	    	instr(#role_collection#, concat('@',branch_id)) > 0 
+    	union
+    	select
+    	    	distinct b.branch_id as drop_list_value,b.branch_name as drop_list_desc 
+    	from
+    	    	ctp_role_assign a 
+    	inner join
+    	    	apb_branch b 
+    	    	    	on a.resource_value = b.branch_id 
+    	where
+    	    	instr(#role_collection#, concat(a.role_id,',')) > 0 and a.resource_type = 'C' 
+    	    	and a.org_id = #busi_org_id# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="role_collection" ref="SysDict.A.role_collection" jdbcType="VARCHAR" javaType="BaseType.U_BYTE400" mode="in" longname="role collection" parameterType="condition"/>
+            <parameter property="busi_org_id" ref="SysDict.A.busi_org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="business organization id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+    </select>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="dynamicDropListValue" longname="dynamic inquire drop list value">
+        <parameterMap class="java.util.Map">
+            <parameter property="drop_list_type" ref="SysDict.A.drop_list_type" jdbcType="VARCHAR" javaType="BaseType.U_BYTE32" mode="in" longname="drop list type" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select drop_list_value,drop_list_desc  from msp_drop_list]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="drop_list_type != null" type="If">
+                        <str type="Str"><![CDATA[drop_list_type =#drop_list_type#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[ enable_ind = 'Y']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectAll" type="sql" id="dynamicSystemNameInfo" longname="dynamic inquire system name information">
+        <sql><![CDATA[select system_id drop_list_value,system_name drop_list_desc from app_system where system_id=#system_id#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="system_id" ref="SysDict.A.system_id" jdbcType="VARCHAR" javaType="BaseType.U_SYSTEM" mode="in" longname="system id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selAppDrop" longname="query drop information">
+        <sql><![CDATA[select drop_list_type as drop_list_value,drop_list_name as drop_list_desc from msp_drop]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+    </select>
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selHolidayWithDate" longname="holiday infomation inquire with date">
+        <parameterMap class="java.util.Map">
+            <parameter property="holiday_class" ref="SysDict.A.holiday_class" jdbcType="VARCHAR" javaType="EnumType.E_HOLIDAYCLASS" mode="in" longname="holiday class" parameterType="condition"/>
+            <parameter property="holiday_code" ref="SysDict.A.holiday_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE8" mode="in" longname="holiday code" parameterType="condition"/>
+            <parameter property="holiday_date" ref="SysDict.A.holiday_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="holiday date" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBasic.ApHolidayInfo"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select * from app_holiday]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="holiday_class!=null" type="If">
+                        <str type="Str"><![CDATA[holiday_class=#holiday_class#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[holiday_code=#holiday_code#]]></str>
+                    <str type="Str"><![CDATA[holiday_date=#holiday_date#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selBusinessParmDetail" longname="selBusinessParmDetail">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	MspParameter 
+    	where
+    	    	main_key = #main_key# and sub_key = #sub_key# 
+    	    	and org_id = #org_id# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="main_key" ref="SysDict.A.main_key" jdbcType="VARCHAR" javaType="BaseType.U_BYTE32" mode="in" longname="main key" parameterType="condition"/>
+            <parameter property="sub_key" ref="SysDict.A.sub_key" jdbcType="VARCHAR" javaType="BaseType.U_BYTE32" mode="in" longname="sub key" parameterType="condition"/>
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="MsCoreTable.MspParameter"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="dynamicCcyCode" longname="dynamic ccy code">
+        <sql><![CDATA[select ccy_code drop_list_value, ccy_name drop_list_desc from app_currency]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="dynamicChannelList" longname="Dynamic Query Channel List Info">
+        <sql><![CDATA[ SELECT channel_id drop_list_value, channel_desc drop_list_desc FROM msp_channel;
+]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+    </select>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selTableWithCount" longname="select table with count">
+        <parameterMap class="java.util.Map">
+            <parameter property="table_name" ref="SysDict.A.table_name" jdbcType="VARCHAR" javaType="BaseType.U_TABLENAME" mode="in" longname="db table name" parameterType="condition"/>
+            <parameter property="order_by_column" ref="SysDict.A.order_by_column" jdbcType="VARCHAR" javaType="BaseType.U_BYTE200" mode="in" longname="order by column" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.util.Map"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select * from ${table_name}
+order by ${order_by_column}]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectAll" type="sql" id="dynamicDropInfoType" longname="dynamic query drop information type">
+        <sql><![CDATA[SELECT drop_list_type AS drop_list_value,drop_list_name AS drop_list_desc FROM msp_drop
+]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="dynamicDropListValueByType" longname="dynamic query drop list value">
+        <sql><![CDATA[SELECT 
+	b.drop_list_value,b.drop_list_desc
+FROM 
+	msp_drop a,msp_drop_list b
+WHERE 
+	a.drop_list_type = b.drop_list_type AND a.drop_list_type=#drop_list_type# order by data_sort
+
+]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="drop_list_type" ref="SysDict.A.drop_list_type" jdbcType="VARCHAR" javaType="BaseType.U_BYTE32" mode="in" longname="drop list type" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+    </select>
+    <select cache="none" method="selectFirst" type="sql" id="selectApplimitInfo" longname="query limit infomation">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	app_limit 
+    	where
+    	    	limit_no=#limit_no# and effect_date<=#effect_date# 
+    	    	and expiry_date>=#effect_date#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="limit_no" ref="SysDict.A.limit_no" jdbcType="VARCHAR" javaType="BaseType.U_LIMITNO" mode="in" longname="limit no" parameterType="condition"/>
+            <parameter property="effect_date" ref="SysDict.A.effect_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="effect date" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="TabApAttribute.app_limit"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="dynamicDroplsBalAttribute" longname="dynamic drop list of balance attribute">
+        <sql><![CDATA[
+
+SELECT bal_attributes AS drop_list_value,bal_attributes_name AS drop_list_desc FROM lnp_bal_attributes
+
+]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="dynamicTransactionList" longname="dynamic transaction code">
+        <sql><![CDATA[select trxn_code drop_list_value,trxn_desc drop_list_desc from msp_transaction]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+    </select>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="dynamicDropListBySuper" longname="query dynamic drop list by  super value">
+        <parameterMap class="java.util.Map">
+            <parameter property="drop_list_type" ref="MsDict.Comm.drop_list_type" jdbcType="VARCHAR" javaType="MsType.U_BYTE32" mode="in" longname="drop list type" parameterType="condition"/>
+            <parameter property="super_drop_list_value" ref="MsDict.Comm.super_drop_list_value" jdbcType="VARCHAR" javaType="MsType.U_BYTE64" mode="in" longname="super drop list value" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select drop_list_value,drop_list_desc  from  msp_drop_list]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="drop_list_type != null &amp;&amp; drop_list_type != ''" type="If">
+                        <str type="Str"><![CDATA[drop_list_type = #drop_list_type#]]></str>
+                    </if>
+                    <if test="super_drop_list_value != null &amp;&amp; super_drop_list_value != ''" type="If">
+                        <str type="Str"><![CDATA[super_drop_list_value = #super_drop_list_value#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[ enable_ind = 'Y']]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by  drop_list_type,drop_list_value]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+</sqls>

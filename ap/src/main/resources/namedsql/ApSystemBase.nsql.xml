@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls id="ApSystemBase" longname="system base namedsql" package="cn.sunline.icore.ap.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <select cache="none" method="selectAll" type="sql" id="selPartitions" longname="partitions tables inquire">
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	partition_name 
+    	from
+    	    	USER_TAB_PARTITIONS 
+    	where
+    	    	table_name = #table_name# 
+    	order by
+    	    	partition_name desc
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	SELECT
+    	    	partition_name 
+    	FROM
+    	    	INFORMATION_SCHEMA.PARTITIONS 
+    	WHERE
+    	    	table_name = #table_name# AND table_schema = schema() AND partition_name IS NOT NULL 
+    	ORDER BY
+    	    	partition_ordinal_position desc
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="table_name" ref="SysDict.A.table_name" jdbcType="VARCHAR" javaType="BaseType.U_TABLENAME" mode="in" longname="db table name" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <delete method="delete" id="delSeqMapping" longname="delete seq mapping table data">
+        <sql type="mysql"><![CDATA[
+    	delete * 
+    	from
+    	    	mss_seq_mapping${slice_no} 
+    	where
+    	    	trxn_date < #trxn_date# limit ${total_count}
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="slice_no" ref="SysDict.A.slice_no" jdbcType="VARCHAR" javaType="BaseType.U_BYTE32" mode="in" longname="slice no" parameterType="condition"/>
+            <parameter property="total_count" ref="SysDict.A.total_count" jdbcType="VARCHAR" javaType="BaseType.U_LONG" mode="in" longname="total count" parameterType="condition"/>
+            <parameter property="trxn_date" ref="SysDict.A.trxn_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="transaction date" parameterType="condition"/>
+        </parameterMap>
+    </delete>
+</sqls>

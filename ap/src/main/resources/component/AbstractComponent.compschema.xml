@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<componentSchema id="AbstractComponent" package="cn.sunline.icore.ap.component" longname="Abstract component definition" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[抽象组件定义]]></description>
+    <abstractComponentInstance id="FileTransfer" type="ApBaseComp.FileTransfer" longname="File transfer abstract components">
+        <description><![CDATA[文件传输抽象组件]]></description>
+    </abstractComponentInstance>
+    <abstractComponentInstance id="MessageTranExecutor" type="ApBaseComp.TransExecutor" longname="SMS outbound communication components">
+        <description><![CDATA[短信外发通讯组件]]></description>
+    </abstractComponentInstance>
+    <abstractComponentInstance id="MessageAppc" type="ApBaseComp.Appc" longname="SMS communication components">
+        <description><![CDATA[短信通讯组件]]></description>
+    </abstractComponentInstance>
+    <abstractComponentInstance id="MessagePkgHeader" type="ApBaseComp.PkgHeader" longname="SMS communication packet header processing components">
+        <description><![CDATA[短信通讯报文头处理组件]]></description>
+    </abstractComponentInstance>
+    <abstractComponentInstance id="MessagePack" type="ApBaseComp.Pack" longname="SMS communication packet group package components">
+        <description><![CDATA[短信通讯报文组包组件]]></description>
+    </abstractComponentInstance>
+    <abstractComponentInstance id="FingerIdentify" type="ApBaseComp.FPI" longname="Fingerprint recognition abstract components">
+        <description><![CDATA[指纹识别抽象组件]]></description>
+    </abstractComponentInstance>
+    <abstractComponentInstance id="AbsSecurity" type="ApBaseComp.Security" longname="Abstract security component definition">
+        <description><![CDATA[抽象的安全组件定义]]></description>
+    </abstractComponentInstance>
+    <abstractComponentInstance id="AbsSendMesssage" type="ApBaseComp.SendMessage" longname="Abstract SMS notification component definition">
+        <description><![CDATA[抽象的短信通知组件定义]]></description>
+    </abstractComponentInstance>
+    <abstractComponentInstance id="BlackListCheckAppc" type="ApBaseComp.TransExecutor" longname="black list check communication components"/>
+    <abstractComponentInstance id="SFTPFileTransfer" type="ApBaseComp.FileTransfer" longname="File transfer abstract components(SFTP)">
+        <description><![CDATA[文件传输抽象组件(SFTP方式)]]></description>
+    </abstractComponentInstance>
+    <abstractComponentInstance id="GFMSFileTransfer" type="ApBaseComp.FileTransfer" longname="CIMB GFMS FileTransfer"/>
+    <abstractComponentInstance id="AbsSendMail" type="ApBaseComp.SendMail" longname="Abstract mail send component definition"/>
+</componentSchema>

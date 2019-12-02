@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="TabApAttribute" package="cn.sunline.icore.ap.tables" longname="attribute &amp; limit" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <table id="app_attribute" name="app_attribute" longname="attribute define" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="attr_level" longname="attribute level" type="EnumType.E_OWNERLEVEL" ref="SysDict.A.attr_level" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="attr_position" longname="attribute position" type="BaseType.U_LONG" ref="SysDict.A.attr_position" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="attr_desc" longname="attribute describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.attr_desc" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="attr_expiry_ind" longname="attribute expiry indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.attr_expiry_ind" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="ref_drop_list" longname="refence drop_list" type="BaseType.U_BYTE32" ref="SysDict.A.ref_drop_list" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="default_value" longname="default value" type="BaseType.U_BYTE1" ref="SysDict.A.default_value" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="attr_level attr_position" operate="selectOne deleteOne updateOne"/>
+            <index id="odb2" type="index" fields="attr_level" sort="attr_position" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_attribute_idx1" type="primarykey" fields="attr_level attr_position org_id">
+                <ddls/>
+            </index>
+        </indexes>
+        <description><![CDATA[各种业务的属性位统一在此定义]]></description>
+    </table>
+    <table id="app_attribute_mutex" name="app_attribute_mutex" longname="attribute mutex define" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="attr_mutex_id" longname="attribute mutex id" type="BaseType.U_BYTE16" ref="SysDict.A.attr_mutex_id" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="attr_mutex_desc" longname="attribute mutex describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.attr_mutex_desc" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="attr_level" longname="attribute level" type="EnumType.E_OWNERLEVEL" ref="SysDict.A.attr_level" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="mapping_expression" longname="mapping expression" type="BaseType.U_SHORTDESC" ref="SysDict.A.mapping_expression" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="show_error_info" longname="show error infomation" type="BaseType.U_MIDDESC" ref="SysDict.A.show_error_info" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="attr_mutex_id" operate="selectOne deleteOne updateOne"/>
+            <index id="odb2" type="index" fields="attr_level" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_attribute_mutex_idx1" type="primarykey" fields="attr_mutex_id org_id">
+                <ddls/>
+            </index>
+        </indexes>
+        <description><![CDATA[属性位之间若存在业务上的互斥规则可在此定义，属性设置后需检查此规则库]]></description>
+    </table>
+    <table id="app_limit" name="app_limit" longname="limit define" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="limit_no" longname="limit no" type="BaseType.U_LIMITNO" ref="SysDict.A.limit_no" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="limit_desc" longname="limit describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.limit_desc" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="effect_date" longname="effect date" type="BaseType.U_DATE" ref="SysDict.A.effect_date" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="expiry_date" longname="expiry date" type="BaseType.U_DATE" ref="SysDict.A.expiry_date" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="limit_level" longname="limit level" type="EnumType.E_OWNERLEVEL" ref="SysDict.A.limit_level" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="limit_ctrl_class" longname="limit control class" type="EnumType.E_LIMITCTRLCLASS" ref="SysDict.A.limit_ctrl_class" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="limit_reset_cycle" longname="limit reset cycle" type="EnumType.E_CYCLETYPE" ref="SysDict.A.limit_reset_cycle" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="limit_statis_no" longname="limit statis no" type="BaseType.U_BYTE16" ref="SysDict.A.limit_statis_no" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="owner_mart" longname="owner mart" type="BaseType.U_TABLENAME" ref="SysDict.A.owner_mart" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="owner_field" longname="owner field" type="BaseType.U_FIELDNAME" ref="SysDict.A.owner_field" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="limit_ccy" longname="limit currency" type="BaseType.U_BYTE3" ref="SysDict.A.limit_ccy" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="limit_value" longname="limit value" type="BaseType.U_MONEY" ref="SysDict.A.limit_value" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="limit_custom_allow" longname="limit_custom_allow" type="MsEnumType.E_YESORNO" ref="SysDict.A.limit_custom_allow" primarykey="false" final="false" default="N" nullable="true" identity="false" allowSubType="true"/>
+            <field id="min_limit_value" longname="min limit value" type="BaseType.U_MONEY" ref="SysDict.A.min_limit_value" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="max_limit_value" longname="max limit value" type="BaseType.U_MONEY" ref="SysDict.A.max_limit_value" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="limit_sms_template_no" longname="limit SMS template" type="BaseType.U_SMSNO" ref="SysDict.A.limit_sms_template_no" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="index" fields="limit_no" operate="selectAll"/>
+            <index id="odb2" type="index" fields="limit_statis_no" operate="selectAll"/>
+            <index id="odb3" type="primarykey" fields="limit_no effect_date" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_limit_idx1" type="primarykey" fields="limit_no effect_date org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_limit_drive" name="app_limit_drive" longname="limit drive define" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="limit_no" longname="limit no" type="BaseType.U_LIMITNO" ref="SysDict.A.limit_no" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="trxn_event_id" longname="transaction event id" type="BaseType.U_EVENT" ref="SysDict.A.trxn_event_id" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="limit_drive_cond" longname="limit drive condition" type="BaseType.U_RULEID" ref="SysDict.A.limit_drive_cond" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="limit_sum_way" longname="limit sum way " type="EnumType.E_ADDSUBTRACT" ref="SysDict.A.limit_sum_way" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="index" fields="trxn_event_id" operate="selectAll selectPageWithCount"/>
+            <index id="odb2" type="index" fields="limit_no" sort="trxn_event_id" operate="selectAll selectPageWithCount"/>
+            <index id="odb3" type="primarykey" fields="limit_no trxn_event_id" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_limit_drive_idx1" type="primarykey" fields="limit_no trxn_event_id org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="apb_custom_limit" name="apb_custom_limit" longname="limit by sub account" category="B" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="limit_owner_id" longname="limit owner id" type="BaseType.U_BYTE64" ref="SysDict.A.limit_owner_id" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="limit_no" longname="limit no" type="BaseType.U_LIMITNO" ref="SysDict.A.limit_no" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="custom_limit_value" longname="custom limit value" type="BaseType.U_MONEY" ref="SysDict.A.custom_limit_value" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="limit_owner_id limit_no" operate="selectOne updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="apb_custom_limit_idx1" type="primarykey" fields="limit_owner_id limit_no org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="apb_limit_statis" name="apb_limit_statis" longname="limit statis book" category="B" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="limit_owner_id" longname="limit owner id" type="BaseType.U_BYTE64" ref="SysDict.A.limit_owner_id" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="limit_statis_no" longname="limit statis no" type="BaseType.U_BYTE16" ref="SysDict.A.limit_statis_no" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="used_limit" longname="used limit" type="BaseType.U_MONEY" ref="SysDict.A.used_limit" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="limit_update_date" longname="limit update date" type="BaseType.U_DATE" ref="SysDict.A.limit_update_date" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="limit_reset_date" longname="limit reset date" type="BaseType.U_DATE" ref="SysDict.A.limit_reset_date" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="limit_owner_id limit_statis_no" operate="selectOne updateOne selectOneWithLock"/>
+            <index id="odb2" type="index" fields="used_limit limit_update_date" operate="update"/>
+        </odbindexes>
+        <indexes>
+            <index id="apb_limit_statis_idx1" type="primarykey" fields="limit_owner_id limit_statis_no org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_attribute_due" name="app_attribute_due" longname="attribute due date define" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="attr_level" longname="attribute level" type="EnumType.E_OWNERLEVEL" ref="SysDict.A.attr_level" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="attr_owner_id" longname="attribute owner id" type="BaseType.U_ACCTNO" ref="SysDict.A.attr_owner_id" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="attr_position" longname="attribute position" type="BaseType.U_LONG" ref="SysDict.A.attr_position" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="attr_due_date" longname="attribute due date" type="BaseType.U_DATE" ref="SysDict.A.attr_due_date" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="attr_level attr_owner_id attr_position" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+            <index id="odb2" type="index" fields="attr_level attr_owner_id" sort="attr_position" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_attribute_due_idx1" type="primarykey" fields="attr_level attr_owner_id attr_position org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+</schema>

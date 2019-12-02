@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SrvApTrxn" kind="business" longname="transaction flow service" package="cn.sunline.icore.ap.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <service id="registerApsTransaction" name="registerApsTransaction" longname="registration transaction flow">
+        <interface>
+            <input packMode="false">
+                <field id="trxn_info" type="ComApBook.ApTransactionInfo" required="false" multi="false" array="false" longname="transaction information"/>
+            </input>
+            <output asParm="true" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="searchReport" name="searchReport" longname="query report flow">
+        <interface>
+            <input packMode="false">
+                <field id="trxn_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="transaction date" ref="SysDict.A.trxn_date"/>
+                <field id="branch_id" type="BaseType.U_BRANCHID" required="false" multi="false" array="false" longname="branch id" ref="SysDict.A.branch_id"/>
+                <field id="report_name" type="BaseType.U_MIDDESC" required="false" multi="false" array="false" longname="report name" ref="SysDict.A.report_name"/>
+                <field id="report_id" type="BaseType.U_BYTE64" required="false" multi="false" array="false" longname="report id" ref="SysDict.A.report_id"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="list01" type="ComApBook.ApQueryReportOut" required="false" multi="true" array="false" longname="query report flow output"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="genTransReconFile" name="genTransReconFile" longname="Generate transaction flow reconciliation">
+        <interface>
+            <input packMode="false">
+                <field id="trxnIn" type="ComApBook.ApTransReconIn" required="false" multi="false" array="false" longname="Trading flow reconciliation input"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="trxnOut" type="ComApBook.ApTransReconOut" required="false" multi="false" array="false" longname="Trading flow reconciliation output"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

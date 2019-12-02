@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ApDataSyncBase" longname="data sync namedsql" package="cn.sunline.icore.ap.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <select cache="none" method="selectAll" type="sql" id="selDataSyncGroup" longname="select data sync group">
+        <sql><![CDATA[
+    	select
+    	    	distinct receive_system_id 
+    	from
+    	    	aps_data_sync 
+    	where
+    	    	data_sync_status=#data_sync_status#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="data_sync_status" ref="SysDict.A.data_sync_status" jdbcType="VARCHAR" javaType="MsEnumType.E_YESORNO" mode="in" longname="data synchronization status" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApDataSync.ApDataSyncGroup"/>
+    </select>
+    <update method="update" id="updateBatchNoByLimit" longname="update batch no">
+        <sql><![CDATA[
+    	update
+    	    	aps_data_sync 
+    	set
+    	    	batch_no=#batch_no# 
+    	where
+    	    	receive_system_id=#receive_system_id# and data_sync_status='N' LIMIT #max_sync_no#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="batch_no" ref="SysDict.A.batch_no" jdbcType="VARCHAR" javaType="BaseType.U_SEQNO" mode="in" longname="batch number" parameterType="condition"/>
+            <parameter property="max_sync_no" ref="SysDict.A.max_sync_no" jdbcType="VARCHAR" javaType="BaseType.U_LONG" mode="in" longname="max synchronization number" parameterType="condition"/>
+            <parameter property="receive_system_id" ref="SysDict.A.receive_system_id" jdbcType="VARCHAR" javaType="BaseType.U_BYTE16" mode="in" longname="receive system id" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectAll" type="sql" id="selDmlByBatchNo" longname="select dml by batch no">
+        <sql><![CDATA[
+    	select
+    	    	a.data_operate_dml 
+    	from
+    	    	apb_data_operate a 
+    	left join
+    	    	aps_data_sync b 
+    	    	    	on a.trxn_seq = b.trxn_seq 
+    	where
+    	    	b.batch_no=#batch_no# and b.data_sync_status='N' 
+    	ORDER BY
+    	    	a.data_operate_id
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="batch_no" ref="SysDict.A.batch_no" jdbcType="VARCHAR" javaType="BaseType.U_SEQNO" mode="in" longname="batch number" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <update method="update" id="updateStatusByBatchNo" longname="update status by batch no">
+        <sql><![CDATA[
+    	update
+    	    	aps_data_sync 
+    	set
+    	    	data_sync_status = #data_sync_status# 
+    	where
+    	    	batch_no=#batch_no#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="batch_no" ref="SysDict.A.batch_no" jdbcType="VARCHAR" javaType="BaseType.U_SEQNO" mode="in" longname="batch number" parameterType="condition"/>
+            <parameter property="data_sync_status" ref="SysDict.A.data_sync_status" jdbcType="VARCHAR" javaType="MsEnumType.E_YESORNO" mode="in" longname="data synchronization status" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updateBatchNoEmptyByBatchNo" longname="update batch no empty by batch no">
+        <sql><![CDATA[
+    	update
+    	    	aps_data_sync 
+    	set
+    	    	batch_no= '' 
+    	where
+    	    	batch_no=#batch_no#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="batch_no" ref="SysDict.A.batch_no" jdbcType="VARCHAR" javaType="BaseType.U_SEQNO" mode="in" longname="batch number" parameterType="condition"/>
+        </parameterMap>
+    </update>
+</sqls>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ApFileBase" longname="file namedsql" package="cn.sunline.icore.ap.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <select cache="none" method="selectOne" type="sql" id="selFileReversalHeadInfo" longname="Get fiel reversal counteroffer to the header file information">
+        <sql><![CDATA[
+    	select
+    	    	count(1) as total_count, SUM(CASE File_Detail_handling_status WHEN 'S' THEN 1 ELSE 0 END) as success_total_count 
+    	from
+    	    	apb_file_reversal 
+    	where
+    	    	org_id = #org_id# and busi_batch_code = #busi_batch_code# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="busi_batch_code" ref="SysDict.A.busi_batch_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE32" mode="in" longname="batch business code" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApFile.ApFileRetHeadInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selFileReversalRecord" longname="Get a file reversal detail record">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	apb_file_reversal 
+    	where
+    	    	org_id = #org_id# and busi_batch_code = #busi_batch_code# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="busi_batch_code" ref="SysDict.A.busi_batch_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE32" mode="in" longname="batch business code" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApFile.ApFileReversalData"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selUnloadData" longname="select unload data">
+        <sql><![CDATA[
+    	select
+    	    	*
+    	from
+    	    	app_unload_data 
+    	where
+    	    	valid_ind=#valid_ind#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="valid_ind" ref="SysDict.A.valid_ind" jdbcType="VARCHAR" javaType="MsEnumType.E_YESORNO" mode="in" longname="valid indicator" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="TabApDataMigration.app_unload_data"/>
+    </select>
+	<select cache="none" method="selectAll" type="sql" id="selDirectoryData" longname="data from app_directory">
+        <sql><![CDATA[
+    	select 
+    			* 
+   		from 
+   				app_directory 
+  		where 
+  				dir_code = #dir_code# 
+  		order by data_sort;
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="dir_code" ref="SysDict.A.dir_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE32" mode="in" longname="directory code" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="TabApFile.AppDirectory"/>
+    </select>
+</sqls>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="TabApHotAccount" package="cn.sunline.icore.ap.tables" longname="hot account" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <table id="app_hot_type" name="app_hot_type" longname="hotspot type" tableType="ORDINARY" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="hot_type" longname="hotspot type" type="EnumType.E_HOTTYPE" ref="SysDict.A.hot_type" primarykey="false" final="false" nullable="true" desc="热点类型" identity="false" allowSubType="true"/>
+            <field id="hot_mode" longname="hotspot control mode" type="EnumType.E_HOTMODE" ref="SysDict.A.hot_mode" primarykey="false" final="false" nullable="true" desc="控制类型" identity="false" allowSubType="true"/>
+            <field id="hot_way" longname="hotspot  control way" type="EnumType.E_CONTROLWAY" ref="SysDict.A.hot_way" primarykey="false" final="false" nullable="true" desc="控制方式" identity="false" allowSubType="true"/>
+            <field id="hot_desc" longname="hotspot description" type="BaseType.U_SHORTDESC" ref="SysDict.A.hot_desc" primarykey="false" final="false" nullable="true" desc="热点描述" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="hot_type" operate="selectOne deleteOne updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_hot_type_uk1" type="unique" fields="hot_type org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="apb_hot_defn" name="apb_hot_defn" longname="hotspot definition" tableType="ORDINARY" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="hot_subject" longname="hotspot subject" type="BaseType.U_BYTE30" primarykey="false" final="false" nullable="true" desc="热点主体" identity="false" allowSubType="true"/>
+            <field id="hot_type" longname="hotspot type" type="EnumType.E_HOTTYPE" ref="SysDict.A.hot_type" primarykey="false" final="false" nullable="true" desc="热点类型" identity="false" allowSubType="true"/>
+            <field id="group_no" longname="group number" type="BaseType.U_BYTE2" primarykey="false" final="false" nullable="true" desc="分组号" identity="false" allowSubType="true"/>
+            <field id="effect_date" longname="effect date" type="BaseType.U_DATE" primarykey="false" final="false" nullable="true" desc="生效日期" identity="false" allowSubType="true"/>
+            <field id="invalid_date" longname="invalid date" type="BaseType.U_DATE" primarykey="false" final="false" nullable="true" desc="失效日期" identity="false" allowSubType="true"/>
+            <field id="hot_status" longname="hotspot status" type="EnumType.E_HOTSTATUS" ref="SysDict.A.hot_status" primarykey="false" final="false" nullable="true" desc="热点状态" identity="false" allowSubType="true"/>
+            <field id="bal_direction" longname="balance direction" type="BaseType.U_BYTE1" primarykey="false" final="false" nullable="true" desc="余额方向" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="hot_subject" operate="selectOne deleteOne updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="apb_hot_defn_uk1" type="unique" fields="hot_subject org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_hot_sydt" name="app_hot_sydt" longname="hotspot system date" tableType="ORDINARY" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="hot_before_date" longname="hotspot before date" type="BaseType.U_DATE" primarykey="false" final="false" nullable="true" desc="热点上上日期" identity="false" allowSubType="true"/>
+            <field id="hot_last_date" longname="hotspot last date" type="BaseType.U_DATE" primarykey="false" final="false" nullable="true" desc="热点上日日期" identity="false" allowSubType="true"/>
+            <field id="hot_sys_date" longname="hotspot date" type="BaseType.U_DATE" primarykey="false" final="false" nullable="true" desc="热点日期" identity="false" allowSubType="true"/>
+            <field id="hot_next_date" longname="hotspot next date" type="BaseType.U_DATE" primarykey="false" final="false" nullable="true" desc="热点下日日期" identity="false" allowSubType="true"/>
+            <field id="hot_after_date" longname="hotspot after date" type="BaseType.U_DATE" primarykey="false" final="false" nullable="true" desc="热点下下日期" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="org_id" operate="selectOne updateOne selectOneWithLock" cache="trans"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_hot_sydt_uk1" type="unique" fields="org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="apb_hot_not_rels" name="app_hot_not_rels" longname="hotspot quota has not released errors" tableType="ORDINARY" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="trxn_date" longname="transaction date" type="BaseType.U_DATE" ref="SysDict.A.trxn_date" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="trxn_seq" longname="transaction sequence" type="BaseType.U_SEQNO" ref="SysDict.A.trxn_seq" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="data_sort" longname="data sort" type="BaseType.U_LONG" ref="SysDict.A.data_sort" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="hot_type" longname="hostpot type" type="EnumType.E_HOTTYPE" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="hot_subject" longname="hotspot subject" type="BaseType.U_BYTE30" primarykey="false" final="false" nullable="true" desc="热点主体" identity="false" allowSubType="true"/>
+            <field id="bal_type" longname="type of balance" type="MsEnumType.E_DEBITCREDIT" primarykey="false" final="false" nullable="true" desc="余额方向" identity="false" allowSubType="true"/>
+            <field id="trxn_amt" longname="transaction amount" type="BaseType.U_MONEY" ref="SysDict.A.trxn_amt" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="reversal_ind" longname="reversal indicate" type="EnumType.E_RECERSALIND" primarykey="false" final="false" nullable="true" desc="是否冲正标志" identity="false" allowSubType="true"/>
+            <field id="hot_deal_status" longname="hotspot deal status" type="EnumType.E_HOTDEALSTATUS" primarykey="false" final="false" nullable="true" desc="热点处理状态" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <indexes>
+            <index id="apb_hot_not_rels_uk1" type="unique" fields="trxn_date trxn_seq  org_id">
+                <ddls/>
+            </index>
+            <index id="apb_hot_not_rels_uk2" type="unique" fields="trxn_date trxn_seq  org_id">
+                <ddls/>
+            </index>
+            <index id="apb_hot_not_rels_idx1" type="index" fields="hot_type hot_subject  org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="apb_hot_fail_sumy" name="apb_hot_fail_sumy" longname="hotspot quota summary error" tableType="ORDINARY" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="trxn_amt" longname="transaction amount" type="BaseType.U_MONEY" ref="SysDict.A.trxn_amt" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="hot_type" longname="hostpot type" type="EnumType.E_HOTTYPE" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="hot_subject" longname="hotspot subject" type="BaseType.U_BYTE30" primarykey="false" final="false" nullable="true" desc="热点主体" identity="false" allowSubType="true"/>
+            <field id="adjust_direction" longname="adjust direction" type="MsEnumType.E_DEBITCREDIT" primarykey="false" final="false" nullable="true" desc="调整方向" identity="false" allowSubType="true"/>
+            <field id="adjust_amt" longname="adjust amount" type="BaseType.U_MONEY" primarykey="false" final="false" nullable="true" desc="调整金额" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <indexes>
+            <index id="apb_hot_fail_sumy_idx1" type="index" fields="hot_type hot_subject  org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="apb_hot_bal" name="apb_hot_bal" longname="hotspot balance" tableType="ORDINARY" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="hot_account" longname="hotspot account" type="BaseType.U_ACCTNO" primarykey="false" final="false" nullable="true" desc="热点账户" identity="false" allowSubType="true"/>
+            <field id="balnce" longname="account balance" type="BaseType.U_MONEY" primarykey="false" final="false" nullable="true" desc="余额" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="hot_account" operate="selectOne deleteOne updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="apb_hot_bal_uk1" type="unique" fields="hot_account org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="apb_hot_bal_dtl" name="apb_hot_bal_dtl" longname="hotspot balance detail" tableType="ORDINARY" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="trxn_date" longname="transaction date" type="BaseType.U_DATE" ref="SysDict.A.trxn_date" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="trxn_seq" longname="transaction sequence" type="BaseType.U_SEQNO" ref="SysDict.A.trxn_seq" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="hot_account" longname="hotspot account" type="BaseType.U_ACCTNO" primarykey="false" final="false" nullable="true" desc="热点账户" identity="false" allowSubType="true"/>
+            <field id="trxn_amt" longname="transaction amount" type="BaseType.U_MONEY" ref="SysDict.A.trxn_amt" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="bal_type" longname="type of balance" type="MsEnumType.E_DEBITCREDIT" primarykey="false" final="false" nullable="true" desc="余额方向" identity="false" allowSubType="true"/>
+            <field id="remain_bal" longname="remain balance" type="BaseType.U_MONEY" primarykey="false" final="false" nullable="true" desc="交易后余额" identity="false" allowSubType="true"/>
+            <field id="hot_deal_status" longname="hotspot deal status" type="EnumType.E_HOTDEALSTATUS" primarykey="false" final="false" nullable="true" desc="热点处理状态" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes/>
+        <indexes>
+            <index id="apb_hot_bal_dtl_uk1" type="unique" fields="trxn_date trxn_seq hot_account org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+</schema>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SrvApPacketInfo" kind="business" longname="message brief information service" package="cn.sunline.icore.ap.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <service id="queryPacketBrief" name="queryPacketBrief" longname="query  message brief information">
+        <interface>
+            <input packMode="false">
+                <field id="input" type="ComApSystem.ApPacketInfoInput" required="false" multi="false" array="false" longname="message brief information input"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="queryList" type="ComApSystem.ApPacketBriefInfo" required="false" multi="true" array="false" longname="message brief information list"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="queryPacketDetail" name="queryPacketDetail" longname="query Packet Detail Information">
+        <interface>
+            <input packMode="false">
+                <field id="trxn_seq" type="BaseType.U_SEQNO" required="false" multi="false" array="false" longname="transaction sequence" desc="交易流水" ref="SysDict.A.trxn_seq"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="queryInfo" type="ComApSystem.ApPacketInfo" required="false" multi="false" array="false" longname="query packet detail information"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

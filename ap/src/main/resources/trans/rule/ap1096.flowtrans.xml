@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1096" longname="paramter query" kind="Q" package="cn.sunline.icore.ap.trans.rule" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.rule.intf">
+        <input packMode="false">
+            <field id="func_name" type="BaseType.U_BYTE64" required="false" multi="false" array="false" longname="function short name" desc="方法名称" ref="SysDict.A.func_name"/>
+        </input>
+        <output asParm="true" packMode="false">
+            <fields id="list01" required="false" multi="true" longname="function and paramter query" array="false">
+                <field id="func_name" type="BaseType.U_BYTE64" required="false" multi="false" array="false" longname="function short name" desc="方法名称" ref="SysDict.A.func_name"/>
+                <field id="func_desc" type="BaseType.U_BYTE200" required="false" multi="false" array="false" longname="function describ" desc="方法功能描述" ref="SysDict.A.func_desc"/>
+                <field id="parm_order" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="parameter order" desc="参数序号" ref="SysDict.A.parm_order"/>
+                <field id="parm_code" type="BaseType.U_BYTE64" required="false" multi="false" array="false" longname="parameter code" desc="参数代码" ref="SysDict.A.parm_code"/>
+                <field id="parm_type" type="EnumType.E_FUNCRETTYPE" required="false" multi="false" array="false" longname="parameter type" desc="参数类型" ref="SysDict.A.parm_type"/>
+                <field id="parm_desc" type="BaseType.U_MIDDESC" required="false" multi="false" array="false" longname="parameter describe" desc="参数描述" ref="SysDict.A.parm_desc"/>
+            </fields>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApFuncAndParm.queryInformation" longname="query function and paramter">
+            <in_mappings by_interface="true">
+                <mapping src="func_name" dest="func_name" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="queryFunc" dest="list01" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

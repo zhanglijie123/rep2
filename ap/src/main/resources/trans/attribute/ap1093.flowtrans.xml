@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1093" longname="attribute information maintenance" kind="P" package="cn.sunline.icore.ap.trans.attribute" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <error_prof serviceName="SrvApAttr.modifyAttrInfo">
+        <in_mappings by_interface="true"/>
+        <out_mappings by_interface="true"/>
+    </error_prof>
+    <interface package="cn.sunline.icore.ap.trans.attribute.intf">
+        <input packMode="true">
+            <field id="operater_ind" type="MsEnumType.E_DATAOPERATE" required="false" multi="false" array="false" longname="operater indicate" desc="操作标志" ref="SysDict.A.operater_ind"/>
+            <field id="attr_level" type="EnumType.E_OWNERLEVEL" required="false" multi="false" array="false" longname="attribute level" desc="属性层级" ref="SysDict.A.attr_level"/>
+            <field id="attr_mutex_id" type="BaseType.U_BYTE16" required="false" multi="false" array="false" longname="attribute mutex id" desc="属性互斥ID" ref="SysDict.A.attr_mutex_id"/>
+            <field id="attr_mutex_desc" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="attribute mutex describe" desc="属性互斥描述" ref="SysDict.A.attr_mutex_desc"/>
+            <field id="mapping_expression" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="mapping expression" desc="属性匹配表达式" ref="SysDict.A.mapping_expression"/>
+            <field id="show_error_info" type="BaseType.U_MIDDESC" required="false" multi="false" array="false" longname="show error infomation" desc="错误异常展示信息" ref="SysDict.A.show_error_info"/>
+            <field id="data_version" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="data version" desc="数据版本号" ref="SysDict.A.data_version"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApAttr.modifyAttrMutexInfo" id="SrvApAttr.modifyAttrMutexInfo" longname="attribute information maintenance">
+            <in_mappings by_interface="true">
+                <mapping src="attr_mutex_desc" dest="attrMetx.attr_mutex_desc" by_interface="true" on_top="true"/>
+                <mapping src="attr_mutex_id" dest="attrMetx.attr_mutex_id" by_interface="true" on_top="true"/>
+                <mapping src="data_version" dest="attrMetx.data_version" by_interface="true" on_top="true"/>
+                <mapping src="mapping_expression" dest="attrMetx.mapping_expression" by_interface="true" on_top="true"/>
+                <mapping src="operater_ind" dest="attrMetx.operater_ind" by_interface="true" on_top="true"/>
+                <mapping src="show_error_info" dest="attrMetx.show_error_info" by_interface="true" on_top="true"/>
+                <mapping src="attr_level" dest="attr_level" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="SrvApTrxn.registerApsTransaction" id="SrvApTrxn.registerApsTransaction" longname="register flow">
+            <in_mappings by_interface="true"/>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+</flowtran>

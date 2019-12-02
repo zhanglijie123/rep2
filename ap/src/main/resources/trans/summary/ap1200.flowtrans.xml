@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1200" longname="Transaction optional summary code list query" kind="P" package="cn.sunline.edsp.busi.ap.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.ap.trans.intf">
+        <input packMode="false">
+            <field id="target_trxn_code" type="BaseType.U_TRXNCODE" required="false" multi="false" array="false" longname="transaction code" desc="目标交易码"/>
+            <field id="target_recon_code" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="recon code" desc="目标对账代码"/>
+        </input>
+        <output asParm="true" packMode="false">
+            <fields id="list01" scope="ComApBasic.ApSummaryOptionalList" required="false" multi="true" longname="summary information" array="false">
+                <field id="summary_code" type="BaseType.U_BYTE8" required="false" multi="false" array="false" longname="summary code" desc="摘要代码" ref="SysDict.A.summary_code"/>
+                <field id="summary_text" type="BaseType.U_BYTE64" required="false" multi="false" array="false" longname="summary text" desc="摘要文字" ref="SysDict.A.summary_text"/>
+            </fields>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApSummary.queryTrxnOptionalSummayList" longname="trxn summary code list inquery">
+            <in_mappings by_interface="true">
+                <mapping src="target_trxn_code" dest="target_trxn_code" by_interface="true" on_top="true"/>
+                <mapping src="target_recon_code" dest="target_recon_code" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="queryList" dest="list01" desc="description" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

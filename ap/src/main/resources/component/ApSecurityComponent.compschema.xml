@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<componentSchema id="ApSecurityComponent" package="cn.sunline.icore.ap.component" longname="platform password encryption related components definitions" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[平台密码加密相关组件定义]]></description>
+    <componentImplementation id="UnionSecurity" longname="implementation of encryption component based on union encryption platform" type="ApBaseComp.Security">
+        <implementation.java class="cn.sunline.icore.ap.component.UnionSecurityImpl"/>
+        <properties>
+            <property name="ip" type="string" longname="encryption platform IP address" desc="加密平台IP地址"/>
+            <property name="port" type="int" longname="encryption platform port number" desc="加密平台端口号"/>
+            <property name="intZakKey" type="string" longname="integrated zak key " desc="zak密钥名称（综合前置）"/>
+            <property name="cntZakKey" type="string" longname="counter zak key" desc="zak密钥名称（柜面前置）"/>
+            <property name="intZpkKey" type="string" longname="integrated zpk key " desc="zpk密钥名称（综合前置）"/>
+            <property name="cntZpkKey" type="string" longname="counter zpk key" desc="zpk密钥名称（柜面前置）"/>
+            <property name="pvk" type="string" longname="pvk key name" desc="pvk密钥名称"/>
+            <property name="cvk" type="string" longname="cvk key name" desc="cvk密钥名称"/>
+            <property name="overtime" type="int" longname="overtime" desc="超时时间"/>
+            <property name="sysNo" type="string" longname="system number" desc="系统编号"/>
+            <property name="refNo" type="string" longname="reference number" desc="引用编号"/>
+            <property name="encoding" type="string" longname="encoding" desc="字符集"/>
+            <property name="minPINlen" type="string" longname="minimum PIN length" desc="最小PIN长度"/>
+            <property name="chkMark1" type="int" longname="check mark 1" desc="校验标识1"/>
+            <property name="PINChkData1" type="string" longname="PIN check data 1" desc="PIN校验数据1"/>
+            <property name="chkMark2" type="int" longname="check mark 2" desc="校验标识2"/>
+            <property name="PINChkData2" type="string" longname="PIN check data 2" desc="PIN校验数据2"/>
+        </properties>
+    </componentImplementation>
+</componentSchema>

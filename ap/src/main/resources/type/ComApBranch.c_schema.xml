@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="ComApBranch" package="cn.sunline.icore.ap.type" longname="branch related compound type" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <complexType id="ApBranchInfo" longname="branch information" dict="false" abstract="false" introduct="false">
+        <element id="branch_id" longname="branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.branch_id" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="branch_name" longname="branch name" type="BaseType.U_SHORTDESC" ref="SysDict.A.branch_name" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="real_branch_ind" longname="real branch indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.real_branch_ind" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="branch_address" longname="branch_address" type="BaseType.U_MIDDESC" ref="SysDict.A.branch_address" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="branch_phone" longname="branch phone" type="BaseType.U_PHONENO" ref="SysDict.A.branch_phone" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="branch_mail" longname="Branch E-mail" type="BaseType.U_EMAIL" ref="SysDict.A.branch_mail" required="false" desc="机构电子邮箱" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="postcode" longname="postcode" type="BaseType.U_BYTE10" ref="SysDict.A.postcode" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="contacts_name" longname="contact name" type="BaseType.U_SHORTDESC" ref="SysDict.A.contacts_name" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="contacts_phone" longname="contacts phone" type="BaseType.U_PHONENO" ref="SysDict.A.contacts_phone" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="contacts_mail" longname="Contacts E-mail" type="BaseType.U_EMAIL" ref="SysDict.A.contacts_mail" required="false" desc="联系电子邮箱" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="branch_function_class" longname="branch function clase" type="BaseType.U_BYTE8" ref="SysDict.A.branch_function_class" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="swift_no" longname="swift_no" type="BaseType.U_BYTE32" ref="SysDict.A.swift_no" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="holiday_code" longname="holiday code" type="BaseType.U_BYTE8" ref="SysDict.A.holiday_code" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_create_user" longname="data create user" type="BaseType.U_USERID" ref="SysDict.A.data_create_user" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_create_time" longname="data create time" type="BaseType.U_DATETIME" ref="SysDict.A.data_create_time" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_update_user" longname="data update user" type="BaseType.U_USERID" ref="SysDict.A.data_update_user" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_update_time" longname="data update time" type="BaseType.U_DATETIME" ref="SysDict.A.data_update_time" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_version" longname="data version" type="BaseType.U_LONG" ref="SysDict.A.data_version" required="false" default="1" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApBranchRelation" longname="branch relationship information" dict="false" abstract="false" introduct="false">
+        <element id="branch_id" longname="branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.branch_id" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="brch_relation_code" longname="branch relation code" type="BaseType.U_BYTE8" ref="SysDict.A.brch_relation_code" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ccy_code" longname="currency code" type="BaseType.U_CURRENCY" ref="SysDict.A.ccy_code" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="parent_brch_id" longname="parent branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.parent_brch_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="org_id" longname="organization id" type="BaseType.U_ORGID" ref="SysDict.A.org_id" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_create_user" longname="data create user" type="BaseType.U_USERID" ref="SysDict.A.data_create_user" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_create_time" longname="data create time" type="BaseType.U_DATETIME" ref="SysDict.A.data_create_time" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_update_user" longname="data update user" type="BaseType.U_USERID" ref="SysDict.A.data_update_user" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_update_time" longname="data update time" type="BaseType.U_DATETIME" ref="SysDict.A.data_update_time" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_version" longname="data version" type="BaseType.U_LONG" ref="SysDict.A.data_version" required="false" default="1" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="branch_name" longname="branch name" type="BaseType.U_SHORTDESC" ref="SysDict.A.branch_name" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApBranchLevel" longname="branch level information" dict="false" abstract="false" introduct="false">
+        <element id="trxn_branch" longname="transaction branch" type="BaseType.U_BRANCHID" ref="SysDict.A.trxn_branch" required="false" desc="交易机构" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="branch_name" longname="branch name" type="BaseType.U_SHORTDESC" ref="SysDict.A.branch_name" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="brch_level" longname="branch level" type="BaseType.U_LONG" ref="SysDict.A.brch_level" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApBranchParmCondtion" longname="branch list(paging)" dict="false" abstract="false" introduct="false">
+        <element id="org_id" longname="organization id" type="BaseType.U_ORGID" ref="SysDict.A.org_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="branch_id" longname="branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.branch_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="branch_name" longname="branch name" type="BaseType.U_SHORTDESC" ref="SysDict.A.branch_name" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="branch_query_scope" longname="branch query scope" type="BaseType.U_BYTE10" ref="SysDict.A.branch_query_scope" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="branch_function_class" longname="branch function clase" type="BaseType.U_BYTE8" ref="SysDict.A.branch_function_class" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="real_branch_ind" longname="real branch indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.real_branch_ind" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApBranchAndCcy" longname="branch number and currency code" dict="false" abstract="false" introduct="false">
+        <element id="branch_id" longname="branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.branch_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ccy_code" longname="currency code" type="BaseType.U_CURRENCY" ref="SysDict.A.ccy_code" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApBranchTree" longname="branch tree" dict="false" abstract="false" introduct="false">
+        <element id="branch_id" longname="branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.branch_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ccy_code" longname="currency code" type="BaseType.U_CURRENCY" ref="SysDict.A.ccy_code" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="parent_brch_id" longname="parent branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.parent_brch_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="childs" longname="child nodes" type="map" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="branch_name" longname="branch name" type="BaseType.U_SHORTDESC" ref="SysDict.A.branch_name" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="brch_relation_code" longname="branch relation code" type="BaseType.U_BYTE8" ref="SysDict.A.brch_relation_code" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApBranchNode" longname="branch subnodes" dict="false" abstract="false" introduct="false">
+        <element id="branch_id" longname="branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.branch_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ccy_code" longname="currency code" type="BaseType.U_CURRENCY" ref="SysDict.A.ccy_code" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="junior_info" longname="subordinate information" type="object" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="senior_info" longname="superior information" type="object" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="brch_level" longname="branch level" type="BaseType.U_LONG" ref="SysDict.A.brch_level" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="branch_name" longname="branch name" type="BaseType.U_SHORTDESC" ref="SysDict.A.branch_name" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="brch_relation_code" longname="branch relation code" type="BaseType.U_BYTE8" ref="SysDict.A.brch_relation_code" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApSelBranchRelResult" longname="query the structure relationship information according to the scope" dict="false" abstract="false" introduct="false">
+        <element id="branch_id" longname="branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.branch_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ccy_code" longname="currency code" type="BaseType.U_CURRENCY" ref="SysDict.A.ccy_code" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="parent_brch_id" longname="parent branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.parent_brch_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="branch_name" longname="branch name" type="BaseType.U_SHORTDESC" ref="SysDict.A.branch_name" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="brch_relation_code" longname="branch relation code" type="BaseType.U_BYTE8" ref="SysDict.A.brch_relation_code" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApBranchRelSub" longname="branch relationship information single record" dict="false" abstract="false" introduct="false">
+        <element id="branch_id" longname="branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.branch_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="parent_brch_id" longname="parent branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.parent_brch_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_version" longname="data version" type="BaseType.U_LONG" ref="SysDict.A.data_version" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApBranchRelSubWithOper" longname="branch relationship information(with operation indicate)" extension="ComApBranch.ApBranchRelSub" dict="false" abstract="false" introduct="false">
+        <element id="operater_ind" longname="operater indicate" type="MsEnumType.E_DATAOPERATE" ref="SysDict.A.operater_ind" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApBranchSeniorJunior" longname="branch upper and lower levels" dict="false" abstract="false" introduct="false">
+        <element id="parent_brch_id" longname="parent branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.parent_brch_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="child_brch_id" longname="child branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.child_brch_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+</schema>

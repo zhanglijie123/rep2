@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ComApAttr" package="cn.sunline.icore.ap.type" longname="attribute-related compound type" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <description><![CDATA[应用平台自定义复合类型]]></description>
+    <complexType id="ApAttrDate" longname="attribute date" dict="false" abstract="false" introduct="false">
+        <odbindexes/>
+        <element id="attr_position" longname="attribute position" type="BaseType.U_LONG" ref="SysDict.A.attr_position" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="attr_date" longname="attribute date" type="BaseType.U_DATE" ref="SysDict.A.attr_date" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApAttrListIn" longname="attribute bit list form input" dict="false" abstract="false" introduct="false">
+        <odbindexes/>
+        <element id="attr_position" longname="attribute position" type="BaseType.U_LONG" ref="SysDict.A.attr_position" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="attr_position_value" longname="attribute position value" type="BaseType.U_BYTE1" ref="SysDict.A.attr_position_value" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="attr_date" longname="attribute date" type="BaseType.U_DATE" ref="SysDict.A.attr_date" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApAttrInfo" longname="attribute bit definition information" dict="false" abstract="false" introduct="false">
+        <element id="attr_position" longname="attribute position" type="BaseType.U_LONG" ref="SysDict.A.attr_position" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="attr_desc" longname="attribute describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.attr_desc" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="attr_expiry_ind" longname="attribute expiry indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.attr_expiry_ind" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ref_drop_list" longname="refence drop_list" type="BaseType.U_BYTE32" ref="SysDict.A.ref_drop_list" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="default_value" longname="default value" type="BaseType.U_BYTE1" ref="SysDict.A.default_value" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_version" longname="data version" type="BaseType.U_LONG" ref="SysDict.A.data_version" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApAttrMutexInfo" longname="attribute bit mutex information" dict="false" abstract="false" introduct="false">
+        <element id="attr_mutex_id" longname="attribute mutex id" type="BaseType.U_BYTE16" ref="SysDict.A.attr_mutex_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="attr_mutex_desc" longname="attribute mutex describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.attr_mutex_desc" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mapping_expression" longname="mapping expression" type="BaseType.U_SHORTDESC" ref="SysDict.A.mapping_expression" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="show_error_info" longname="show error infomation" type="BaseType.U_MIDDESC" ref="SysDict.A.show_error_info" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_version" longname="data version" type="BaseType.U_LONG" ref="SysDict.A.data_version" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApAttrCtlInfo" longname="attribute bit control information" dict="false" abstract="false" introduct="false">
+        <element id="attr_ctrl_id" longname="attribute control id" type="BaseType.U_BYTE16" ref="SysDict.A.attr_ctrl_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="attr_ctrl_desc" longname="attribute control describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.attr_ctrl_desc" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mapping_expression" longname="mapping expression" type="BaseType.U_SHORTDESC" ref="SysDict.A.mapping_expression" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="attr_ctrl_run_cond" longname="attribute control run condtion" type="BaseType.U_RULEID" ref="SysDict.A.attr_ctrl_run_cond" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="show_error_info" longname="show error infomation" type="BaseType.U_MIDDESC" ref="SysDict.A.show_error_info" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_version" longname="data version" type="BaseType.U_LONG" ref="SysDict.A.data_version" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApAttrInfoResult" longname="attribute information query results" dict="false" abstract="false" introduct="false">
+        <element id="attrInfo" longname="attribute definition information" type="ComApAttr.ApAttrInfo" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="attrMutexInfo" longname="attribute mutex information" type="ComApAttr.ApAttrMutexInfo" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="attrCtlInfo" longname="attribute control information" type="ComApAttr.ApAttrCtlInfo" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApAttrInfoWithInd" longname="attribute bit definition information and operation indicate" extension="ComApAttr.ApAttrInfo" dict="false" abstract="false" introduct="false">
+        <element id="attr_position" longname="attribute position" type="BaseType.U_LONG" ref="SysDict.A.attr_position" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="attr_desc" longname="attribute describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.attr_desc" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="attr_expiry_ind" longname="attribute expiry indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.attr_expiry_ind" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ref_drop_list" longname="refence drop_list" type="BaseType.U_BYTE32" ref="SysDict.A.ref_drop_list" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="operater_ind" longname="operater indicate" type="MsEnumType.E_DATAOPERATE" ref="SysDict.A.operater_ind" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_version" longname="data version" type="BaseType.U_LONG" ref="SysDict.A.data_version" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="default_value" longname="default value" type="BaseType.U_BYTE1" ref="SysDict.A.default_value" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApAttrMutexInfoWithInd" longname="attribute mutex and operational indicate" extension="ComApAttr.ApAttrMutexInfo" dict="false" abstract="false" introduct="false">
+        <element id="operater_ind" longname="operater indicate" type="MsEnumType.E_DATAOPERATE" ref="SysDict.A.operater_ind" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApAttrCtlInfoWithInd" longname="attribute control information and operation indicate" extension="ComApAttr.ApAttrCtlInfo" dict="false" abstract="false" introduct="false">
+        <element id="operater_ind" longname="operater indicate" type="MsEnumType.E_DATAOPERATE" ref="SysDict.A.operater_ind" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApAttrListOut" longname="attribute bit list form output" dict="false" abstract="false" introduct="false">
+        <element id="attr_position" longname="attribute position" type="BaseType.U_LONG" ref="SysDict.A.attr_position" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="attr_desc" longname="attribute describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.attr_desc" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="attr_position_value" longname="attribute position value" type="BaseType.U_BYTE1" ref="SysDict.A.attr_position_value" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="attr_date" longname="attribute date" type="BaseType.U_DATE" ref="SysDict.A.attr_date" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ref_drop_list" longname="refence drop_list" type="BaseType.U_BYTE32" ref="SysDict.A.ref_drop_list" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="drop_list_desc" longname="drop list describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.drop_list_desc" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="attr_expiry_ind" longname="attribute expiry indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.attr_expiry_ind" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApAttrListResult" longname="attribute bit list form query result" dict="false" abstract="false" introduct="false">
+        <element id="attr_value" longname="attributes value" type="BaseType.U_ATTRVALUE" ref="SysDict.A.attr_value" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="list01" longname="attribute bit list form query result" type="ComApAttr.ApAttrListOut" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApCustomLimitInfo" longname="cust limit  information" dict="false" abstract="false" introduct="false">
+        <element id="limit_owner_id" longname="limit owner id" type="BaseType.U_BYTE64" ref="SysDict.A.limit_owner_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="limit_no" longname="limit no" type="BaseType.U_LIMITNO" ref="SysDict.A.limit_no" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custom_limit_value" longname="custom limit value" type="BaseType.U_MONEY" ref="SysDict.A.custom_limit_value" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+</schema>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SrvApRule" kind="business" longname="rule information maintenance" package="cn.sunline.icore.ap.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <service id="modifyRuleInfo" name="modifyRuleInfo" longname="rule information maintenance">
+        <interface>
+            <input packMode="false">
+                <field id="ruleSimple" type="ComApSystem.ApRuleSimpleWithInd" required="false" multi="false" array="false" longname="simple rule information"/>
+                <field id="ruleData" type="ComApSystem.ApRuleDataWithInd" required="false" multi="true" array="false" longname="forward rule dataset"/>
+                <field id="exceptionRuleData" type="ComApSystem.ApRuleDataWithInd" required="false" multi="true" array="false" longname="exception rule dataset"/>
+                <field id="funcParam" type="ComApSystem.ApRuleFuncInfo" required="false" multi="true" array="false" longname="function param info"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="queryRuleList" name="queryRuleList" longname="query simple rule">
+        <interface>
+            <input packMode="false">
+                <field id="ruleSimple" type="ComApSystem.ApRuleSimple" required="false" multi="false" array="false" longname="simple rule information"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="queryList" type="ComApSystem.ApRuleInfo" required="false" multi="true" array="false" longname="the dateset of simple rule"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="queryRuleDataList" name="queryRuleDataList" longname="query rule data">
+        <interface>
+            <input packMode="false">
+                <field id="rule_id" type="BaseType.U_RULEID" required="false" multi="false" array="false" longname="rule id" ref="SysDict.A.rule_id"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="queryResult" type="ComApSystem.ApRuleDataResult" required="false" multi="false" array="false" longname="rule date information"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="modifyRuleScene" name="modifyRuleScene" longname="scene rule maintenance">
+        <interface>
+            <input packMode="false">
+                <field id="rule" type="ComApSystem.ApRuleSceneWithInd" required="false" multi="false" array="false" longname="rule information"/>
+                <field id="ruleData" type="ComApSystem.ApRuleDataWithInd" required="false" multi="true" array="false" longname="rule data information"/>
+                <field id="exceptionRuleData" type="ComApSystem.ApRuleDataWithInd" required="false" multi="true" array="false" longname="exception rule data"/>
+                <field id="funcParam" type="ComApSystem.ApRuleFuncInfo" required="false" multi="true" array="false" longname="function information"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="queryParm" name="queryParm" longname="query paramter">
+        <interface>
+            <input packMode="false">
+                <field id="func_name" type="BaseType.U_BYTE64" required="false" multi="false" array="false" longname="function short name" desc="方法名称" ref="SysDict.A.func_name"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="parmQuery" type="ComApSystem.ApRuleFunc" required="false" multi="true" array="false" longname="query paramter"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="queryRuleScene" name="queryRuleScene" longname="query scene rule">
+        <interface>
+            <input packMode="false">
+                <field id="ruleSimple" type="ComApSystem.ApRuleSimple" required="false" multi="false" array="false" longname="the condition of querying scene rule"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="queryList" type="ComApSystem.ApRuleInfo" required="false" multi="true" array="false" longname="rule information"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

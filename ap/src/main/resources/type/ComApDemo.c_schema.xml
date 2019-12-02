@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="ComApDemo" package="cn.sunline.icore.ap.type" longname="demo compound type" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <complexType id="DemoTranInfo" longname="transaction information" dict="false" abstract="false" introduct="false">
+        <element id="trxn_ccy" longname="transaction ccy" type="BaseType.U_CURRENCY" ref="SysDict.A.trxn_ccy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_amt" longname="transaction amount" type="BaseType.U_MONEY" ref="SysDict.A.trxn_amt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_acct_no" longname="transaction account no" type="BaseType.U_ACCTNO" ref="SysDict.A.trxn_acct_no" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="debit_credit" longname="debit credit" type="MsEnumType.E_DEBITCREDIT" ref="SysDict.A.debit_credit" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+</schema>

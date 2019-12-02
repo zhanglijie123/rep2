@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1070" longname="query identity type" kind="Q" package="cn.sunline.icore.ap.trans.identity" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.identity.intf">
+        <input packMode="true">
+            <field id="doc_type" type="BaseType.U_IDTYPE" required="false" multi="false" array="false" longname="identity document type" desc="证件种类" ref="SysDict.A.doc_type"/>
+            <field id="doc_desc" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="identity document desc" ref="SysDict.A.doc_desc"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <fields id="list01" required="false" multi="true" longname="indetity type list" array="false">
+                <field id="doc_type" type="BaseType.U_IDTYPE" required="false" multi="false" array="false" longname="identity document type" desc="证件种类" ref="SysDict.A.doc_type"/>
+                <field id="doc_desc" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="identity document desc" ref="SysDict.A.doc_desc"/>
+                <field id="check_rules1" type="BaseType.U_MIDDESC" required="false" multi="false" array="false" longname="check rules1" ref="SysDict.A.check_rules1"/>
+                <field id="check_rules2" type="BaseType.U_MIDDESC" required="false" multi="false" array="false" longname="check rules2" ref="SysDict.A.check_rules2"/>
+                <field id="check_rules3" type="BaseType.U_MIDDESC" required="false" multi="false" array="false" longname="check rules3" ref="SysDict.A.check_rules3"/>
+                <field id="check_bit_rule" type="EnumType.E_CHECKBITTYPE" required="false" multi="false" array="false" longname="check bit rule" ref="SysDict.A.check_bit_rule"/>
+                <field id="data_version" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="data version" ref="SysDict.A.data_version"/>
+            </fields>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApIdentity.queryIdentityList" id="SrvApIdentity.queryIdentityList" longname="query the list of identity type parameter">
+            <in_mappings by_interface="true">
+                <mapping src="doc_type" dest="doc_type" by_interface="true" on_top="true"/>
+                <mapping src="doc_desc" dest="doc_desc" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="queryList" dest="list01" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

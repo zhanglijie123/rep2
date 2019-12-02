@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<componentSchema id="ApBaseComp" package="cn.sunline.icore.ap.component" longname="Apply the common base component definition" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[应用公共基础组件定义]]></description>
+    <componentType id="Security" longname="safety components" desc="定义密码加解密、CVV、CVN计算等服务">
+        <description><![CDATA[安全组件]]></description>
+        <service id="macCheck" longname="mac check service" name="macCheck">
+            <interface>
+                <input packMode="false">
+                    <field id="pin" type="string" required="false" multi="false" array="false" longname="packet content"/>
+                    <field id="mac" type="string" required="false" multi="false" array="false" longname="mac check code"/>
+                    <field id="lastsysid" type="string" required="false" multi="false" array="false" longname="the previous node system ID"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="result" type="boolean" required="false" multi="false" array="false" longname="verify the results"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions/>
+        </service>
+        <service id="encryptPin" longname="encryption service" name="encryptPin">
+            <interface>
+                <input packMode="false">
+                    <field id="acctno" type="string" required="false" multi="false" array="false" longname="account number"/>
+                    <field id="pin" type="string" required="false" multi="false" array="false" longname="clear text"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="pinBlock" type="string" required="false" multi="false" array="false" longname="cipher text"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions>
+                <exception code="10" message="encryption failed"/>
+            </exceptions>
+        </service>
+        <service id="decryptPin" longname="decryption service" name="decryptPin">
+            <interface>
+                <input packMode="false">
+                    <field id="acctno" type="string" required="false" multi="false" array="false" longname="account number"/>
+                    <field id="pinBlock" type="string" required="false" multi="false" array="false" longname="cipher text"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="pin" type="string" required="false" multi="false" array="false" longname="clear text"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions>
+                <exception code="10" message="decryption failed"/>
+            </exceptions>
+        </service>
+        <service id="translatePin" longname="transfer service" name="translatePin">
+            <interface>
+                <input packMode="false">
+                    <field id="fromAcctno" type="string" required="false" multi="false" array="false" longname="source account number or card number"/>
+                    <field id="toAcctno" type="string" required="false" multi="false" array="false" longname="destination account number or card number"/>
+                    <field id="fromPinBlock" type="string" required="false" multi="false" array="false" longname="source PIK key encrypted PIN cipher text"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="toPinBlock" type="string" required="false" multi="false" array="false" longname="the destination PIK key is encrypted with the PIN cipher text"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions>
+                <exception code="10" message="turn encryption failure"/>
+            </exceptions>
+        </service>
+        <service id="translatePinWithKey" longname="transfer service with key" name="translatePin">
+            <interface>
+                <input packMode="false">
+                    <field id="fromKeyName" type="string" required="false" multi="false" array="false" longname="source PIK key name"/>
+                    <field id="toKeyName" type="string" required="false" multi="false" array="false" longname="destination  PIK key name"/>
+                    <field id="fromAcctno" type="string" required="false" multi="false" array="false" longname="source account number or card number"/>
+                    <field id="toAcctno" type="string" required="false" multi="false" array="false" longname="destination account number or card number"/>
+                    <field id="fromPinBlock" type="string" required="false" multi="false" array="false" longname="source PIK key encrypted PIN cipher text"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="toPinBlock" type="string" required="false" multi="false" array="false" longname="the destination PIK key is encrypted with the PIN cipher text"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions>
+                <exception code="10" message="turn encryption failure"/>
+            </exceptions>
+        </service>
+        <service id="cvvBuild" longname="Cvv calculation" name="cvvBuild">
+            <interface>
+                <input packMode="false">
+                    <field id="cardNo" type="string" required="false" multi="false" array="false" longname="card number"/>
+                    <field id="expireDate" type="string" required="false" multi="false" array="false" longname="expiry date"/>
+                    <field id="svcCode" type="string" required="false" multi="false" array="false" longname="service code"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="cvv" type="string" required="false" multi="false" array="false" longname="calculation results"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions>
+                <exception code="10" message="CVV calculation failed"/>
+            </exceptions>
+        </service>
+        <service id="cvvCheck" longname="Cvv check" name="cvvCheck">
+            <interface>
+                <input packMode="false">
+                    <field id="cvv" type="string" required="false" multi="false" array="false" longname="to be verified by CVV"/>
+                    <field id="cardno" type="string" required="false" multi="false" array="false" longname="card number"/>
+                    <field id="serviceCode" type="string" required="false" multi="false" array="false" longname="service code"/>
+                    <field id="matdata" type="string" required="false" multi="false" array="false" longname="valid period"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="result" type="boolean" required="false" multi="false" array="false" longname="calculation results"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions>
+                <exception code="10" message="CVV validation failed"/>
+                <exception/>
+            </exceptions>
+        </service>
+        <service id="repPINBlock" longname="old card password is encrypted with new card" name="repPINBlock">
+            <interface>
+                <input packMode="false">
+                    <field id="fromkeyz" type="string" required="false" multi="false" array="false" longname="source key"/>
+                    <field id="olcardno" type="string" required="false" multi="false" array="false" longname="old card number"/>
+                    <field id="nwcardno" type="string" required="false" multi="false" array="false" longname="new card number"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="pinBlock" type="string" required="false" multi="false" array="false" longname="transfer the cipher text"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions>
+                <exception code="10" message="turn encryption failure"/>
+                <exception/>
+            </exceptions>
+        </service>
+        <service id="getEncFactor" longname="get encrypted factor" name="getEncFactor">
+            <interface>
+                <input packMode="true">
+                    <field id="encList" type="TrxEnvs.EncryptedInfo" required="false" multi="true" array="false" longname="encrypted info list"/>
+                </input>
+                <output asParm="true" packMode="true">
+                    <field id="encFactor" type="string" required="false" multi="false" array="false" longname="encryted factor"/>
+                </output>
+                <property packMode="true"/>
+                <printer packMode="true"/>
+            </interface>
+            <exceptions>
+                <exception code="10" message="get encrypted factor failure"/>
+            </exceptions>
+        </service>
+    </componentType>
+   <componentType id="FileTransfer" longname="file transfer components" desc="定义文件的上传和下载传输服务">
+        <description><![CDATA[文件传输组件]]></description>
+        <service id="download" longname="download service" name="download">
+            <interface>
+                <input packMode="false">
+                    <field id="localFileName" type="string" required="false" multi="false" array="false" longname="local file name"/>
+                    <field id="remoteFileName" type="string" required="false" multi="false" array="false" longname="remote file name"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="result" type="int" required="false" multi="false" array="false" longname="result"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions>
+                <exception code="10" message="connection failed"/>
+                <exception code="11" message="download failed"/>
+            </exceptions>
+        </service>
+        <service id="upload" longname="upload service" name="upload">
+            <interface>
+                <input packMode="false">
+                    <field id="localFileName" type="string" required="false" multi="false" array="false" longname="local file name"/>
+                    <field id="remoteFileName" type="string" required="false" multi="false" array="false" longname="remote file name"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="result" type="int" required="false" multi="false" array="false" longname="result"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions>
+                <exception code="10" message="upload failed"/>
+            </exceptions>
+        </service>
+        <service id="setRemoteDirectory" longname="remote working directory" name="setRemoteDirectory">
+            <interface>
+                <input packMode="false">
+                    <field id="result" type="string" required="false" multi="false" array="false" longname="set the remote working directory"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="result" type="string" required="false" multi="false" array="false" longname="set the remote working directory"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions/>
+        </service>
+        <service id="getRemoteDirectory" longname="get the remote working directory" name="getRemoteDirectory">
+            <interface>
+                <input packMode="false"/>
+                <output asParm="true" packMode="false">
+                    <field id="field" type="string" required="false" multi="false" array="false" longname="remote working directory"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions/>
+        </service>
+        <service id="getRemoteFileList" longname="get a list of specified rule files under the specified remote path" name="getRemoteFileList">
+            <interface>
+                <input packMode="false">
+                    <field id="remoteDir" type="string" required="false" multi="false" array="false" longname="remote path"/>
+                    <field id="fileRegs" type="string" required="false" multi="false" array="false" longname="match rules"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="remoteFileList" type="ComApFile.ApRemoteFileList" required="false" multi="false" array="false" longname="remote file list"/>
+                </output>
+                <property packMode="true"/>
+                <printer packMode="true"/>
+            </interface>
+            <exceptions/>
+        </service>
+    </componentType>
+    <componentType id="Appc" longname="communication components" desc="定义第三方通讯服务">
+        <description><![CDATA[通讯组件]]></description>
+        <service id="call" longname="no attribute service call" name="call">
+            <interface>
+                <input packMode="false">
+                    <field id="sendBuffer" type="string" required="false" multi="false" array="false" longname="send buffer"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="returnBuffer" type="string" required="false" multi="false" array="false" longname="receive buffer"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions>
+                <exception code="10" message="connection failed"/>
+                <exception code="11" message="send failed"/>
+                <exception code="12" message="reception failed"/>
+            </exceptions>
+        </service>
+        <service id="callWithProperty" longname="attribute service call" name="call">
+            <interface>
+                <input packMode="false">
+                    <field id="sendBuffer" type="string" required="false" multi="false" array="false" longname="send buffer"/>
+                    <field id="properties" type="map" required="false" multi="false" array="false" longname="attribute"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="returnBuffer" type="string" required="false" multi="false" array="false" longname="receive buffer"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions>
+                <exception code="10" message="connection failed"/>
+                <exception code="11" message="send failed"/>
+                <exception code="12" message="reception failed"/>
+            </exceptions>
+        </service>
+    </componentType>
+    <componentType id="Pack" longname="message components" desc="组包解包组件">
+        <description><![CDATA[报文组件]]></description>
+        <service id="format" longname="set package service" name="format">
+            <interface>
+                <input packMode="false">
+                    <field id="buffer" type="map" required="false" multi="false" array="false" longname="the map of setting package"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="returnBuffer" type="string" required="false" multi="false" array="false" longname="the result of setting package"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions>
+                <exception code="10" message="set package failed"/>
+            </exceptions>
+        </service>
+        <service id="parse" longname="unpacking service" name="parse">
+            <interface>
+                <input packMode="false">
+                    <field id="buffer" type="string" required="false" multi="false" array="false" longname="the contents of the packet to be resolved"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="returnBuffer" type="map" required="false" multi="false" array="false" longname="parsed map"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions>
+                <exception code="10" message="unpacking failed"/>
+            </exceptions>
+        </service>
+    </componentType>
+    <componentType id="PkgHeader" longname="packet header processing components" desc="报文头处理组件">
+        <description><![CDATA[报文头处理组件]]></description>
+        <service id="processRequest" longname="request header processing" name="processRequest">
+            <interface>
+                <input packMode="false">
+                    <field id="request" type="map" required="false" multi="false" array="false" longname="packet body information"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="header" type="string" required="false" multi="false" array="false" longname="packet header object"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions>
+                <exception code="10" message="set package failed"/>
+            </exceptions>
+        </service>
+        <service id="processResponse" longname="response header processing" name="processResponse">
+            <interface>
+                <input packMode="false">
+                    <field id="response" type="string" required="false" multi="false" array="false" longname="response packet"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="returnHeader" type="string" required="false" multi="false" array="false" longname="respond to packet body information"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions>
+                <exception code="10" message="unpacking failed"/>
+            </exceptions>
+        </service>
+    </componentType>
+    <componentType id="FileSecurity" longname="File encryption" desc="文件加密">
+        <description><![CDATA[文件加密]]></description>
+        <service id="encrypt" longname="encryption service" name="encrypt">
+            <interface>
+                <input packMode="false">
+                    <field id="srcFileName" type="string" required="false" multi="false" array="false" longname="the file name of the file to be encrypted"/>
+                    <field id="destFileName" type="string" required="false" multi="false" array="false" longname="the file name of the encrypted file"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="success" type="boolean" required="false" multi="false" array="false" longname="encryption success indicate"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions>
+                <exception code="11" message="encryption failed"/>
+            </exceptions>
+        </service>
+        <service id="decrypt" longname="decryption service" name="decrypt">
+            <interface>
+                <input packMode="false">
+                    <field id="srcFileName" type="string" required="false" multi="false" array="false" longname="the file name of the file to be decrypted"/>
+                    <field id="destFileName" type="string" required="false" multi="false" array="false" longname="the file name of the decrypted file"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="success" type="boolean" required="false" multi="false" array="false" longname="decryption success indicate"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions>
+                <exception code="10" message="decryption failed"/>
+            </exceptions>
+        </service>
+    </componentType>
+    <componentType id="TransExecutor" longname="transaction call components">
+        <description><![CDATA[交易调用组件]]></description>
+        <service id="call" longname="call the transaction service" name="call">
+            <interface>
+                <input packMode="false">
+                    <field id="inputData" type="map" required="false" multi="false" array="false" longname="input parameter"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="outputData" type="map" required="false" multi="false" array="false" longname="result"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions/>
+        </service>
+    </componentType>
+    <componentType id="IcSecurity" longname="IC security components" desc="IC卡系统安全服务">
+        <description><![CDATA[IC安全组件]]></description>
+        <service id="arqc" longname="ARQC verification" name="arqc">
+            <interface>
+                <input packMode="false">
+                    <field id="cardno" type="string" required="false" multi="false" array="false" longname="card number"/>
+                    <field id="tag_5f34" type="string" required="false" multi="false" array="false" longname="card serial number"/>
+                    <field id="tag_9f26" type="string" required="false" multi="false" array="false" longname="application of cipher text ARQC"/>
+                    <field id="tag_9f02" type="string" required="false" multi="false" array="false" longname="authorization amount"/>
+                    <field id="tag_9f03" type="string" required="false" multi="false" array="false" longname="other amount"/>
+                    <field id="tag_9f1a" type="string" required="false" multi="false" array="false" longname="terminal country code"/>
+                    <field id="tag_95" type="string" required="false" multi="false" array="false" longname="terminal verification result"/>
+                    <field id="tag_5f2a" type="string" required="false" multi="false" array="false" longname="transaction currency code"/>
+                    <field id="tag_9a" type="string" required="false" multi="false" array="false" longname="transaction date"/>
+                    <field id="tag_9c" type="string" required="false" multi="false" array="false" longname="transaction type"/>
+                    <field id="tag_9f37" type="string" required="false" multi="false" array="false" longname="unpredictable number"/>
+                    <field id="tag_82" type="string" required="false" multi="false" array="false" longname="application interaction property (AIP)"/>
+                    <field id="tag_9f36" type="string" required="false" multi="false" array="false" longname="application transaction counter (ATC)"/>
+                    <field id="tag_9f10" type="string" required="false" multi="false" array="false" longname="issuer application data"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="result" type="string" required="false" multi="false" array="false" longname="error code (2) + error message (100)"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions/>
+        </service>
+        <service id="arpc" longname="ARPC generated" name="arpc">
+            <interface>
+                <input packMode="false">
+                    <field id="cardno" type="string" required="false" multi="false" array="false" longname="card number"/>
+                    <field id="tag_5f34" type="string" required="false" multi="false" array="false" longname="card serial number"/>
+                    <field id="tag_9f26" type="string" required="false" multi="false" array="false" longname="application of cipher text ARQC"/>
+                    <field id="tag_9f36" type="string" required="false" multi="false" array="false" longname="application transaction counter (ATC)"/>
+                    <field id="arcnum" type="string" required="false" multi="false" array="false" longname="response code"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="result" type="string" required="false" multi="false" array="false" longname="error code (2) + ARPC (16) + error message (100)"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions/>
+        </service>
+        <service id="isscmac" longname="card issuer script MAC" name="isscmac">
+            <interface>
+                <input packMode="false">
+                    <field id="cardno" type="string" required="false" multi="false" array="false" longname="card number"/>
+                    <field id="tag_5f34" type="string" required="false" multi="false" array="false" longname="card serial number"/>
+                    <field id="tag_9f26" type="string" required="false" multi="false" array="false" longname="application of cipher text ARQC"/>
+                    <field id="tag_9f36" type="string" required="false" multi="false" array="false" longname="application transaction counter (ATC)"/>
+                    <field id="apdu_head" type="string" required="false" multi="false" array="false" longname="apdu command head"/>
+                    <field id="apdu_data" type="string" required="false" multi="false" array="false" longname="apdu instruction data field"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="result" type="string" required="false" multi="false" array="false" longname="error code (2) + MAC (8) + error message (100)"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions/>
+        </service>
+        <service id="isscenc" longname="card issuer script encryption" name="isscenc">
+            <interface>
+                <input packMode="false">
+                    <field id="cardno" type="string" required="false" multi="false" array="false" longname="card number"/>
+                    <field id="tag_5f34" type="string" required="false" multi="false" array="false" longname="card serial number"/>
+                    <field id="tag_9f36" type="string" required="false" multi="false" array="false" longname="application transaction counter"/>
+                    <field id="opertp" type="string" required="false" multi="false" array="false" longname="pin processing type"/>
+                    <field id="newpin" type="string" required="false" multi="false" array="false" longname="new password"/>
+                    <field id="oldpin" type="string" required="false" multi="false" array="false" longname="old password"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="result" type="string" required="false" multi="false" array="false" longname="error code (2) + encryption result (32) + error message (100)"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions/>
+        </service>
+        <service id="cvvauth" longname="CVV verification" name="cvvauth">
+            <interface>
+                <input packMode="false">
+                    <field id="cvvkey" type="string" required="false" multi="false" array="false" longname="CVV key type"/>
+                    <field id="cardno" type="string" required="false" multi="false" array="false" longname="card number"/>
+                    <field id="cardsq" type="string" required="false" multi="false" array="false" longname="card serial number"/>
+                    <field id="inefdt" type="string" required="false" multi="false" array="false" longname="valid period"/>
+                    <field id="servcd" type="string" required="false" multi="false" array="false" longname="service code"/>
+                    <field id="cvvnum" type="string" required="false" multi="false" array="false" longname="CVV value"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="result" type="string" required="false" multi="false" array="false" longname="error code (2) + error message (100)"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions/>
+        </service>
+    </componentType>
+    <componentType id="FPI" longname="fingerprint recognition">
+        <description><![CDATA[指纹识别]]></description>
+        <service id="FPIGetFeatureByImg" longname="generate feature data through a fingerprint image data" name="getFeatureByImg">
+            <interface>
+                <input packMode="false">
+                    <field id="psImage" type="string" required="false" multi="false" array="false" longname="fingerprint image"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="result" type="int" required="false" multi="false" array="false" longname="return value"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions/>
+        </service>
+        <service id="FPIGetTemplateByImg" longname="generate feature template data through the early collection of three fingerprint image data" name="getTemplate">
+            <interface>
+                <input packMode="false">
+                    <field id="psImage1" type="string" required="false" multi="false" array="false" longname="fingerprint image 1"/>
+                    <field id="psImage2" type="string" required="false" multi="false" array="false" longname="fingerprint image 2"/>
+                    <field id="psImage3" type="string" required="false" multi="false" array="false" longname="fingerprint image 3"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="result" alias="结果信息" type="int" required="false" multi="false" array="false" longname="result information"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions/>
+        </service>
+        <service id="FPIMatch" longname="fingerprint comparison" name="match">
+            <interface>
+                <input packMode="false">
+                    <field id="pModalData" type="string" required="false" multi="false" array="false" longname="fingerprint template data"/>
+                    <field id="pFeatureData" type="string" required="false" multi="false" array="false" longname="fingerprint feature data"/>
+                    <field id="level" type="int" required="false" multi="false" array="false" longname="compare security level"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="result" type="int" required="false" multi="false" array="false" longname="result"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions/>
+        </service>
+        <service id="getPsErrMsg" longname="get the error message" name="getPsErrMsg">
+            <interface>
+                <input packMode="false"/>
+                <output asParm="true" packMode="false">
+                    <field id="result" type="string" required="false" multi="false" array="false" longname="error message"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions/>
+        </service>
+        <service id="getPnVerLen" longname="get the verification fingerprint feature data length" name="getPnVerLen">
+            <interface>
+                <input packMode="false"/>
+                <output asParm="true" packMode="false">
+                    <field id="result" type="int" required="false" multi="false" array="false" longname="fingerprint feature data length"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions/>
+        </service>
+        <service id="getPsRegBuf" longname="get the registration fingerprint template" name="getPsRegBuf">
+            <interface>
+                <input packMode="false"/>
+                <output asParm="true" packMode="false">
+                    <field id="result" type="string" required="false" multi="false" array="false" longname="register the fingerprint template"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions/>
+        </service>
+        <service id="getPnRegLen" longname="get the registered fingerprint length" name="getPnRegLen">
+            <interface>
+                <input packMode="false"/>
+                <output asParm="true" packMode="false">
+                    <field id="result" type="int" required="false" multi="false" array="false" longname="register the fingerprint length"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions/>
+        </service>
+        <service id="getPsVerBuf" longname="get the verification fingerprint feature data" name="getPsVerBuf">
+            <interface>
+                <input packMode="false"/>
+                <output asParm="true" packMode="false">
+                    <field id="result" type="string" required="false" multi="false" array="false" longname="verification fingerprint feature data length"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions/>
+        </service>
+    </componentType>
+    <componentType id="SendMessage" longname="SMS notification components">
+        <description><![CDATA[短信通知组件]]></description>
+        <service id="Send" longname="live SMS sent" name="send">
+            <interface>
+                <input packMode="false">
+                    <field id="mobile" type="string" required="false" multi="false" array="false" longname="phone number"/>
+                    <field id="content" type="string" required="false" multi="false" array="false" longname="SMS content"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="retcode" type="int" required="false" multi="false" array="false" longname="return code"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions/>
+        </service>
+        <service id="Send" longname="file SMS sent" name="sendFile">
+            <interface>
+                <input packMode="false">
+                    <field id="filename" type="string" required="false" multi="false" array="false" longname="file name"/>
+                </input>
+                <output asParm="true" packMode="false">
+                    <field id="retcode" type="int" required="false" multi="false" array="false" longname="return code"/>
+                </output>
+                <property packMode="false"/>
+                <printer packMode="false"/>
+            </interface>
+            <exceptions/>
+        </service>
+    </componentType>
+    <componentType id="SendMail" longname="mail send components">
+        <service id="Send" longname="send mail" name="send">
+            <interface>
+                <input packMode="true">
+                    <field id="e_mail" type="BaseType.U_EMAIL" required="false" multi="false" array="false" longname="E-mail" ref="CfDict.A.e_mail"/>
+                    <field id="mail_topic" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="mail topic" ref="SysDict.A.mail_topic"/>
+                    <field id="mail_content" type="BaseType.U_BYTE4000" required="false" multi="false" array="false" longname="mail content" ref="SysDict.A.mail_content"/>
+                    <field id="mailAttList" type="ComApMail.ApMailAttachement" required="false" multi="true" array="false" longname="mail attachement List"/>
+                </input>
+                <output asParm="true" packMode="true">
+                    <field id="success_ind" type="boolean" required="false" multi="false" array="false" longname="send success ind"/>
+                </output>
+                <property packMode="true"/>
+                <printer packMode="true"/>
+            </interface>
+            <exceptions/>
+        </service>
+    </componentType>
+</componentSchema>

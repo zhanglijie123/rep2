@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="TabApBook" package="cn.sunline.icore.ap.tables" longname="application book" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <table id="apb_account_route" name="apb_account_route" longname="account route book" category="B" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="acct_no" longname="account no" type="BaseType.U_ACCTNO" ref="SysDict.A.acct_no" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acct_route_type" longname="acctount route type" type="EnumType.E_ACCTROUTETYPE" ref="SysDict.A.acct_route_type" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="acct_no" operate="selectOne deleteOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="apb_account_route_idx1" type="primarykey" fields="acct_no org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="aps_report" name="aps_report" longname="report sequence" category="B" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="trxn_date" longname="transaction date" type="BaseType.U_DATE" ref="SysDict.A.trxn_date" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="branch_id" longname="branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.branch_id" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="report_id" longname="report id" type="BaseType.U_BYTE64" ref="SysDict.A.report_id" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="report_name" longname="report name" type="BaseType.U_MIDDESC" ref="SysDict.A.report_name" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="remote_file_path" longname="remote file path" type="BaseType.U_LONGDESC" ref="SysDict.A.remote_file_path" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="local_file_path" longname="local file path" type="BaseType.U_LONGDESC" ref="SysDict.A.local_file_path" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="relative_path" longname="relative path" type="BaseType.U_LONGDESC" ref="SysDict.A.relative_path" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="gen_frequency" longname="generate frequency" type="EnumType.E_CYCLETYPE" ref="SysDict.A.gen_frequency" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="trxn_date branch_id report_id" operate="selectOne deleteOne updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="aps_report_idx1" type="primarykey" fields="trxn_date branch_id report_id org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="aps_dayend_info" name="aps_dayend_info" longname="day end information" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="dayend_org_id" longname="day end org id" type="BaseType.U_ORGID" ref="SysDict.A.dayend_org_id" primarykey="false" final="false" nullable="false" desc="日终法人" identity="false" allowSubType="true"/>
+            <field id="dayend_flow_define" longname="day end flow define" type="BaseType.U_BYTE30" ref="SysDict.A.dayend_flow_define" primarykey="false" final="false" nullable="false" desc="日终流程定义" identity="false" allowSubType="true"/>
+            <field id="trxn_date" longname="transaction date" type="BaseType.U_DATE" ref="SysDict.A.trxn_date" primarykey="false" final="false" nullable="false" desc="交易日期" identity="false" allowSubType="true"/>
+            <field id="day_end_status" longname="day end status" type="EnumType.E_DAYENDSTATUS" ref="SysDict.A.day_end_status" primarykey="false" final="false" nullable="false" desc="日终状态" identity="false" allowSubType="true"/>
+            <field id="system_id_no" longname="system indicate number" type="BaseType.U_BYTE10" ref="SysDict.A.system_id_no" primarykey="false" final="false" nullable="true" desc="系统标识号码" identity="false" allowSubType="true"/>
+            <field id="dayend_schedule" longname="day end schedule" type="BaseType.U_BYTE10" ref="SysDict.A.dayend_schedule" primarykey="false" final="false" nullable="true" desc="日终进度" identity="false" allowSubType="true"/>
+            <field id="dayend_proportion" longname="day end proportion" type="BaseType.U_BYTE10" ref="SysDict.A.dayend_proportion" primarykey="false" final="false" nullable="true" desc="日终比例" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="dayend_org_id dayend_flow_define trxn_date" operate="selectOne deleteOne updateOne"/>
+            <index id="odb2" type="index" fields="trxn_date" operate="selectAll"/>
+            <index id="odb3" type="index" fields="dayend_flow_define trxn_date" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="aps_dayend_info_idx1" type="primarykey" fields="trxn_date dayend_org_id dayend_flow_define">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="aps_call_seq" name="aps_call_seq" longname="call sequence book" category="B" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="initiator_seq" longname="initiator sequence" type="BaseType.U_SEQNO" ref="SysDict.A.initiator_seq" primarykey="false" final="false" nullable="true" desc="调用流水" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="initiator_seq" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+        </odbindexes>
+        <indexes>
+            <index id="aps_call_seq_inx1" type="primarykey" fields="initiator_seq">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+</schema>

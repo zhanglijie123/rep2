@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="TabApSms" package="cn.sunline.icore.ap.tables" longname="sms" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <table id="app_sms_template" name="app_sms_template" longname="sms template define" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="sms_template_no" longname="sms template number" type="BaseType.U_BYTE30" ref="SysDict.A.sms_template_no" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="sms_template_desc" longname="sms template describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.sms_template_desc" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="sms_format" longname="sms template format" type="EnumType.E_SMSFORMAT" ref="SysDict.A.sms_format" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="sms_separator" longname="sms separator" type="BaseType.U_BYTE10" ref="SysDict.A.sms_separator" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="sms_sign_way" longname="sms sign way" type="EnumType.E_SMSSIGNWAY" ref="SysDict.A.sms_sign_way" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="agree_data_mart" longname="agreement data mart" type="BaseType.U_TABLENAME" ref="SysDict.A.agree_data_mart" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="phone_field_name" longname="phone field name" type="BaseType.U_FIELDNAME" ref="SysDict.A.phone_field_name" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="language_field_name" longname="language field name" type="BaseType.U_FIELDNAME" ref="SysDict.A.language_field_name" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="sms_template_no" operate="selectOne deleteOne updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_sms_template_idx1" type="primarykey" fields="sms_template_no org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_sms_element" name="app_sms_element" longname="sms element template define" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="sms_template_no" longname="sms template number" type="BaseType.U_BYTE30" ref="SysDict.A.sms_template_no" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="sms_language" longname="sms language" type="BaseType.U_BYTE8" ref="SysDict.A.sms_language" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="serial_no" longname="serial no" type="BaseType.U_LONG" ref="SysDict.A.serial_no" primarykey="false" final="false" nullable="false" desc="序号" identity="false" allowSubType="true"/>
+            <field id="sms_element_type" longname="sms element type" type="EnumType.E_SMSELEMENTTYPE" ref="SysDict.A.sms_element_type" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="data_mart" longname="data mart" type="BaseType.U_TABLENAME" ref="SysDict.A.data_mart" primarykey="false" final="false" nullable="true" desc="数据集" identity="false" allowSubType="true"/>
+            <field id="field_name" longname="field name" type="BaseType.U_FIELDNAME" ref="SysDict.A.field_name" primarykey="false" final="false" nullable="true" desc="字段名" identity="false" allowSubType="true"/>
+            <field id="start_position" longname="start position" type="BaseType.U_LONG" ref="SysDict.A.start_position" primarykey="false" final="false" nullable="true" desc="起始位置" identity="false" allowSubType="true"/>
+            <field id="cut_length" longname="cut length" type="BaseType.U_LONG" ref="SysDict.A.cut_length" primarykey="false" final="false" nullable="true" desc="截取长度" identity="false" allowSubType="true"/>
+            <field id="constant_value" longname="constant value" type="BaseType.U_BYTE400" ref="SysDict.A.constant_value" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="sms_template_no sms_language serial_no" operate="selectOne deleteOne updateOne"/>
+            <index id="odb2" type="index" fields="sms_template_no sms_language" sort="serial_no" operate="selectAll"/>
+            <index id="odb3" type="index" fields="sms_template_no" operate="selectFirst"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_sms_element_idx1" type="primarykey" fields="sms_template_no sms_language serial_no org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_sms_send" name="app_sms_send" longname="sms send way define" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="sms_template_no" longname="sms template number" type="BaseType.U_BYTE30" ref="SysDict.A.sms_template_no" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="onl_batch_ind" longname="online batch indication" type="EnumType.E_ONLBATCHIND" ref="SysDict.A.onl_batch_ind" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="sms_real_send_ind" longname="sms real send indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.sms_real_send_ind" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="sms_poll_send_way" longname="sms poll send way" type="EnumType.E_SMSPOLLSENDWAY" ref="SysDict.A.sms_poll_send_way" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="sms_template_no onl_batch_ind" operate="selectOne deleteOne updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_sms_send_idx1" type="primarykey" fields="sms_template_no onl_batch_ind org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_sms_language" name="app_sms_language" longname="sms language define" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="sign_language" longname="sign language" type="BaseType.U_BYTE8" ref="SysDict.A.sign_language" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="sms_language" longname="sms language" type="BaseType.U_BYTE8" ref="SysDict.A.sms_language" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="remark" longname="remark" type="BaseType.U_SHORTDESC" ref="SysDict.A.remark" primarykey="false" final="false" nullable="true" desc="备注" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="sign_language" operate="selectOne deleteOne updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_sms_language_idx1" type="primarykey" fields="sign_language org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="apb_sms_book" name="apb_sms_book" longname="sms record" category="B" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="trxn_seq" longname="transaction sequence" type="BaseType.U_SEQNO" ref="SysDict.A.trxn_seq" primarykey="false" final="false" nullable="false" desc="交易流水" identity="false" allowSubType="true"/>
+            <field id="serial_no" longname="serial no" type="BaseType.U_LONG" ref="SysDict.A.serial_no" primarykey="false" final="false" nullable="false" desc="序号" identity="false" allowSubType="true"/>
+            <field id="trxn_date" longname="transaction date" type="BaseType.U_DATE" ref="SysDict.A.trxn_date" primarykey="false" final="false" nullable="false" desc="交易日期" identity="false" allowSubType="true"/>
+            <field id="sms_template_no" longname="sms template number" type="BaseType.U_BYTE30" ref="SysDict.A.sms_template_no" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="cust_no" longname="customer number" type="BaseType.U_CUSTNO" ref="SysDict.A.cust_no" primarykey="false" final="false" nullable="false" desc="客户号" identity="false" allowSubType="true"/>
+            <field id="mobile_phone_no" longname="mobile phone number" type="BaseType.U_PHONENO" ref="SysDict.A.mobile_phone_no" primarykey="false" final="false" nullable="true" desc="手机号" identity="false" allowSubType="true"/>
+            <field id="sms_poll_send_way" longname="sms poll send way" type="EnumType.E_SMSPOLLSENDWAY" ref="SysDict.A.sms_poll_send_way" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="sms_send_status" longname="sms send status" type="EnumType.E_SMSSENDSTATUS" ref="SysDict.A.sms_send_status" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="sms_content" longname="sms content" type="BaseType.U_LONGESTDESC" ref="SysDict.A.sms_content" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="data_sync_file_id" longname="data synchronism file id" type="BaseType.U_SHORTDESC" ref="SysDict.A.data_sync_file_id" primarykey="false" final="false" nullable="true" desc="数据同步文件ID" identity="false" allowSubType="true"/>
+            <field id="data_sync_ind" longname="data synchronism indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.data_sync_ind" primarykey="false" final="false" nullable="true" desc="数据同步标志" identity="false" allowSubType="true"/>
+            <field id="remark" longname="remark" type="BaseType.U_SHORTDESC" ref="SysDict.A.remark" primarykey="false" final="false" nullable="true" desc="备注" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="trxn_seq serial_no" operate="selectOne deleteOne updateOne"/>
+            <index id="odb2" type="index" fields="trxn_date sms_template_no sms_send_status" operate="selectAll update delete"/>
+            <index id="odb3" type="index" fields="trxn_seq" operate="selectAll"/>
+            <index id="odb4" type="index" fields="data_sync_file_id data_sync_ind" sort="trxn_seq,trxn_date" operate="selectAll"/>
+            <index id="odb5" type="index" fields="sms_send_status" operate="selectFirst selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="apb_sms_book_idx1" type="primarykey" fields="trxn_seq serial_no org_id">
+                <ddls/>
+            </index>
+            <index id="apb_sms_book_idx2" type="index" fields="sms_send_status sms_template_no trxn_date org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+</schema>

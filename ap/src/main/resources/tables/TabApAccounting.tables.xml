@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="TabApAccounting" package="cn.sunline.icore.ap.tables" longname="accounting" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <table id="ApsAccountingEvent" name="aps_accounting_event" longname="accounting event" tableType="ORDINARY" category="B" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="trxn_seq" longname="transaction sequence" type="BaseType.U_SEQNO" ref="SysDict.A.trxn_seq" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="data_sort" longname="data sort" type="BaseType.U_LONG" ref="SysDict.A.data_sort" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="main_trxn_seq" longname="main transaction sequence" type="MsType.U_SEQNO" ref="MsDict.Comm.main_trxn_seq" primarykey="false" final="false" nullable="false" desc="主交易流水" identity="false" allowSubType="true"/>
+            <field id="acct_no" longname="account no" type="BaseType.U_ACCTNO" ref="SysDict.A.acct_no" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="sub_acct_seq" longname="subclass account sequence" type="BaseType.U_SUBACCTSEQ" ref="SysDict.A.sub_acct_seq" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="trxn_date" longname="transaction date" type="BaseType.U_DATE" ref="SysDict.A.trxn_date" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="double_entry_ind" longname="double entry bookkeeping indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.double_entry_ind" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="debit_credit" longname="debit credit" type="MsEnumType.E_DEBITCREDIT" ref="SysDict.A.debit_credit" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="trxn_ccy" longname="transaction ccy" type="BaseType.U_CURRENCY" ref="SysDict.A.trxn_ccy" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="trxn_amt" longname="transaction amount" type="BaseType.U_MONEY" ref="SysDict.A.trxn_amt" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acct_branch" longname="account branch" type="BaseType.U_BRANCHID" ref="SysDict.A.acct_branch" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="accounting_alias" longname="accounting alias" type="BaseType.U_BYTE32" ref="SysDict.A.accounting_alias" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="accounting_subject" longname="accounting subject" type="EnumType.E_ACCOUNTINGSUBJECT" ref="SysDict.A.accounting_subject" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="bal_attributes" longname="balance attributes" type="BaseType.U_BYTE8" ref="SysDict.A.bal_attributes" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="hash_value" longname="hash value" type="BaseType.U_LONG" ref="SysDict.A.hash_value" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="data_sync_ind" longname="data synchronism indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.data_sync_ind" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="data_sync_file_id" longname="data synchronism file id" type="BaseType.U_SHORTDESC" ref="SysDict.A.data_sync_file_id" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="gl_ref_code" longname="gl reference code" type="BaseType.U_BYTE32" ref="SysDict.A.gl_ref_code" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="branch_settle_ind" longname="branch settle indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.branch_settle_ind" primarykey="false" final="false" default="N" nullable="false" desc="branch settle indication" identity="false" allowSubType="true"/>
+            <field id="summary_code" longname="summary code" type="BaseType.U_BYTE8" ref="SysDict.A.summary_code" primarykey="false" final="false" nullable="true" desc="摘要代码" identity="false" allowSubType="true"/>
+            <field id="summary_name" longname="summary name" type="BaseType.U_SHORTDESC" ref="SysDict.A.summary_name" primarykey="false" final="false" nullable="true" desc="摘要描述" identity="false" allowSubType="true"/>
+            <field id="prod_id" longname="product code" type="BaseType.U_PRODUCTCODE" ref="SysDict.A.prod_id" primarykey="false" final="false" nullable="true" desc="产品编号" identity="false" allowSubType="true"/>
+            <field id="cust_no" longname="customer number" type="BaseType.U_CUSTNO" ref="SysDict.A.cust_no" primarykey="false" final="false" nullable="true" desc="客户号" identity="false" allowSubType="true"/>
+            <field id="trxn_code" longname="transaction code" type="BaseType.U_TRXNCODE" ref="SysDict.A.trxn_code" primarykey="false" final="false" nullable="true" desc="交易码" identity="false" allowSubType="true"/>
+            <field id="remark" longname="remark" type="BaseType.U_SHORTDESC" ref="SysDict.A.remark" primarykey="false" final="false" nullable="true" desc="备注" identity="false" allowSubType="true"/>
+            <field id="accrue_type" longname="accrue type" type="EnumType.E_ACCRUETYPE" ref="SysDict.A.accrue_type" primarykey="false" final="false" nullable="true" desc="计提种类" identity="false" allowSubType="true"/>
+            <field id="opp_acct_no" longname="opponent account no" type="BaseType.U_ACCTNO" ref="SysDict.A.opp_acct_no" primarykey="false" final="false" nullable="true" desc="对方账号" identity="false" allowSubType="true"/>
+            <field id="out_opp_acct_no" longname="out opponent account no" type="BaseType.U_ACCTNO" ref="SysDict.A.out_opp_acct_no" primarykey="false" final="false" nullable="true" desc="转出对手方账号" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="trxn_seq data_sort" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+            <index id="odb4" type="index" fields="trxn_seq" operate="selectAll"/>
+            <index id="odb2" type="index" fields="hash_value data_sync_ind" operate="selectFirst selectAll selectPage selectCursor selectPageWithCount"/>
+            <index id="odb3" type="index" fields="data_sync_file_id" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="aps_accounting_event_idx1" type="primarykey" fields="trxn_seq data_sort org_id">
+                <ddls/>
+            </index>
+            <index id="aps_accounting_event_idx2" type="index" fields="hash_value data_sync_ind org_id">
+                <ddls/>
+            </index>
+            <index id="aps_accounting_event_idx3" type="index" fields="data_sync_file_id org_id">
+                <ddls/>
+            </index>
+            <index id="aps_accounting_event_idx4" type="index" fields="main_trxn_seq">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="AppAccountingeventCtrl" name="app_accountingevent_ctrl" longname="contrl accounting event" param="true" tableType="ORDINARY" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="accounting_alias" longname="accounting alias" type="BaseType.U_BYTE32" ref="SysDict.A.accounting_alias" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="bal_attributes" longname="balance attributes" type="BaseType.U_BYTE8" ref="SysDict.A.bal_attributes" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="remark" longname="remark" type="BaseType.U_SHORTDESC" ref="SysDict.A.remark" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="ledger_check_ind" longname="ledger check indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.ledger_check_ind" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="accounting_subject" longname="accounting subject" type="EnumType.E_ACCOUNTINGSUBJECT" ref="SysDict.A.accounting_subject" primarykey="false" final="false" nullable="false" desc="会计主体" identity="false" allowSubType="true"/>
+            <field id="gl_code" longname="gl code" type="BaseType.U_SUBJECTNO" ref="SysDict.A.gl_code" primarykey="false" final="false" nullable="false" desc="gl code" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="accounting_alias bal_attributes" operate="selectOne deleteOne updateOne"/>
+            <index id="odb2" type="index" fields="ledger_check_ind" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="tap_accountingevent_ctrl_idx1" type="primarykey" fields="accounting_alias bal_attributes org_id">
+                <ddls/>
+            </index>
+            <index id="tap_accountingevent_ctrl_idx2" type="index" fields="ledger_check_ind org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_accounting_event_parm" name="app_accounting_event_parm" longname="business accounting event parameter" tableType="ORDINARY" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="sys_no" longname="system no" type="BaseType.U_SYSTEM" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="accounting_subject" longname="accounting subject" type="EnumType.E_ACCOUNTINGSUBJECT" ref="SysDict.A.accounting_subject" primarykey="false" final="false" nullable="true" desc="会计主体" identity="false" allowSubType="true"/>
+            <field id="accounting_alias" longname="accounting alias" type="BaseType.U_BYTE32" ref="SysDict.A.accounting_alias" primarykey="false" final="false" nullable="false" desc="核算别名" identity="false" allowSubType="true"/>
+            <field id="remark" longname="remark" type="BaseType.U_SHORTDESC" ref="SysDict.A.remark" primarykey="false" final="false" nullable="true" desc="备注" identity="false" allowSubType="true"/>
+            <field id="bal_attributes" longname="balance attributes" type="BaseType.U_BYTE8" ref="SysDict.A.bal_attributes" primarykey="false" final="false" nullable="false" desc="余额属性" identity="false" allowSubType="true"/>
+            <field id="gl_code" longname="gl code" type="BaseType.U_SUBJECTNO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="offset_gl_code" longname="offset gl code" type="BaseType.U_SUBJECTNO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="sys_no accounting_alias bal_attributes" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+            <index id="odb2" type="index" fields="sys_no gl_code" operate="selectFirst selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="fap_accounting_event_parm_idx1" type="primarykey" fields="sys_no accounting_subject accounting_alias org_id">
+                <ddls/>
+            </index>
+            <index id="fap_accounting_event_parm_idx2" type="index" fields="sys_no gl_code org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+</schema>

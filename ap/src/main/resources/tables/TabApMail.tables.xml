@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="TabApMail" package="cn.sunline.icore.ap.tables" longname="email" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <table id="app_mail_template" name="app_mail_template" longname="mail template define" category="P" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="mail_template_no" longname="mail template number" type="BaseType.U_BYTE30" ref="SysDict.A.mail_template_no" primarykey="false" final="false" nullable="false" desc="邮件模板号" identity="false" allowSubType="true"/>
+            <field id="mail_template_desc" longname="mail template describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.mail_template_desc" primarykey="false" final="false" nullable="false" desc="邮件模板描述" identity="false" allowSubType="true"/>
+            <field id="mail_topic" longname="mail topic" type="BaseType.U_SHORTDESC" ref="SysDict.A.mail_topic" primarykey="false" final="false" nullable="false" desc="邮件主题" identity="false" allowSubType="true"/>
+            <field id="mail_content" longname="mail content" type="BaseType.U_BYTE4000" ref="SysDict.A.mail_content" primarykey="false" final="false" nullable="false" desc="邮件内容" identity="false" allowSubType="true"/>
+            <field id="attachment_ind" longname="attachment indication " type="MsEnumType.E_YESORNO" ref="SysDict.A.attachment_ind" primarykey="false" final="false" nullable="false" desc="附件标志" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="mail_template_no" operate="selectOne deleteOne updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_mail_template_idx1" type="primarykey" fields="mail_template_no">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="apb_mail_book" name="apb_mail_book" longname="mail record" category="B" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="trxn_seq" longname="transaction sequence" type="BaseType.U_SEQNO" ref="SysDict.A.trxn_seq" primarykey="false" final="false" nullable="false" desc="交易流水" identity="false" allowSubType="true"/>
+            <field id="serial_no" longname="serial no" type="BaseType.U_LONG" ref="SysDict.A.serial_no" primarykey="false" final="false" nullable="false" desc="序号" identity="false" allowSubType="true"/>
+            <field id="trxn_date" longname="transaction date" type="BaseType.U_DATE" ref="SysDict.A.trxn_date" primarykey="false" final="false" nullable="false" desc="交易日期" identity="false" allowSubType="true"/>
+            <field id="mail_template_no" longname="mail template number" type="BaseType.U_BYTE30" ref="SysDict.A.mail_template_no" primarykey="false" final="false" nullable="false" desc="邮件模板号" identity="false" allowSubType="true"/>
+            <field id="mail_content" longname="mail content" type="BaseType.U_BYTE4000" ref="SysDict.A.mail_content" primarykey="false" final="false" nullable="false" desc="邮件内容" identity="false" allowSubType="true"/>
+            <field id="attachment_name" longname="attachment name" type="BaseType.U_LONGDESC" ref="SysDict.A.attachment_name" primarykey="false" final="false" nullable="true" desc="附件名称" identity="false" allowSubType="true"/>
+            <field id="cust_no" longname="customer number" type="BaseType.U_CUSTNO" ref="SysDict.A.cust_no" primarykey="false" final="false" nullable="false" desc="客户号" identity="false" allowSubType="true"/>
+            <field id="e_mail" longname="E-mail" type="BaseType.U_EMAIL" ref="SysDict.A.e_mail" primarykey="false" final="false" nullable="false" desc="电子邮箱" identity="false" allowSubType="true"/>
+            <field id="mail_send_status" longname="mail send status" type="EnumType.E_MAILSENDSTATUS" ref="SysDict.A.mail_send_status" primarykey="false" final="false" nullable="false" desc="邮件发送状态" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="trxn_seq serial_no" operate="selectOne deleteOne updateOne"/>
+            <index id="odb2" type="index" fields="trxn_date mail_template_no mail_send_status" operate="selectAll update"/>
+            <index id="odb3" type="index" fields="trxn_date mail_send_status" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="apb_mail_book_idx1" type="primarykey" fields="trxn_seq serial_no org_id">
+                <ddls/>
+            </index>
+            <index id="apb_mail_book_idx2" type="index" fields="mail_send_status trxn_date mail_template_no org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+</schema>

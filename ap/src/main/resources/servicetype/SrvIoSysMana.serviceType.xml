@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<serviceType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SrvIoSysMana" kind="business" longname="push prod message" package="cn.sunline.edsp.busi.ap.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <service id="commFileEquest" name="commFileEquest" longname="产品同步信息推送">
+        <interface>
+            <input packMode="true">
+            	<field id="source_system_id" type="MsType.U_SYSTEM" required="false" default="''" multi="false" array="false" longname="source system id" desc="源产品ID"/>
+                <field id="target_system_id" type="MsType.U_SYSTEM" required="false" default="''" multi="false" array="false" longname="target system id" desc="系统ID"/>
+                <field id="file_type" type="MsType.U_BYTE40" required="false" default="''" multi="false" array="false" longname="数据类型"/>
+                <field id="business_seq" type="MsType.U_BYTE40" required="false" default="''" multi="false" array="false" longname="业务流水"/>
+                <field id="accounting_date" type="MsType.U_BYTE8" required="false" default="''" multi="false" array="false" longname="会计日期"/>
+                <field id="receive_status" type="MsType.U_BYTE1" required="false" default="''" multi="false" array="false" longname="交互状态"/>
+                <field id="remark" type="MsType.U_BYTE200" required="false" default="''" multi="false" array="false" longname="结果描述"/>
+                <field id="fileList" type="ComIoApPushMessage.DataLinkFileInfo" required="false" multi="true" array="false" longname="文件集合"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

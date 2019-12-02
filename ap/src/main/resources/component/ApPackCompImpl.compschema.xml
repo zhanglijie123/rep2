@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<componentSchema id="ApPackCompImpl" package="cn.sunline.icore.ap.component" longname="报文组件实现定义" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[报文组件实现定义]]></description>
+    <componentImplementation id="ApPackJson" longname="json报文组件 " type="ApBaseComp.Pack">
+        <implementation.java class="cn.sunline.icore.ap.component.pack.ApPackJsonImpl"/>
+        <properties/>
+    </componentImplementation>
+    <componentImplementation id="ApPackXml" longname="xml报文组件 " type="ApBaseComp.Pack">
+        <implementation.java class="cn.sunline.icore.ap.component.pack.ApPackXmlImpl"/>
+        <properties/>
+    </componentImplementation>
+</componentSchema>

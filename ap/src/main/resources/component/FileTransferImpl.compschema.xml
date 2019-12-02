@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<componentSchema id="FileTransferImpl" package="cn.sunline.icore.transfer" longname="file transfer service component implementation definition" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[文件传输服务组件实现定义]]></description>
+    <componentImplementation id="ApacheFtpFileTransfer" longname="apache version" type="ApBaseComp.FileTransfer">
+        <implementation.java class="cn.sunline.icore.ap.component.transfer.ApacheFtpFileTransferImpl"/>
+        <properties>
+            <property name="ip" type="string" longname="ftp address" desc="ftp地址"/>
+            <property name="port" type="int" default="21" longname="ftp port" desc="ftp端口"/>
+            <property name="user" type="string" longname="user" desc="用户"/>
+            <property name="password" type="string" longname="password" desc="密码"/>
+            <property name="connectTimeoutInMs" type="int" default="30000" longname="connection timeout" desc="连接超时时间"/>
+            <property name="binaryMode" type="boolean" default="true" longname="whether binary transmission" desc="是否二进制传输"/>
+            <property name="remoteWorkDir" type="string" longname="the remote working directory must end with '/'" desc="远程工作目录,必须以'/'结束"/>
+            <property name="retryInterval" type="int" longname="connection failed to reconnect the number of times" desc="连接失败重连次数"/>
+            <property name="retryTime" type="int" longname="the connection failed to reconnect the interval" desc="连接失败重连间隔"/>
+        </properties>
+    </componentImplementation>
+    <componentImplementation id="ApacheSftpFileTransfer" longname="apache sftp version" type="ApBaseComp.FileTransfer">
+        <implementation.java class="cn.sunline.icore.ap.component.transfer.SftpFileTransferImpl"/>
+        <properties>
+            <property name="ip" type="string" longname="ftp address" desc="sftp地址"/>
+            <property name="port" type="int" default="22" longname="ftp port" desc="sftp端口"/>
+            <property name="user" type="string" longname="user" desc="用户"/>
+            <property name="password" type="string" longname="password" desc="密码"/>
+            <property name="keyFilePath" type="string" longname="key file path" desc="私钥文件路径"/>
+            <property name="connectTimeoutInMs" type="int" default="30000" longname="connection timeout" desc="连接超时时间"/>
+            <property name="binaryMode" type="boolean" default="true" longname="whether binary transmission" desc="是否二进制传输"/>
+            <property name="remoteWorkDir" type="string" longname="the remote working directory must end with '/'" desc="远程工作目录,必须以'/'结束"/>
+            <property name="retryInterval" type="int" longname="connection failed to reconnect the number of times" desc="连接失败重连次数"/>
+            <property name="retryTime" type="int" longname="the connection failed to reconnect the interval" desc="连接失败重连间隔"/>
+        </properties>
+    </componentImplementation>
+</componentSchema>

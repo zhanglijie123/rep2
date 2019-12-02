@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ApDayEndBase" longname="day 2end namedsql" package="cn.sunline.icore.ap.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <select cache="none" method="selectAll" type="sql" id="selBatchTranDef" longname="query batch transaction define">
+        <sql><![CDATA[
+    	select
+    	    	a.tran_flow_id,a.chinese_name 
+    	from
+    	    	tsp_flow_definition a 
+    	where
+    	    	a.system_code = #system_id#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="system_id" ref="SysDict.A.system_id" jdbcType="VARCHAR" javaType="BaseType.U_SYSTEM" mode="in" longname="system id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApDayEnd.ApBatchTranDef"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selectAll_GetSteps" longname="query all batch steps">
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	tsp_flow_step_controller 
+    	where
+    	    	tran_flow_id=#tran_flow_id# and corporate_code = #corporate_code# 
+    	    	and system_code = #target_system_code# 
+    	order by
+    	    	flow_step_num asc, execution_no asc 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="tran_flow_id" ref="KsDict.BtDict.tran_flow_id" jdbcType="VARCHAR" javaType="KBaseType.U_PLJYLCBS" mode="in" longname="批量交易流程ID" parameterType="condition"/>
+            <parameter property="corporate_code" ref="KsDict.CommDict.corporate_code" jdbcType="VARCHAR" javaType="KBaseType.U_FARENDMA" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="target_system_code" ref="KsDict.CommDict.target_system_code" jdbcType="VARCHAR" javaType="KBaseType.U_LEIXIN10" mode="in" longname="目标系统标识" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="KSysBatchTable.tsp_flow_step_controller"/>
+    </select>
+    <select cache="none" method="selectFirst" type="sql" id="queryLastTask" longname="query last submit task">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	tsp_task 
+    	where
+    	    	tran_flow_id = #tran_flow_id# and transaction_date = #transaction_date# 
+    	    	and corporate_code = #corporate_code# and system_code = #target_system_code# 
+    	order by
+    	    	task_commit_time desc
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="tran_flow_id" ref="KsDict.BtDict.tran_flow_id" jdbcType="VARCHAR" javaType="KBaseType.U_PLJYLCBS" mode="in" longname="批量交易流程ID" parameterType="condition"/>
+            <parameter property="corporate_code" ref="KsDict.CommDict.corporate_code" jdbcType="VARCHAR" javaType="KBaseType.U_FARENDMA" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="target_system_code" ref="KsDict.CommDict.target_system_code" jdbcType="VARCHAR" javaType="KBaseType.U_LEIXIN10" mode="in" longname="目标系统标识" parameterType="condition"/>
+            <parameter property="transaction_date" ref="KsDict.BtDict.transaction_date" jdbcType="VARCHAR" javaType="KBaseType.U_BZSJLEIX" mode="in" longname="当前交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="KSysBatchTable.tsp_task"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selBatchTaskInfo" longname="query batch task infor">
+        <sql><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	tsp_task a 
+    	where
+    	    	a.xitongbs=#system_id_no# and a.farendma=#org_id# 
+    	    	and a.task_num=#task_num# and a.sub_system_code=#sub_system_code# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="system_id_no" ref="SysDict.A.system_id_no" jdbcType="VARCHAR" javaType="BaseType.U_BYTE10" mode="in" longname="system indicate number" parameterType="condition"/>
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="task_num" ref="KsDict.BtDict.task_num" jdbcType="VARCHAR" javaType="KBaseType.U_PILJYLSH" mode="in" longname="批量任务批次号" parameterType="condition"/>
+            <parameter property="sub_system_code" ref="KsDict.CommDict.sub_system_code" jdbcType="VARCHAR" javaType="KBaseType.U_LEIXIN10" mode="in" longname="子系统编号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="KSysBatchTable.tsp_task"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selTaskSort" longname="query task sort">
+        <sql><![CDATA[
+    	SELECT
+    	    	count(*) 
+    	from
+    	    	(SELECT
+    	    	    	* 
+    	    	FROM
+    	    	    	tsp_tran_controller 
+    	    	where
+    	    	    	tran_group_id=#tran_group_id# 
+    	    	ORDER BY
+    	    	    	step_id) a 
+    	where
+    	    	a.step_id <= (
+    	    	    	SELECT
+    	    	    	    	step_id 
+    	    	    	from
+    	    	    	    	tsp_tran_controller 
+    	    	    	where
+    	    	    	    	tran_group_id = #tran_group_id# and step_id= #step_id#
+    	    	)
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="tran_group_id" ref="KsDict.BtDict.tran_group_id" jdbcType="VARCHAR" javaType="KBaseType.U_PILJYZBS" mode="in" longname="批量交易组ID" parameterType="condition"/>
+            <parameter property="step_id" ref="KsDict.BtDict.step_id" jdbcType="VARCHAR" javaType="KBaseType.U_TYSZLEIX" mode="in" longname="步骤号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.Integer"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selFlowStep" longname="query flow step">
+        <sql><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	tsp_flow_step_controller 
+    	WHERE
+    	    	flow_step_num<(
+    	    	    	SELECT
+    	    	    	    	flow_step_num 
+    	    	    	FROM
+    	    	    	    	tsp_flow_step_controller 
+    	    	    	WHERE
+    	    	    	    	tran_group_id=#tran_group_id# 
+    	    	) 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="tran_group_id" ref="KsDict.BtDict.tran_group_id" jdbcType="VARCHAR" javaType="KBaseType.U_PILJYZBS" mode="in" longname="批量交易组ID" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="KSysBatchTable.tsp_flow_step_controller"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selBatchSuccessNum" longname="query batch success number">
+        <sql><![CDATA[
+    	select
+    	    	count(*) 
+    	from
+    	    	tsp_transaction_log a 
+    	where
+    	    	a.task_num=#task_num# and a.job_excution_status=#job_excution_status#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="task_num" ref="KsDict.BtDict.task_num" jdbcType="VARCHAR" javaType="KBaseType.U_PILJYLSH" mode="in" longname="批量任务批次号" parameterType="condition"/>
+            <parameter property="job_excution_status" ref="KsDict.BtDict.job_excution_status" jdbcType="VARCHAR" javaType="KBaseEnumType.E_ZUOYZXZT" mode="in" longname="作业执行状态" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.Integer"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selEodPlan" longname="select EOD plan">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	apb_auto_eod a 
+    	where
+    	    	#trxn_date# >=a.begin_time and #trxn_date# <=a.end_time 
+    	    	and a.run_status ='Y' AND auto_dayend_exe_result!='SUCCESS' 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trxn_date" ref="SysDict.A.trxn_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="transaction date" parameterType="condition"/>
+            <parameter property="multi_switch_ind" ref="SysDict.A.multi_switch_ind" jdbcType="VARCHAR" javaType="MsEnumType.E_YESORNO" mode="in" longname="multi date switch indicator" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="TabApDevelop.apb_auto_eod"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selBatchNum" longname="query batch number">
+        <sql><![CDATA[
+    	select
+    	    	count(*) 
+    	from
+    	    	tsp_tran_controller 
+    	where
+    	    	tran_group_id=#tran_group_id# and execution_code='1'
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="tran_group_id" ref="KsDict.BtDict.tran_group_id" jdbcType="VARCHAR" javaType="KBaseType.U_PILJYZBS" mode="in" longname="批量交易组ID" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.Integer"/>
+    </select>
+</sqls>

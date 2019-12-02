@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SrvApDemo" kind="business" longname="demo service" package="cn.sunline.icore.ap.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <service id="test" name="test" longname="demo service test">
+        <interface>
+            <input packMode="false">
+                <field id="remark" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="remark" ref="SysDict.A.remark"/>
+            </input>
+            <output asParm="false" packMode="true">
+                <field id="remark" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="remark" ref="SysDict.A.remark"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="addCustomerMoney" name="addCustomerMoney" longname="increase the amount of customer accounts">
+        <interface>
+            <input packMode="false">
+                <field id="tranInfo" type="ComApDemo.DemoTranInfo" required="false" multi="false" array="false" longname="transaction information"/>
+            </input>
+            <output asParm="true" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="addCustomerMoneyReverse" name="addCustomerMoneyReverse" longname="increase customer account reversal">
+        <interface>
+            <input packMode="false">
+                <field id="tranInfo" type="ComApDemo.DemoTranInfo" required="false" multi="false" array="false" longname="transaction information"/>
+            </input>
+            <output asParm="true" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="addBankMoney" name="addBankMoney" longname="increase the amount of bank account">
+        <interface>
+            <input packMode="true">
+                <field id="trxn_ccy" type="BaseType.U_CURRENCY" required="false" multi="false" array="false" longname="transaction ccy" ref="SysDict.A.trxn_ccy"/>
+                <field id="trxn_amt" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="transaction amount" ref="SysDict.A.trxn_amt"/>
+                <field id="debit_credit" type="MsEnumType.E_DEBITCREDIT" required="false" multi="false" array="false" longname="debit credit" ref="SysDict.A.debit_credit"/>
+            </input>
+            <output asParm="true" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="addBankMoneyReverse" name="addBankMoneyReverse" longname="increase the bank account reversal">
+        <interface>
+            <input packMode="true">
+                <field id="trxn_ccy" type="BaseType.U_CURRENCY" required="false" multi="false" array="false" longname="transaction ccy" ref="SysDict.A.trxn_ccy"/>
+                <field id="trxn_amt" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="transaction amount" ref="SysDict.A.trxn_amt"/>
+                <field id="debit_credit" type="MsEnumType.E_DEBITCREDIT" required="false" multi="false" array="false" longname="debit credit" ref="SysDict.A.debit_credit"/>
+            </input>
+            <output asParm="true" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

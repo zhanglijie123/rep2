@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="TabApBillInfo" package="cn.sunline.ap.tables" longname="aplt base table info" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <table id="ApsLedgerBal" name="aps_ledger_bal" longname=" the balance of ledger account" tableType="ORDINARY" category="B" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="trxn_date" longname="transaction date" type="BaseType.U_DATE" ref="SysDict.A.trxn_date" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acct_branch" longname="account branch" type="BaseType.U_BRANCHID" ref="SysDict.A.acct_branch" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="ccy_code" longname="currency code" type="BaseType.U_CURRENCY" ref="SysDict.A.ccy_code" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="accounting_subject" longname="accounting subject" type="EnumType.E_ACCOUNTINGSUBJECT" ref="SysDict.A.accounting_subject" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="accounting_alias" longname="accounting alias" type="BaseType.U_BYTE32" ref="SysDict.A.accounting_alias" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="bal_attributes" longname="balance attributes" type="BaseType.U_BYTE8" ref="SysDict.A.bal_attributes" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="bal_type" longname="type of balance" type="MsEnumType.E_DEBITCREDIT" ref="SysDict.A.bal_type" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="acct_bal" longname="account balance" type="BaseType.U_MONEY" ref="SysDict.A.acct_bal" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="trxn_date acct_branch ccy_code accounting_subject accounting_alias bal_attributes" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+            <index id="odb3" type="index" fields="trxn_date accounting_alias bal_attributes" operate="selectAll"/>
+            <index id="odb2" type="unique" fields="trxn_date acct_branch ccy_code accounting_alias bal_attributes" operate="selectOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="aps_ledger_bal_idx1" type="primarykey" fields="trxn_date acct_branch ccy_code accounting_subject accounting_alias bal_attributes org_id">
+                <ddls/>
+            </index>
+            <index id="aps_ledger_bal_idx2" type="unique" fields="trxn_date acct_branch ccy_code accounting_alias bal_attributes org_id">
+                <ddls/>
+            </index>
+            <index id="aps_ledger_bal_idx3" type="index" fields="trxn_date accounting_alias bal_attributes org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="ApsAccrueRecord" name="aps_accrue_record" longname="the accure data of core bank" tableType="ORDINARY" category="B" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="trxn_date" longname="transaction date" type="BaseType.U_DATE" ref="SysDict.A.trxn_date" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="accrue_type" longname="accrue type" type="EnumType.E_ACCRUETYPE" ref="SysDict.A.accrue_type" primarykey="false" final="false" nullable="false" desc="计提种类" identity="false" allowSubType="true"/>
+            <field id="acct_branch" longname="account branch" type="BaseType.U_BRANCHID" ref="SysDict.A.acct_branch" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="accounting_alias" longname="accounting alias" type="BaseType.U_BYTE32" ref="SysDict.A.accounting_alias" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="ccy_code" longname="currency code" type="BaseType.U_CURRENCY" ref="SysDict.A.ccy_code" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="bal_attributes" longname="balance attributes" type="BaseType.U_BYTE8" ref="SysDict.A.bal_attributes" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="budget_inst_amt" longname="accrue amount" type="BaseType.U_MONEY" ref="SysDict.A.budget_inst_amt" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="trxn_date accrue_type acct_branch accounting_alias ccy_code bal_attributes" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+        </odbindexes>
+        <indexes>
+            <index id="tas_accrue_record_idx1" type="primarykey" fields="trxn_date accrue_type acct_branch accounting_alias ccy_code bal_attributes org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+</schema>

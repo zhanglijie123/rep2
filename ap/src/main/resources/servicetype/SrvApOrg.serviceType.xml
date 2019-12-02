@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SrvApOrg" kind="business" longname="organization information maintenance" package="cn.sunline.icore.ap.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <service id="queryAllOrgList" name="queryAllOrgList" longname="query all organization list">
+        <interface>
+            <input packMode="false">
+                <field id="orgInfo" type="MsCoreComplexType.MsOrgInfo" required="false" multi="false" array="false" longname="branch information"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="queryList" type="MsCoreComplexType.MsOrgInfo" required="false" multi="true" array="false" longname="organization list"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

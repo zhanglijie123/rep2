@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1131" longname="query next work date" kind="Q" package="cn.sunline.icore.ap.trans.date" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.date.intf">
+        <input packMode="true">
+            <field id="trxn_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="transaction date" ref="SysDict.A.trxn_date"/>
+            <field id="branch_id" type="BaseType.U_BRANCHID" required="false" multi="false" array="false" longname="branch id" ref="SysDict.A.branch_id"/>
+            <field id="cust_type" type="EnumType.E_CUSTOMERTYPE" required="false" multi="false" array="false" longname="customer type" ref="SysDict.A.cust_type"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="next_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="next date" ref="SysDict.A.next_date"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApDate.queryNextWorkDate" longname="get the next business day">
+            <in_mappings by_interface="true">
+                <mapping src="branch_id" dest="branch_id" by_interface="true" on_top="true"/>
+                <mapping src="cust_type" dest="cust_type" by_interface="true" on_top="true"/>
+                <mapping src="trxn_date" dest="trxn_date" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="next_date" dest="next_date" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

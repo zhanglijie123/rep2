@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1080" longname="simple rule maintenance" kind="P" package="cn.sunline.icore.ap.trans.rule" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.rule.intf">
+        <input packMode="false">
+            <field id="operater_ind" type="MsEnumType.E_DATAOPERATE" required="false" multi="false" array="false" longname="operater indicate" ref="SysDict.A.operater_ind"/>
+            <field id="rule_id" type="BaseType.U_RULEID" required="false" multi="false" array="false" longname="rule id" ref="SysDict.A.rule_id"/>
+            <field id="rule_desc" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="rule_describe" ref="SysDict.A.rule_desc"/>
+            <field id="rule_scene_code" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="rule scene" ref="SysDict.A.rule_scene_code"/>
+            <field id="data_version" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="data version" ref="SysDict.A.data_version"/>
+            <fields id="list01" required="false" multi="true" longname="forward rule dataset" array="false">
+                <field id="operater_ind" type="MsEnumType.E_DATAOPERATE" required="false" multi="false" array="false" longname="operater indicate" ref="SysDict.A.operater_ind"/>
+                <field id="rule_group_no" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="rule group no" ref="SysDict.A.rule_group_no"/>
+                <field id="rule_sort" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="rule sort" ref="SysDict.A.rule_sort"/>
+                <field id="rule_expr_type" type="EnumType.E_RULEEXPTYPE" required="false" multi="false" array="false" longname="rule expression type" desc="规则表达式类型" ref="SysDict.A.rule_expr_type"/>
+                <field id="func_name" type="BaseType.U_BYTE64" required="false" multi="false" array="false" longname="function short name" desc="方法名称" ref="SysDict.A.func_name"/>
+                <field id="func_code" type="BaseType.U_BYTE64" required="false" multi="false" array="false" longname="function code" desc="方法代码" ref="SysDict.A.func_code"/>
+                <field id="field_name" type="BaseType.U_FIELDNAME" required="false" multi="false" array="false" longname="field name" ref="SysDict.A.field_name"/>
+                <field id="data_mart" type="BaseType.U_TABLENAME" required="false" multi="false" array="false" longname="data mart" ref="SysDict.A.data_mart"/>
+                <field id="constant_variable" type="EnumType.E_CONSTORVAR" required="false" multi="false" array="false" longname="constant variable" desc="常量或变量" ref="SysDict.A.constant_variable"/>
+                <field id="data_mapping_operator" type="MsEnumType.E_OPERATOR" required="false" multi="false" array="false" longname="data mapping operator" ref="SysDict.A.data_mapping_operator"/>
+                <field id="data_mapping_value" type="BaseType.U_MIDDESC" required="false" multi="false" array="false" longname="data mapping value" ref="SysDict.A.data_mapping_value"/>
+                <field id="data_version" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="data version" ref="SysDict.A.data_version"/>
+            </fields>
+            <fields id="list02" required="false" multi="true" longname="exception rule dataset" array="false">
+                <field id="operater_ind" type="MsEnumType.E_DATAOPERATE" required="false" multi="false" array="false" longname="operater indicate" ref="SysDict.A.operater_ind"/>
+                <field id="rule_group_no" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="rule group no" ref="SysDict.A.rule_group_no"/>
+                <field id="rule_sort" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="rule sort" ref="SysDict.A.rule_sort"/>
+                <field id="data_mart" type="BaseType.U_TABLENAME" required="false" multi="false" array="false" longname="data mart" ref="SysDict.A.data_mart"/>
+                <field id="func_name" type="BaseType.U_BYTE64" required="false" multi="false" array="false" longname="function short name" desc="方法名称" ref="SysDict.A.func_name"/>
+                <field id="func_code" type="BaseType.U_BYTE64" required="false" multi="false" array="false" longname="function code" desc="方法代码" ref="SysDict.A.func_code"/>
+                <field id="field_name" type="BaseType.U_FIELDNAME" required="false" multi="false" array="false" longname="field name" ref="SysDict.A.field_name"/>
+                <field id="rule_expr_type" type="EnumType.E_RULEEXPTYPE" required="false" multi="false" array="false" longname="rule expression type" desc="规则表达式类型" ref="SysDict.A.rule_expr_type"/>
+                <field id="constant_variable" type="EnumType.E_CONSTORVAR" required="false" multi="false" array="false" longname="constant variable" desc="常量或变量" ref="SysDict.A.constant_variable"/>
+                <field id="data_mapping_operator" type="MsEnumType.E_OPERATOR" required="false" multi="false" array="false" longname="data mapping operator" ref="SysDict.A.data_mapping_operator"/>
+                <field id="data_mapping_value" type="BaseType.U_MIDDESC" required="false" multi="false" array="false" longname="data mapping value" ref="SysDict.A.data_mapping_value"/>
+                <field id="data_version" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="data version" ref="SysDict.A.data_version"/>
+            </fields>
+            <fields id="list04" required="false" multi="true" longname="funtion param dataset" array="false">
+                <field id="rule_group_no" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="rule group no" ref="SysDict.A.rule_group_no"/>
+                <field id="rule_sort" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="rule sort" ref="SysDict.A.rule_sort"/>
+                <field id="func_name" type="BaseType.U_BYTE64" required="false" multi="false" array="false" longname="function short name" desc="方法名称" ref="SysDict.A.func_name"/>
+                <field id="func_code" type="BaseType.U_BYTE64" required="false" multi="false" array="false" longname="function code" desc="方法代码" ref="SysDict.A.func_code"/>
+                <field id="parm_order" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="parameter order" desc="参数序号" ref="SysDict.A.parm_order"/>
+                <field id="parm_type" type="EnumType.E_FUNCRETTYPE" required="false" multi="false" array="false" longname="parameter type" desc="参数类型" ref="SysDict.A.parm_type"/>
+                <field id="parm_desc" type="BaseType.U_MIDDESC" required="false" multi="false" array="false" longname="parameter describe" desc="参数描述" ref="SysDict.A.parm_desc"/>
+                <field id="parm_code" type="BaseType.U_BYTE64" required="false" multi="false" array="false" longname="parameter code" desc="参数代码" ref="SysDict.A.parm_code"/>
+                <field id="data_version" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="data version" ref="SysDict.A.data_version"/>
+            </fields>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApRule.modifyRuleInfo" longname="simple rule maintenance">
+            <in_mappings by_interface="true">
+                <mapping src="list02" dest="exceptionRuleData" by_interface="true" on_top="true"/>
+                <mapping src="list01" dest="ruleData" by_interface="true" on_top="true"/>
+                <mapping src="list04" dest="funcParam" by_interface="true" on_top="true"/>
+                <mapping src="data_version" dest="ruleSimple.data_version" by_interface="true" on_top="true"/>
+                <mapping src="operater_ind" dest="ruleSimple.operater_ind" by_interface="true" on_top="true"/>
+                <mapping src="rule_desc" dest="ruleSimple.rule_desc" by_interface="true" on_top="true"/>
+                <mapping src="rule_id" dest="ruleSimple.rule_id" by_interface="true" on_top="true"/>
+                <mapping src="rule_scene_code" dest="ruleSimple.rule_scene_code" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="SrvApTrxn.registerApsTransaction" longname="register flow">
+            <in_mappings by_interface="true"/>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

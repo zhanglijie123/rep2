@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ComApDayEnd" package="cn.sunline.icore.ap.type" longname="dayend relation type" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <complexType id="ApBatchTranDef" longname="batch transaction define" dict="false" abstract="false" introduct="false">
+        <element id="tran_flow_id" longname="batch transaction flow id" type="BaseType.U_BYTE30" ref="SysDict.A.tran_flow_id" required="false" desc="批量交易流程ID" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chinese_name" longname="chinese name" type="BaseType.U_BYTE400" ref="SysDict.A.chinese_name" required="false" desc="中文名称" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+</schema>

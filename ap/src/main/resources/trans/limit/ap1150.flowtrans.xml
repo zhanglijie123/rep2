@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1150" longname="query limit basic info list" kind="Q" package="cn.sunline.icore.ap.trans.limit" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.limit.intf">
+        <input packMode="true">
+            <field id="limit_no" type="BaseType.U_LIMITNO" required="false" multi="false" array="false" longname="limit no" ref="SysDict.A.limit_no"/>
+            <field id="limit_desc" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="limit describe" ref="SysDict.A.limit_desc"/>
+            <field id="limit_ctrl_class" type="EnumType.E_LIMITCTRLCLASS" required="false" multi="false" array="false" longname="limit control class" ref="SysDict.A.limit_ctrl_class"/>
+            <field id="limit_reset_cycle" type="EnumType.E_CYCLETYPE" required="false" multi="false" array="false" longname="limit reset cycle" ref="SysDict.A.limit_reset_cycle"/>
+            <field id="limit_statis_no" type="BaseType.U_BYTE16" required="false" multi="false" array="false" longname="limit statis no" ref="SysDict.A.limit_statis_no"/>
+            <field id="limit_ccy" type="BaseType.U_BYTE3" required="false" multi="false" array="false" longname="limit currency" ref="SysDict.A.limit_ccy"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <fields id="list01" scope="ComApLimit.ApLimitBasicInfo" required="false" multi="true" longname="limit information output list" array="false">
+                <field id="limit_no" type="BaseType.U_LIMITNO" required="false" multi="false" array="false" longname="limit no" ref="SysDict.A.limit_no"/>
+                <field id="limit_desc" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="limit describe" ref="SysDict.A.limit_desc"/>
+                <field id="effect_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="effect date" ref="SysDict.A.effect_date"/>
+                <field id="expiry_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="expiry date" ref="SysDict.A.expiry_date"/>
+                <field id="limit_level" type="EnumType.E_OWNERLEVEL" required="false" multi="false" array="false" longname="limit level" ref="SysDict.A.limit_level"/>
+                <field id="limit_ctrl_class" type="EnumType.E_LIMITCTRLCLASS" required="false" multi="false" array="false" longname="limit control class" ref="SysDict.A.limit_ctrl_class"/>
+                <field id="limit_reset_cycle" type="EnumType.E_CYCLETYPE" required="false" multi="false" array="false" longname="limit reset cycle" ref="SysDict.A.limit_reset_cycle"/>
+                <field id="limit_statis_no" type="BaseType.U_BYTE16" required="false" multi="false" array="false" longname="limit statis no" ref="SysDict.A.limit_statis_no"/>
+                <field id="owner_mart" type="BaseType.U_TABLENAME" required="false" multi="false" array="false" longname="owner mart" ref="SysDict.A.owner_mart"/>
+                <field id="owner_field" type="BaseType.U_FIELDNAME" required="false" multi="false" array="false" longname="owner field" ref="SysDict.A.owner_field"/>
+                <field id="limit_ccy" type="BaseType.U_BYTE3" required="false" multi="false" array="false" longname="limit currency" ref="SysDict.A.limit_ccy"/>
+                <field id="limit_value" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="limit value" ref="SysDict.A.limit_value"/>
+                <field id="limit_custom_allow" type="MsEnumType.E_YESORNO" required="false" multi="false" array="false" longname="limit_custom_allow" ref="SysDict.A.limit_custom_allow"/>
+                <field id="min_limit_value" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="min limit value" ref="SysDict.A.min_limit_value"/>
+                <field id="max_limit_value" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="max limit value" ref="SysDict.A.max_limit_value"/>
+                <field id="limit_sms_template_no" type="BaseType.U_SMSNO" required="false" multi="false" array="false" longname="limit SMS template" ref="SysDict.A.limit_sms_template_no"/>
+                <field id="data_version" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="data version" desc="数据版本号" ref="SysDict.A.data_version"/>
+            </fields>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApLimitParam.queryLimitParmList" id="SrvApLimitParam.queryLimitParmList" longname="query limit parameter">
+            <in_mappings by_interface="true">
+                <mapping src="limit_ccy" dest="qryInput.limit_ccy" by_interface="true" on_top="true"/>
+                <mapping src="limit_ctrl_class" dest="qryInput.limit_ctrl_class" by_interface="true" on_top="true"/>
+                <mapping src="limit_desc" dest="qryInput.limit_desc" by_interface="true" on_top="true"/>
+                <mapping src="limit_no" dest="qryInput.limit_no" by_interface="true" on_top="true"/>
+                <mapping src="limit_reset_cycle" dest="qryInput.limit_reset_cycle" by_interface="true" on_top="true"/>
+                <mapping src="limit_statis_no" dest="qryInput.limit_statis_no" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="list01" dest="list01" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

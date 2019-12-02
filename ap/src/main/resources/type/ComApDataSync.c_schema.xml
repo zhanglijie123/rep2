@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ComApDataSync" package="cn.sunline.icore.ap.type" longname="data sync" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <complexType id="ApDataSyncGroup" longname="data sync group" dict="false" abstract="false" introduct="false">
+        <element id="receive_system_id" longname="receive system id" type="BaseType.U_BYTE16" ref="SysDict.A.receive_system_id" required="false" desc="接收系统id" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApParmSyncGroup" longname="parm sync group" dict="false" abstract="false" introduct="false">
+        <element id="para_type" longname="parameter type" type="EnumType.E_PARAMETERTYPE" ref="SysDict.A.para_type" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_sync_status" longname="data synchronization status" type="MsEnumType.E_YESORNO" ref="SysDict.A.data_sync_status" required="false" desc="参数同步状态" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="latest_update_date" longname="latest update date" type="BaseType.U_DATE" ref="SysDict.A.latest_update_date" required="false" desc="最近更新日期" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="serial_no" longname="serial no" type="BaseType.U_LONG" ref="SysDict.A.serial_no" required="false" desc="序号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+</schema>

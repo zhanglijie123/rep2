@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1091" longname="attribute information maintenance" kind="P" package="cn.sunline.icore.ap.trans.attribute" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.attribute.intf">
+        <input packMode="false">
+            <field id="attr_level" type="EnumType.E_OWNERLEVEL" required="false" multi="false" array="false" longname="attribute level" ref="SysDict.A.attr_level"/>
+            <field id="operater_ind" type="MsEnumType.E_DATAOPERATE" required="false" multi="false" array="false" longname="operater indicate" desc="操作标志" ref="SysDict.A.operater_ind"/>
+            <field id="attr_position" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="attribute position" desc="属性位置" ref="SysDict.A.attr_position"/>
+            <field id="attr_desc" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="attribute describe" desc="属性位描述" ref="SysDict.A.attr_desc"/>
+            <field id="attr_expiry_ind" type="MsEnumType.E_YESORNO" required="false" multi="false" array="false" longname="attribute expiry indication" desc="属性位到期标志" ref="SysDict.A.attr_expiry_ind"/>
+            <field id="ref_drop_list" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="refence drop_list" desc="引用下拉字典" ref="SysDict.A.ref_drop_list"/>
+            <field id="default_value" type="BaseType.U_BYTE1" required="false" multi="false" array="false" longname="default value" desc="缺省值" ref="SysDict.A.default_value"/>
+            <field id="data_version" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="data version" desc="数据版本号" ref="SysDict.A.data_version"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApAttr.modifyAttrInfo" id="SrvApAttr.modifyAttrInfo" longname="attribute information maintenance">
+            <in_mappings by_interface="true">
+                <mapping src="attr_desc" dest="attrInfo.attr_desc" by_interface="true" on_top="true"/>
+                <mapping src="attr_expiry_ind" dest="attrInfo.attr_expiry_ind" by_interface="true" on_top="true"/>
+                <mapping src="attr_position" dest="attrInfo.attr_position" by_interface="true" on_top="true"/>
+                <mapping src="data_version" dest="attrInfo.data_version" by_interface="true" on_top="true"/>
+                <mapping src="default_value" dest="attrInfo.default_value" by_interface="true" on_top="true"/>
+                <mapping src="operater_ind" dest="attrInfo.operater_ind" by_interface="true" on_top="true"/>
+                <mapping src="ref_drop_list" dest="attrInfo.ref_drop_list" by_interface="true" on_top="true"/>
+                <mapping src="attr_level" dest="attr_level" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="SrvApTrxn.registerApsTransaction" longname="register flow">
+            <in_mappings by_interface="false"/>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

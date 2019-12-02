@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ApBook" longname="application book namedsql" package="cn.sunline.icore.ap.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <update method="update" id="updApsTranRevExpCount" longname="exception count add 1">
+        <sql><![CDATA[
+    	update
+    	    	aps_transaction 
+    	set
+    	    	reversal_exception_count = reversal_exception_count + 1 
+    	where
+    	    	trxn_seq = #trxn_seq# and org_id = #org_id# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="trxn_seq" ref="SysDict.A.trxn_seq" jdbcType="VARCHAR" javaType="BaseType.U_SEQNO" mode="in" longname="transaction sequence" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selBusinessAudit" longname="business audit inquire">
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="trxn_date" ref="SysDict.A.trxn_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="transaction date" parameterType="condition"/>
+            <parameter property="trxn_seq" ref="SysDict.A.trxn_seq" jdbcType="VARCHAR" javaType="BaseType.U_SEQNO" mode="in" longname="transaction sequence" parameterType="condition"/>
+            <parameter property="trxn_code" ref="SysDict.A.trxn_code" jdbcType="VARCHAR" javaType="BaseType.U_TRXNCODE" mode="in" longname="transaction code" parameterType="condition"/>
+            <parameter property="table_name" ref="SysDict.A.table_name" jdbcType="VARCHAR" javaType="BaseType.U_TABLENAME" mode="in" longname="db table name" parameterType="condition"/>
+            <parameter property="pm_key_value" ref="SysDict.A.pm_key_value" jdbcType="VARCHAR" javaType="BaseType.U_MIDDESC" mode="in" longname="primary key value" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBook.ApAuditInfo"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select a.*,a.busi_audit_seq audit_seq from apl_business_audit a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="trxn_date!=null &amp;&amp; trxn_date!=''" type="If">
+                        <str type="Str"><![CDATA[trxn_date=#trxn_date#]]></str>
+                    </if>
+                    <if test="trxn_seq!=null &amp;&amp; trxn_seq!=''" type="If">
+                        <str type="Str"><![CDATA[trxn_seq=#trxn_seq#]]></str>
+                    </if>
+                    <if test="trxn_code!=null &amp;&amp; trxn_code!=''" type="If">
+                        <str type="Str"><![CDATA[trxn_code=#trxn_code#]]></str>
+                    </if>
+                    <if test="table_name!=null &amp;&amp; table_name!=''" type="If">
+                        <str type="Str"><![CDATA[table_name like concat('%', concat(#table_name# , '%'))]]></str>
+                    </if>
+                    <if test="pm_key_value!=null &amp;&amp; pm_key_value!=''" type="If">
+                        <str type="Str"><![CDATA[pm_key_value like concat('%', concat(#pm_key_value# , '%'))]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[org_id=#org_id#]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by trxn_date,trxn_seq desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selParameterAudit" longname="parameter audit inquire">
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="trxn_date" ref="SysDict.A.trxn_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="transaction date" parameterType="condition"/>
+            <parameter property="trxn_seq" ref="SysDict.A.trxn_seq" jdbcType="VARCHAR" javaType="BaseType.U_SEQNO" mode="in" longname="transaction sequence" parameterType="condition"/>
+            <parameter property="trxn_code" ref="SysDict.A.trxn_code" jdbcType="VARCHAR" javaType="BaseType.U_TRXNCODE" mode="in" longname="transaction code" parameterType="condition"/>
+            <parameter property="table_name" ref="SysDict.A.table_name" jdbcType="VARCHAR" javaType="BaseType.U_TABLENAME" mode="in" longname="db table name" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBook.ApAuditInfo"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select a.*,a. parm_audit_seq audit_seq from apl_parameter_audit a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="trxn_date!=null &amp;&amp; trxn_date!=''" type="If">
+                        <str type="Str"><![CDATA[trxn_date=#trxn_date#]]></str>
+                    </if>
+                    <if test="trxn_seq!=null &amp;&amp; trxn_seq!=''" type="If">
+                        <str type="Str"><![CDATA[trxn_seq=#trxn_seq#]]></str>
+                    </if>
+                    <if test="trxn_code!=null &amp;&amp; trxn_code!=''" type="If">
+                        <str type="Str"><![CDATA[trxn_code=#trxn_code#]]></str>
+                    </if>
+                    <if test="table_name!=null &amp;&amp; table_name!=''" type="If">
+                        <str type="Str"><![CDATA[table_name=#table_name#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[org_id=#org_id#]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by trxn_date,trxn_seq desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectPageWithCount" type="sql" id="selBusinessAuditDetail" longname="business audit detail inquire">
+        <sql><![CDATA[select a.*,a.busi_audit_seq audit_seq from apl_business_audit_sub a
+where org_id = #org_id#
+and busi_audit_seq=#busi_audit_seq#
+order by data_sort ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="busi_audit_seq" ref="SysDict.A.busi_audit_seq" jdbcType="VARCHAR" javaType="BaseType.U_SEQNO" mode="in" longname="business audit sequence" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBook.ApAuditDetailInfo"/>
+    </select>
+    <select cache="none" method="selectPageWithCount" type="sql" id="selParameterAuditDetail" longname="parameter audit detail inquire">
+        <sql><![CDATA[select a.*,a.parm_audit_seq audit_seq from apl_parameter_audit_sub a
+where org_id = #org_id#
+and parm_audit_seq=#parm_audit_seq#
+order by data_sort]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="parm_audit_seq" ref="SysDict.A.parm_audit_seq" jdbcType="VARCHAR" javaType="BaseType.U_SEQNO" mode="in" longname="parameter audit sequence" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBook.ApAuditDetailInfo"/>
+    </select>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selReport" longname="query report flow">
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="trxn_date" ref="SysDict.A.trxn_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="transaction date" parameterType="condition"/>
+            <parameter property="branch_id" ref="SysDict.A.branch_id" jdbcType="VARCHAR" javaType="BaseType.U_BRANCHID" mode="in" longname="branch id" parameterType="condition"/>
+            <parameter property="report_name" ref="SysDict.A.report_name" jdbcType="VARCHAR" javaType="BaseType.U_MIDDESC" mode="in" longname="report name" parameterType="condition"/>
+            <parameter property="report_id" ref="SysDict.A.report_id" jdbcType="VARCHAR" javaType="BaseType.U_BYTE64" mode="in" longname="report id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBook.ApQueryReportOut"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select * from aps_report]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="trxn_date!=null &amp;&amp; trxn_date!=''" type="If">
+                        <str type="Str"><![CDATA[trxn_date=#trxn_date#]]></str>
+                    </if>
+                    <if test="branch_id!=null &amp;&amp; branch_id!=''" type="If">
+                        <str type="Str"><![CDATA[branch_id=#branch_id#]]></str>
+                    </if>
+                    <if test="report_name!=null &amp;&amp; report_name!=''" type="If">
+                        <str type="Str"><![CDATA[report_name=#report_name#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[org_id=#org_id#]]></str>
+                    <if test="report_id!=null &amp;&amp; report_id!=''" type="If">
+                        <str type="Str"><![CDATA[report_id=#report_id#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by data_create_time]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selCustBusinessAudit" longname="business audit inquire">
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="trxn_date" ref="SysDict.A.trxn_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="transaction date" parameterType="condition"/>
+            <parameter property="trxn_seq" ref="SysDict.A.trxn_seq" jdbcType="VARCHAR" javaType="BaseType.U_SEQNO" mode="in" longname="transaction sequence" parameterType="condition"/>
+            <parameter property="trxn_code" ref="SysDict.A.trxn_code" jdbcType="VARCHAR" javaType="BaseType.U_TRXNCODE" mode="in" longname="transaction code" parameterType="condition"/>
+            <parameter property="table_name" ref="SysDict.A.table_name" jdbcType="VARCHAR" javaType="BaseType.U_TABLENAME" mode="in" longname="db table name" parameterType="condition"/>
+            <parameter property="pm_key_value" ref="SysDict.A.pm_key_value" jdbcType="VARCHAR" javaType="BaseType.U_MIDDESC" mode="in" longname="primary key value" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBook.ApAuditCustInfo"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.*,b.data_sort,b.field_name,b.field_desc,b.before_value,b.after_value from apl_business_audit a, apl_business_audit_sub b]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="trxn_date!=null &amp;&amp; trxn_date!=''" type="If">
+                        <str type="Str"><![CDATA[a.trxn_date=#trxn_date#]]></str>
+                    </if>
+                    <if test="trxn_seq!=null &amp;&amp; trxn_seq!=''" type="If">
+                        <str type="Str"><![CDATA[a.trxn_seq=#trxn_seq#]]></str>
+                    </if>
+                    <if test="trxn_code!=null &amp;&amp; trxn_code!=''" type="If">
+                        <str type="Str"><![CDATA[a.trxn_code=#trxn_code#]]></str>
+                    </if>
+                    <if test="table_name!=null &amp;&amp; table_name!=''" type="If">
+                        <str type="Str"><![CDATA[a.table_name=#table_name#]]></str>
+                    </if>
+                    <if test="pm_key_value!=null &amp;&amp; pm_key_value!=''" type="If">
+                        <str type="Str"><![CDATA[pm_key_value like concat('%', concat(#pm_key_value# , '%'))]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[a.org_id=#org_id#]]></str>
+                    <str type="Str"><![CDATA[a.table_name like '%cf%']]></str>
+                    <str type="Str"><![CDATA[a.pm_key_value  like '%cust_no%']]></str>
+                    <str type="Str"><![CDATA[a.busi_audit_seq = b.busi_audit_seq]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+</sqls>

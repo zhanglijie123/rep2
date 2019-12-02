@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="TabApRule" package="cn.sunline.icore.ap.tables" longname="rule" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <table id="app_rule_scene" name="app_rule_scene" longname="rule scene definition" tableType="ORDINARY" category="P" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="rule_scene_code" longname="rule scene" type="BaseType.U_BYTE32" ref="SysDict.A.rule_scene_code" primarykey="false" final="false" nullable="false" desc="规则情景码" identity="false" allowSubType="true"/>
+            <field id="rule_scene_desc" longname="rule scene describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.rule_scene_desc" primarykey="false" final="false" nullable="false" desc="规则场景描述" identity="false" allowSubType="true"/>
+            <field id="rule_type" longname="rule type" type="EnumType.E_RULETYPE" ref="SysDict.A.rule_type" primarykey="false" final="false" nullable="false" desc="规则类型" identity="false" allowSubType="true"/>
+            <field id="unite_maintain_ind" longname="unite maintain indicator" type="MsEnumType.E_YESORNO" ref="SysDict.A.unite_maintain_ind" primarykey="false" final="false" nullable="false" desc="统一维护标识" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="rule_scene_code" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_rule_scene_idx1" type="primarykey" fields="rule_scene_code">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_rule_interface" name="app_rule_interface" longname="rule interface" tableType="ORDINARY" category="P" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="rule_scene_code" longname="rule scene" type="BaseType.U_BYTE32" ref="SysDict.A.rule_scene_code" primarykey="false" final="false" nullable="false" desc="规则情景码" identity="false" allowSubType="true"/>
+            <field id="field_name" longname="field name" type="BaseType.U_FIELDNAME" ref="SysDict.A.field_name" primarykey="false" final="false" nullable="false" desc="字段名" identity="false" allowSubType="true"/>
+            <field id="field_desc" longname="field describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.field_desc" primarykey="false" final="false" nullable="false" desc="字段描述" identity="false" allowSubType="true"/>
+            <field id="data_mart" longname="data mart" type="BaseType.U_TABLENAME" ref="SysDict.A.data_mart" primarykey="false" final="false" nullable="false" desc="数据集" identity="false" allowSubType="true"/>
+            <field id="column_name" longname="column name" type="BaseType.U_BYTE30" ref="SysDict.A.column_name" primarykey="false" final="false" nullable="false" desc="栏位名" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="rule_scene_code field_name" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+            <index id="odb2" type="index" fields="rule_scene_code" sort="field_name" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_rule_interface_idx1" type="primarykey" fields="rule_scene_code field_name">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_rule" name="app_rule" longname="rule define" tableType="ORDINARY" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="rule_scene_code" longname="rule scene" type="BaseType.U_BYTE32" ref="SysDict.A.rule_scene_code" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="rule_id" longname="rule id" type="BaseType.U_RULEID" ref="SysDict.A.rule_id" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="rule_desc" longname="rule_describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.rule_desc" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="exception_rule_id" longname="exception rule id" type="BaseType.U_RULEID" ref="SysDict.A.exception_rule_id" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="mapping_sort" longname="mapping sort" type="BaseType.U_LONG" ref="SysDict.A.mapping_sort" primarykey="false" final="false" nullable="true" desc="匹配次序" identity="false" allowSubType="true"/>
+            <field id="mapping_result" longname="mapping result" type="BaseType.U_SHORTDESC" ref="SysDict.A.mapping_result" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="effect_date" longname="effect date" type="BaseType.U_DATE" ref="SysDict.A.effect_date" primarykey="false" final="false" nullable="true" desc="生效日期" identity="false" allowSubType="true"/>
+            <field id="expiry_date" longname="expiry date" type="BaseType.U_DATE" ref="SysDict.A.expiry_date" primarykey="false" final="false" nullable="true" desc="失效日期" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="index" fields="rule_scene_code" operate="selectAll"/>
+            <index id="odb2" type="primarykey" fields="rule_id" operate="selectOne deleteOne updateOne"/>
+            <index id="odb4" type="index" fields="rule_scene_code rule_id" operate="selectFirst selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_rule_idx1" type="primarykey" fields="rule_id org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_rule_data" name="app_rule_data" longname="rule data define" tableType="ORDINARY" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="rule_id" longname="rule id" type="BaseType.U_RULEID" ref="SysDict.A.rule_id" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="rule_group_no" longname="rule group no" type="BaseType.U_LONG" ref="SysDict.A.rule_group_no" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="rule_sort" longname="rule sort" type="BaseType.U_LONG" ref="SysDict.A.rule_sort" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="rule_expr_type" longname="rule expression type" type="EnumType.E_RULEEXPTYPE" ref="SysDict.A.rule_expr_type" primarykey="false" final="false" nullable="false" desc="规则表达式类型" identity="false" allowSubType="true"/>
+            <field id="field_name" longname="field name" type="BaseType.U_FIELDNAME" ref="SysDict.A.field_name" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="func_code" longname="function code" type="BaseType.U_BYTE64" ref="SysDict.A.func_code" primarykey="false" final="false" nullable="true" desc="方法代码" identity="false" allowSubType="true"/>
+            <field id="actual_parm" longname="actual parameter" type="BaseType.U_BYTE400" ref="SysDict.A.actual_parm" primarykey="false" final="false" nullable="true" desc="方法实参表达式" identity="false" allowSubType="true"/>
+            <field id="data_mapping_operator" longname="data mapping operator" type="MsEnumType.E_OPERATOR" ref="SysDict.A.data_mapping_operator" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="constant_variable" longname="constant variable" type="EnumType.E_CONSTORVAR" ref="SysDict.A.constant_variable" primarykey="false" final="false" nullable="false" desc="常量或变量" identity="false" allowSubType="true"/>
+            <field id="data_mapping_value" longname="data mapping value" type="BaseType.U_MIDDESC" ref="SysDict.A.data_mapping_value" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="index" fields="rule_id" sort="rule_group_no,rule_sort" operate="selectAll delete"/>
+            <index id="odb2" type="unique" fields="rule_id rule_group_no rule_sort" operate="selectOne deleteOne updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_rule_data_idx1" type="primarykey" fields="rule_id rule_group_no rule_sort org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_rule_func" name="app_rule_func" longname="rule function" tableType="ORDINARY" category="P" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="func_code" longname="function code" type="BaseType.U_BYTE64" ref="SysDict.A.func_code" primarykey="false" final="false" nullable="false" desc="方法代码" identity="false" allowSubType="true"/>
+            <field id="func_name" longname="function short name" type="BaseType.U_BYTE64" ref="SysDict.A.func_name" primarykey="false" final="false" nullable="false" desc="方法名称" identity="false" allowSubType="true"/>
+            <field id="func_desc" longname="function describ" type="BaseType.U_BYTE200" ref="SysDict.A.func_desc" primarykey="false" final="false" nullable="false" desc="方法功能描述" identity="false" allowSubType="true"/>
+            <field id="func_return_type" longname="function return type" type="EnumType.E_FUNCRETTYPE" ref="SysDict.A.func_return_type" primarykey="false" final="false" nullable="false" desc="方法返回值类型" identity="false" allowSubType="true"/>
+            <field id="func_body" longname="function body" type="BaseType.U_TEXT" ref="SysDict.A.func_body" primarykey="false" final="false" nullable="false" desc="方法体" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="func_code" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+            <index id="odb2" type="unique" fields="func_name" operate="selectOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_rule_func_idx1" type="primarykey" fields="func_code">
+                <ddls/>
+            </index>
+            <index id="app_rule_func_idx2" type="unique" fields="func_name">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_rule_func_parm" name="app_rule_func_parm" longname="rule function parameter" tableType="ORDINARY" category="P" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="func_code" longname="function code" type="BaseType.U_BYTE64" ref="SysDict.A.func_code" primarykey="false" final="false" nullable="false" desc="方法代码" identity="false" allowSubType="true"/>
+            <field id="parm_order" longname="parameter order" type="BaseType.U_LONG" ref="SysDict.A.parm_order" primarykey="false" final="false" nullable="false" desc="参数序号" identity="false" allowSubType="true"/>
+            <field id="parm_code" longname="parameter code" type="BaseType.U_BYTE64" ref="SysDict.A.parm_code" primarykey="false" final="false" nullable="false" desc="参数代码" identity="false" allowSubType="true"/>
+            <field id="parm_desc" longname="parameter describe" type="BaseType.U_MIDDESC" ref="SysDict.A.parm_desc" primarykey="false" final="false" nullable="false" desc="参数描述" identity="false" allowSubType="true"/>
+            <field id="parm_type" longname="parameter type" type="EnumType.E_FUNCRETTYPE" ref="SysDict.A.parm_type" primarykey="false" final="false" nullable="true" desc="参数类型" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="func_code parm_order" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+            <index id="odb2" type="unique" fields="func_code parm_code" operate="selectOne deleteOne updateOne"/>
+            <index id="odb3" type="index" fields="func_code" sort="parm_order" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_rule_func_parm_idx1" type="primarykey" fields="func_code parm_order">
+                <ddls/>
+            </index>
+            <index id="app_rule_func_parm_idx2" type="unique" fields="func_code parm_code">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_trxn_control" name="app_trxn_control" longname="transaction control" tableType="ORDINARY" category="P" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="trxn_event_id" longname="transaction event id" type="BaseType.U_EVENT" ref="SysDict.A.trxn_event_id" primarykey="false" final="false" nullable="false" desc="交易事件ID" identity="false" allowSubType="true"/>
+            <field id="trxn_ctrl_desc" longname="transaction control describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.trxn_ctrl_desc" primarykey="false" final="false" nullable="false" desc="交易控制描述" identity="false" allowSubType="true"/>
+            <field id="trxn_ctrl_type" longname="transaction control type" type="EnumType.E_TRXNCTRLTYPE" ref="SysDict.A.trxn_ctrl_type" primarykey="false" final="false" nullable="false" desc="交易控制类型" identity="false" allowSubType="true"/>
+            <field id="trxn_ctrl_run_cond" longname="attribute control run condtion" type="BaseType.U_RULESID" ref="SysDict.A.trxn_ctrl_run_cond" primarykey="false" final="false" nullable="false" desc="交易控制运行条件" identity="false" allowSubType="true"/>
+            <field id="hint_text" longname="hint text" type="BaseType.U_MIDDESC" ref="SysDict.A.hint_text" primarykey="false" final="false" nullable="false" desc="提示文本" identity="false" allowSubType="true"/>
+            <field id="hint_data_mart" longname="hint data mart" type="BaseType.U_TABLENAME" ref="SysDict.A.hint_data_mart" primarykey="false" final="false" nullable="true" desc="提示信息数据集" identity="false" allowSubType="true"/>
+            <field id="hint_field_name" longname="hint field name" type="BaseType.U_FIELDNAME" ref="SysDict.A.hint_field_name" primarykey="false" final="false" nullable="true" desc="提示信息字段名" identity="false" allowSubType="true"/>
+            <field id="return_code" longname="return code" type="BaseType.U_BYTE20" ref="SysDict.A.return_code" primarykey="false" final="false" nullable="true" desc="反回码" identity="false" allowSubType="true"/>
+            <field id="scene_auth_id" longname="scene authorization id" type="BaseType.U_BYTE32" ref="SysDict.A.scene_auth_id" primarykey="false" final="false" nullable="true" desc="场景授权ID" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="trxn_event_id trxn_ctrl_run_cond" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+            <index id="odb2" type="index" fields="trxn_event_id" operate="selectAll"/>
+            <index id="odb3" type="index" fields="trxn_event_id trxn_ctrl_type" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_trxn_control_idx1" type="primarykey" fields="trxn_event_id trxn_ctrl_run_cond">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_scene_auth" name="app_scene_auth" longname="scene authorization define" tableType="ORDINARY" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="scene_auth_id" longname="scene authorization id" type="BaseType.U_BYTE32" ref="SysDict.A.scene_auth_id" primarykey="false" final="false" nullable="false" desc="场景授权ID" identity="false" allowSubType="true"/>
+            <field id="role_id" longname="role id" type="BaseType.U_ROLEID" ref="SysDict.A.role_id" primarykey="false" final="false" nullable="false" desc="角色id" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="scene_auth_id role_id" operate="selectOne deleteOne updateOne"/>
+            <index id="odb2" type="index" fields="scene_auth_id" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_scene_auth_idx1" type="primarykey" fields="scene_auth_id role_id org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+</schema>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SrvApLimitParam" kind="business" longname="limit parameter service" package="cn.sunline.icore.ap.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <service id="queryLimitParmList" name="queryLimitParmList" longname="the limit parameter list query(paging)">
+        <interface>
+            <input packMode="false">
+                <field id="qryInput" type="ComApLimit.ApLimitBasicInfoLstQryIn" required="false" multi="false" array="false" longname="query input parameter"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="list01" type="ComApLimit.ApLimitBasicInfo" required="false" multi="true" array="false" longname="limit information output list"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="queryLimitDetailInfo" name="queryLimitDetailInfo" longname="query limit detail information">
+        <interface>
+            <input packMode="false">
+                <field id="limit_no" type="BaseType.U_LIMITNO" required="true" multi="false" array="false" longname="limit no" ref="SysDict.A.limit_no"/>
+                <field id="effect_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="effect date" desc="生效日期" ref="SysDict.A.effect_date"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="detailInfo" type="ComApLimit.ApLimitDetailInfo" required="false" multi="false" array="false" longname="limit detail information"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="queryLimitStatisList" name="queryLimitStatisList" longname="query limit register">
+        <interface>
+            <input packMode="false">
+                <field id="limit_owner_id" type="BaseType.U_BYTE64" required="true" multi="false" array="false" longname="limit owner id" ref="SysDict.A.limit_owner_id"/>
+                <field id="limit_statis_no" type="BaseType.U_BYTE16" required="true" multi="false" array="false" longname="limit statis no" ref="SysDict.A.limit_statis_no"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="list01" type="ComApLimit.ApLimitStatisResult" required="false" multi="true" array="false" longname="the result of querying limit register"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="maintainLimitInfo" name="maintainLimitInfo" longname="maintain the information related to limit">
+        <interface>
+            <input packMode="false">
+                <field id="limitMntIn" type="ComApLimit.ApLimitMntIn" required="false" multi="false" array="false" longname="limit information maintenance input"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="genLimitNo" name="genLimitNo" longname="generate limit no">
+        <interface>
+            <input packMode="false"/>
+            <output asParm="false" packMode="false">
+                <field id="limit_no" type="BaseType.U_LIMITNO" required="false" multi="false" array="false" longname="limit no" desc="限额编号" ref="SysDict.A.limit_no"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

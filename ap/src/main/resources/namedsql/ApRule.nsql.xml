@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ApRule" longname="rule infomation namedsql" package="cn.sunline.icore.ap.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selRuleList" longname="rule infomation inquire">
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="rule_id" ref="SysDict.A.rule_id" jdbcType="VARCHAR" javaType="BaseType.U_RULEID" mode="in" longname="rule id" parameterType="condition"/>
+            <parameter property="rule_desc" ref="SysDict.A.rule_desc" jdbcType="VARCHAR" javaType="BaseType.U_SHORTDESC" mode="in" longname="rule_describe" parameterType="condition"/>
+            <parameter property="rule_scene_code" ref="SysDict.A.rule_scene_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE32" mode="in" longname="rule scene" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApSystem.ApRuleInfo"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select * from app_rule]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[org_id=#org_id#]]></str>
+                    <if test="rule_id!=null &amp;&amp; rule_id!=''" type="If">
+                        <str type="Str"><![CDATA[rule_id=#rule_id#]]></str>
+                    </if>
+                    <if test="rule_desc!=null &amp;&amp; rule_desc!=''" type="If">
+                        <str type="Str"><![CDATA[rule_desc like concat('%' , concat(#rule_desc# , '%'))]]></str>
+                    </if>
+                    <if test="rule_scene_code!=null &amp;&amp; rule_scene_code!=''" type="If">
+                        <str type="Str"><![CDATA[rule_scene_code like concat(#rule_scene_code# , '%')]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by rule_scene_code, mapping_sort, rule_id]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectAll" type="sql" id="selRuleDataList" longname="rule data infomation inquire">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	app_rule_data 
+    	where
+    	    	org_id = #org_id# and rule_id = #rule_id#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="rule_id" ref="SysDict.A.rule_id" jdbcType="VARCHAR" javaType="BaseType.U_RULEID" mode="in" longname="rule id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApSystem.ApRuleDataInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selRuleID" longname="query rule ID">
+        <sql><![CDATA[select
+    a.rule_id   as drop_list_value,
+    a.rule_desc as drop_list_desc
+from
+    app_rule a,
+    app_rule_scene b
+where a.rule_scene_code = b.rule_scene_code
+and b.rule_type=#rule_type#
+and a.rule_scene_code=#rule_scene_code#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="rule_type" ref="SysDict.A.rule_type" jdbcType="VARCHAR" javaType="EnumType.E_RULETYPE" mode="in" longname="rule type" parameterType="condition"/>
+            <parameter property="rule_scene_code" ref="SysDict.A.rule_scene_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE32" mode="in" longname="rule scene" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selSceneAuthDropList" longname="select scene authorization drop list">
+        <sql><![CDATA[select drop_list_value,drop_list_desc from msp_drop_list where drop_list_type ='SCENE_AUTH_ID']]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selRuleSceneDropList" longname="select rule scene drop list">
+        <sql><![CDATA[select drop_list_value,drop_list_desc from msp_drop_list where drop_list_type ='RULE_SCENE'  and drop_list_value like 'LN_FREE_INTEREST%']]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="dynamicRuleFunc" longname="dynamic rule function inquire">
+        <sql><![CDATA[select
+    	    	func_name drop_list_value,func_desc drop_list_desc 
+    	from
+    	    	app_rule_func
+    	]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+    </select>
+    <select cache="none" method="selectPageWithCount" type="sql" id="selFuncAndParm" longname="function and paramter query">
+        <sql><![CDATA[
+    	select
+    	 func_name,func_desc,parm_order,parm_code,parm_type,parm_desc
+    	from
+    	    	app_rule_func a,app_rule_func_parm b
+    	where
+    	    	a.func_code=b.func_code  and
+              a.func_name=#func_name#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="func_name" ref="SysDict.A.func_name" jdbcType="VARCHAR" javaType="BaseType.U_BYTE64" mode="in" longname="function short name" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApSystem.ApRuleFunc"/>
+    </select>
+    <select cache="none" method="selectPageWithCount" type="sql" id="selParm" longname="query paramter">
+        <sql><![CDATA[		
+	   select
+    	 a.func_code,func_name,func_desc,parm_order,parm_code,parm_type,parm_desc
+    	from
+    	    	app_rule_func a,app_rule_func_parm b
+    	where
+    	    	a.func_code=b.func_code  and
+              a.func_name=#func_name#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="func_name" ref="SysDict.A.func_name" jdbcType="VARCHAR" javaType="BaseType.U_BYTE64" mode="in" longname="function short name" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApSystem.ApRuleFunc"/>
+    </select>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="dynamicSelectSceneField" longname="dynamic inquire scene  filed">
+        <parameterMap class="java.util.Map">
+            <parameter property="rule_scene_code" ref="SysDict.A.rule_scene_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE32" mode="in" longname="rule scene" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select  field_name drop_list_value,field_desc drop_list_desc  from app_rule_interface]]></str>
+            <where type="Where">
+                <if test="rule_scene_code != null" type="If">
+                    <str type="Str"><![CDATA[rule_scene_code=#rule_scene_code#]]></str>
+                </if>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectAll" type="sql" id="dynamicSelSceneByRuleType" longname="query rule ID By Rule Type">
+        <sql><![CDATA[SELECT 
+    b.rule_scene_code AS drop_list_value,
+    b.rule_scene_desc AS drop_list_desc
+FROM
+   
+    app_rule_scene b
+WHERE b.rule_type=#rule_type#
+]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="rule_type" ref="SysDict.A.rule_type" jdbcType="VARCHAR" javaType="EnumType.E_RULETYPE" mode="in" longname="rule type" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.util.Map"/>
+    </select>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="dynamicSelectAplimit" longname="dynamic inquire app limit">
+        <parameterMap class="java.util.Map">
+            <parameter property="limit_custom_allow" ref="SysDict.A.limit_custom_allow" jdbcType="VARCHAR" javaType="MsEnumType.E_YESORNO" mode="in" longname="limit_custom_allow" parameterType="condition"/>
+            <parameter property="effect_date" ref="SysDict.A.effect_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="effect date" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select  limit_no drop_list_value,limit_desc drop_list_desc  from app_limit]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="limit_custom_allow != null" type="If">
+                        <str type="Str"><![CDATA[limit_custom_allow=#limit_custom_allow#]]></str>
+                    </if>
+                    <if test="effect_date != null" type="If">
+                        <str type="Str"><![CDATA[effect_date <= #effect_date#]]></str>
+                    </if>
+                    <if test="effect_date != null" type="If">
+                        <str type="Str"><![CDATA[expiry_date >= #effect_date#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+</sqls>

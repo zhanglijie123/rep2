@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1112" longname="gen trading flow reconciliation file" kind="Q" package="cn.sunline.icore.ap.trans.transaction" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.transaction.intf">
+        <input packMode="true">
+            <field id="initiator_start_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="initiator start date" ref="SysDict.A.initiator_start_date"/>
+            <field id="initiator_end_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="initiator end date" ref="SysDict.A.initiator_end_date"/>
+            <field id="recon_code" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="recon code" ref="SysDict.A.recon_code"/>
+            <field id="channel_id" type="BaseType.U_CHANNEL" required="false" multi="false" array="false" longname="channel id" ref="SysDict.A.channel_id"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="return_file_id" type="BaseType.U_BYTE20" required="false" multi="false" array="false" longname="return file id" ref="SysDict.A.return_file_id"/>
+            <field id="file_server_path" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="file server path" ref="SysDict.A.file_server_path"/>
+            <field id="file_local_path" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="file local path" ref="SysDict.A.file_local_path"/>
+            <field id="day_total_count" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="day total count" ref="SysDict.A.day_total_count"/>
+            <field id="file_name" type="BaseType.U_MIDDESC" required="false" multi="false" array="false" longname="file name" ref="SysDict.A.file_name"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApTrxn.genTransReconFile" id="SrvApTrxn.genTransReconFile" longname="gen trading flow reconciliation file">
+            <in_mappings by_interface="true">
+                <mapping src="channel_id" dest="trxnIn.channel_id" by_interface="true" on_top="true"/>
+                <mapping src="initiator_end_date" dest="trxnIn.initiator_end_date" by_interface="true" on_top="true"/>
+                <mapping src="initiator_start_date" dest="trxnIn.initiator_start_date" by_interface="true" on_top="true"/>
+                <mapping src="recon_code" dest="trxnIn.recon_code" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="trxnOut.total_count" dest="day_total_count" by_interface="true" on_top="true"/>
+                <mapping src="trxnOut.file_local_path" dest="file_local_path" by_interface="true" on_top="true"/>
+                <mapping src="trxnOut.file_name" dest="file_name" by_interface="true" on_top="true"/>
+                <mapping src="trxnOut.file_server_path" dest="file_server_path" by_interface="true" on_top="true"/>
+                <mapping src="trxnOut.return_file_id" dest="return_file_id" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

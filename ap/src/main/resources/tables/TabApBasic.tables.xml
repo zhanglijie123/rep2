@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="TabApBasic" package="cn.sunline.icore.ap.tables" longname="application common mechanism" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <table id="app_identity" name="app_identity" longname="identity type define" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="doc_type" longname="identity document type" type="BaseType.U_IDTYPE" ref="SysDict.A.doc_type" primarykey="false" final="false" nullable="false" desc="证件种类" identity="false" allowSubType="true"/>
+            <field id="doc_desc" longname="identity document desc" type="BaseType.U_SHORTDESC" ref="SysDict.A.doc_desc" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="check_rules1" longname="check rules1" type="BaseType.U_MIDDESC" ref="SysDict.A.check_rules1" primarykey="false" final="false" nullable="true" desc="填写正则表达式，不满足其中一个则报错" identity="false" allowSubType="true"/>
+            <field id="check_rules2" longname="check rules2" type="BaseType.U_MIDDESC" ref="SysDict.A.check_rules2" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="check_rules3" longname="check rules3" type="BaseType.U_MIDDESC" ref="SysDict.A.check_rules3" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="check_bit_rule" longname="check bit rule" type="EnumType.E_CHECKBITTYPE" ref="SysDict.A.check_bit_rule" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="suit_cust_type" longname="suitable customer type" type="EnumType.E_SUITABLECUSTTYPE" ref="SysDict.A.suit_cust_type" primarykey="false" final="false" nullable="true" desc="适用客户类型" identity="false" allowSubType="true"/>
+            <field id="must_provide_ind" longname="must provide indicator" type="MsEnumType.E_YESORNO" ref="SysDict.A.must_provide_ind" primarykey="false" final="false" nullable="true" desc="必输标志" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="doc_type org_id" operate="selectOne"/>
+            <index id="odb2" type="index" fields="suit_cust_type must_provide_ind" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_identity_idx" type="primarykey" fields="doc_type org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_currency" name="app_currency" longname="currency define" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="ccy_code" longname="currency code" type="BaseType.U_CURRENCY" ref="SysDict.A.ccy_code" primarykey="false" final="false" nullable="false" desc="USD、CNY" identity="false" allowSubType="true"/>
+            <field id="ccy_name" longname="currency name" type="BaseType.U_SHORTDESC" ref="SysDict.A.ccy_name" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="ccy_num_code" longname="currency numeric code" type="BaseType.U_BYTE3" ref="SysDict.A.ccy_num_code" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="country_code" longname="country code" type="BaseType.U_COUNTRY" ref="SysDict.A.country_code" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="ccy_minor_unit" longname="currency minor unit" type="BaseType.U_LONG" ref="SysDict.A.ccy_minor_unit" primarykey="false" final="false" nullable="false" desc="2表示最小单位为分,部分国家为0、3甚至是4。" identity="false" allowSubType="true"/>
+            <field id="cale_interest_unit" longname="cale interest unit" type="BaseType.U_LONG" ref="SysDict.A.cale_interest_unit" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="ccy_change_unit" longname="currency change unit" type="BaseType.U_MONEY" ref="SysDict.A.ccy_change_unit" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="accrual_base_day" longname="accrual base day" type="EnumType.E_ACCRUALBASEDAY" ref="SysDict.A.accrual_base_day" primarykey="false" final="false" nullable="true" desc="按日计算年基准天数" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="ccy_code" operate="selectOne deleteOne updateOne"/>
+            <index id="odb2" type="unique" fields="ccy_num_code" operate="selectOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_currency_idx1" type="primarykey" fields="ccy_code org_id">
+                <ddls/>
+            </index>
+            <index id="app_currency_idx2" type="unique" fields="ccy_num_code org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_summary" name="app_summary" longname="summary define" category="P" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="summary_code" longname="summary code" type="BaseType.U_BYTE8" ref="SysDict.A.summary_code" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="summary_text" longname="summary text" type="BaseType.U_BYTE64" ref="SysDict.A.summary_text" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="short_text" longname="short text" type="BaseType.U_BYTE32" ref="SysDict.A.short_text" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="summary_class" longname="summary class" type="BaseType.U_BYTE64" ref="SysDict.A.summary_class" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="summary_code" operate="selectOne deleteOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_summary_idx1" type="primarykey" fields="summary_code">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_summary_control" name="app_summary_control" longname="summary control define" category="P" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="trxn_code" longname="transaction code" type="MsType.U_TRXNCODE" ref="MsDict.Comm.trxn_code" primarykey="false" final="false" nullable="false" desc="交易码" identity="false" allowSubType="true"/>
+            <field id="data_sort" longname="data sort" type="BaseType.U_LONG" ref="SysDict.A.data_sort" primarykey="false" final="false" nullable="true" desc="数据序号" identity="false" allowSubType="true"/>
+            <field id="recon_code" longname="recon code" type="MsType.U_BYTE32" ref="MsDict.Comm.recon_code" primarykey="false" final="false" nullable="false" desc="对账代码" identity="false" allowSubType="true"/>
+            <field id="channel_id" longname="channel id" type="MsType.U_CHANNEL" ref="MsDict.Comm.channel_id" primarykey="false" final="false" nullable="true" desc="渠道ID" identity="false" allowSubType="true"/>
+            <field id="external_scene_code" longname="external scene code" type="BaseType.U_BYTE64" ref="SysDict.A.external_scene_code" primarykey="false" final="false" nullable="true" desc="外部场景代码" identity="false" allowSubType="true"/>
+            <field id="summary_code" longname="summary code" type="BaseType.U_BYTE8" ref="SysDict.A.summary_code" primarykey="false" final="false" nullable="true" desc="摘要代码" identity="false" allowSubType="true"/>
+            <field id="default_ind" longname="default indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.default_ind" primarykey="false" final="false" nullable="true" desc="缺省账户标志" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="trxn_code data_sort" operate="selectOne"/>
+            <index id="odb2" type="index" fields="trxn_code recon_code channel_id external_scene_code summary_code" operate="selectOne deleteOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_summary_control_pk1" type="primarykey" fields="trxn_code data_sort">
+                <ddls/>
+            </index>
+            <index id="app_summary_control_idx1" type="unique" fields="trxn_code recon_code channel_id external_scene_code summary_code">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_holiday" name="app_holiday" longname="holiday define" category="P" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="holiday_code" longname="holiday code" type="BaseType.U_BYTE8" ref="SysDict.A.holiday_code" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="holiday_class" longname="holiday class" type="EnumType.E_HOLIDAYCLASS" ref="SysDict.A.holiday_class" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="holiday_date" longname="holiday date" type="BaseType.U_DATE" ref="SysDict.A.holiday_date" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="holiday_ind" longname="holiday indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.holiday_ind" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="remark" longname="remark" type="BaseType.U_SHORTDESC" ref="SysDict.A.remark" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="holiday_code holiday_class holiday_date" operate="selectOne deleteOne updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_holiday_idx1" type="primarykey" fields="holiday_code holiday_class holiday_date">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+</schema>

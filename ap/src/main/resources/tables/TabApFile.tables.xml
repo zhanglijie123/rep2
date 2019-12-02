@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="TabApFile" package="cn.sunline.icore.ap.tables" longname="file" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <table id="AppDirectory" name="app_directory" longname="file directory" category="P" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="dir_code" longname="directory code" type="BaseType.U_BYTE32" ref="SysDict.A.dir_code" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="data_sort" longname="data sort" type="BaseType.U_LONG" ref="SysDict.A.data_sort" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="dir_parm_type" longname="parm type" type="EnumType.E_DIRPARMTYPE" ref="SysDict.A.dir_parm_type" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="parm_value" longname="parameter value" type="BaseType.U_MIDDESC" ref="SysDict.A.parm_value" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="index" fields="dir_code" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_directory_idx1" type="primarykey" fields="dir_code data_sort">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="AppBatch" name="app_batch" longname="batch define" param="true" category="B" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="busi_batch_id" longname="batch business id" type="BaseType.U_BYTE10" ref="SysDict.A.busi_batch_id" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="busi_batch_desc" longname="batch business describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.busi_batch_desc" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="busi_batch_type" longname="batch business type" type="EnumType.E_BATCHTYPE" ref="SysDict.A.busi_batch_type" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="batch_detail_type" longname="batch detail type" type="EnumType.E_BATCHDETAILTYPE" ref="SysDict.A.batch_detail_type" primarykey="false" final="false" nullable="true" desc="文件批量明细种类" identity="false" allowSubType="true"/>
+            <field id="file_proc_type" longname="file process type" type="EnumType.E_FILEPROCTYPE" ref="SysDict.A.file_proc_type" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="file_recv_way" longname="file receive way" type="EnumType.E_FILERECVWAY" ref="SysDict.A.file_recv_way" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="local_dir_code" longname="local directory code" type="BaseType.U_BYTE32" ref="SysDict.A.local_dir_code" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="remote_dir_code" longname="remote directory code" type="BaseType.U_BYTE32" ref="SysDict.A.remote_dir_code" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="busi_batch_id" operate="selectOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_batch_idx1" type="primarykey" fields="busi_batch_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="AppBatchChannel" name="app_batch_channel" longname="batch channel define" param="true" category="B" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="busi_batch_id" longname="batch business id" type="BaseType.U_BYTE10" ref="SysDict.A.busi_batch_id" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="channel_id" longname="channel id" type="BaseType.U_CHANNEL" ref="SysDict.A.channel_id" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="busi_batch_id channel_id" operate="selectOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_batch_channel_idx1" type="primarykey" fields="busi_batch_id channel_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="ApbBatchSend" name="apb_batch_send" longname="batch request  book" category="B" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="file_id" longname="file id" type="BaseType.U_BYTE20" ref="SysDict.A.file_id" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="file_name" longname="file name" type="BaseType.U_MIDDESC" ref="SysDict.A.file_name" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="file_server_path" longname="file server path" type="BaseType.U_SHORTDESC" ref="SysDict.A.file_server_path" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="file_local_path" longname="file local path" type="BaseType.U_SHORTDESC" ref="SysDict.A.file_local_path" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="append_ok_ind" longname="append success file indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.append_ok_ind" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="send_ind" longname="send indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.send_ind" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="hash_value" longname="hash value" type="BaseType.U_LONG" ref="SysDict.A.hash_value" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="send_count" longname="file send count" type="BaseType.U_LONG" ref="SysDict.A.send_count" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="file_id" operate="selectOne updateOne selectOneWithLock"/>
+            <index id="odb2" type="index" fields="send_ind hash_value" operate="selectAll selectPage"/>
+        </odbindexes>
+        <indexes>
+            <index id="apb_batch_send_idx1" type="primarykey" fields="file_id">
+                <ddls/>
+            </index>
+            <index id="apb_batch_send_idx2" type="index" fields="send_ind hash_value">
+                <ddls/>
+            </index>
+            <index id="apb_batch_send_idx3" type="index" fields="file_name file_server_path">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="ApbBatchReceive" name="apb_batch_receive" longname="batch receive book" category="B" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="file_id" longname="file id" type="BaseType.U_BYTE20" ref="SysDict.A.file_id" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="file_name" longname="file name" type="BaseType.U_MIDDESC" ref="SysDict.A.file_name" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="file_server_path" longname="file server path" type="BaseType.U_SHORTDESC" ref="SysDict.A.file_server_path" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="file_local_path" longname="file local path" type="BaseType.U_SHORTDESC" ref="SysDict.A.file_local_path" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="receive_ind" longname="receive indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.receive_ind" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="hash_value" longname="hash value" type="BaseType.U_LONG" ref="SysDict.A.hash_value" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="recevice_count" longname="file recevice count" type="BaseType.U_LONG" ref="SysDict.A.recevice_count" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="fail_total_count" longname="fail total count" type="BaseType.U_LONG" ref="SysDict.A.fail_total_count" primarykey="false" final="false" default="0" nullable="false" desc="失败记录数" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="file_id" operate="selectOne updateOne selectOneWithLock"/>
+            <index id="odb2" type="index" fields="receive_ind hash_value" operate="selectAll selectPage"/>
+            <index id="odb3" type="index" fields="file_name file_server_path receive_ind" operate="selectFirst"/>
+        </odbindexes>
+        <indexes>
+            <index id="apb_batch_receive_idx1" type="primarykey" fields="file_id">
+                <ddls/>
+            </index>
+            <index id="apb_batch_receive_idx2" type="index" fields="receive_ind hash_value">
+                <ddls/>
+            </index>
+            <index id="apb_batch_receive_idx3" type="index" fields="file_name file_server_path receive_ind">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="ApbBatchRequest" name="apb_batch_request" longname="batch send book" category="B" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="busi_batch_code" longname="batch business code" type="BaseType.U_BYTE32" ref="SysDict.A.busi_batch_code" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="busi_batch_id" longname="batch business id" type="BaseType.U_BYTE10" ref="SysDict.A.busi_batch_id" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="busi_batch_type" longname="batch business type" type="EnumType.E_BATCHTYPE" ref="SysDict.A.busi_batch_type" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="batch_detail_type" longname="batch detail type" type="EnumType.E_BATCHDETAILTYPE" ref="SysDict.A.batch_detail_type" primarykey="false" final="false" nullable="true" desc="文件批量明细种类" identity="false" allowSubType="true"/>
+            <field id="request_file_id" longname="request file id" type="BaseType.U_BYTE20" ref="SysDict.A.request_file_id" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="file_name" longname="file name" type="BaseType.U_MIDDESC" ref="SysDict.A.file_name" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="timing_process_ind" longname="Timing processing indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.timing_process_ind" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="timing_process_time" longname="Timing processing time" type="BaseType.U_DATETIME" ref="SysDict.A.timing_process_time" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="batch_charges_ind" longname="batch charges indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.batch_charges_ind" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="chrg_code" longname="charge code" type="BaseType.U_FEECODE" ref="SysDict.A.chrg_code" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="deduct_chrg_acct" longname="deduct charge account" type="BaseType.U_ACCTNO" ref="SysDict.A.deduct_chrg_acct" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="deduct_chrg_ccy" longname="deduct charge currency" type="BaseType.U_CURRENCY" ref="SysDict.A.deduct_chrg_ccy" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="hash_value" longname="hash value" type="BaseType.U_LONG" ref="SysDict.A.hash_value" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="file_handling_status" longname="file deal status" type="EnumType.E_FILEDEALSTATUS" ref="SysDict.A.file_handling_status" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="head_total_count" longname="header total count" type="BaseType.U_LONG" ref="SysDict.A.head_total_count" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="head_total_amt" longname="header total amount" type="BaseType.U_MONEY" ref="SysDict.A.head_total_amt" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="filebody_total_count" longname="filebody total count" type="BaseType.U_LONG" ref="SysDict.A.filebody_total_count" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="filebody_total_amt" longname="filebody total amount" type="BaseType.U_MONEY" ref="SysDict.A.filebody_total_amt" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="success_total_count" longname="success total count" type="BaseType.U_LONG" ref="SysDict.A.success_total_count" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="success_total_amt" longname="success total amount" type="BaseType.U_MONEY" ref="SysDict.A.success_total_amt" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="calc_chrg_amt" longname="calculate charge amount" type="BaseType.U_MONEY" ref="SysDict.A.calc_chrg_amt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="calc_chrg_ccy" longname="calculate charge currency" type="BaseType.U_CURRENCY" ref="SysDict.A.calc_chrg_ccy" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="trxn_seq" longname="transaction sequence" type="BaseType.U_SEQNO" ref="SysDict.A.trxn_seq" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="return_file_id" longname="return file id" type="BaseType.U_BYTE20" ref="SysDict.A.return_file_id" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="branch_id" longname="branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.branch_id" primarykey="false" final="false" nullable="true" desc="交易机构" identity="false" allowSubType="true"/>
+            <field id="teller_id" longname="teller id" type="BaseType.U_USERID" ref="SysDict.A.teller_id" primarykey="false" final="false" nullable="true" desc="交易柜员" identity="false" allowSubType="true"/>
+            <field id="trxn_channel" longname="trxn channel" type="BaseType.U_CHANNEL" ref="SysDict.A.trxn_channel" primarykey="false" final="false" nullable="true" desc="交易渠道" identity="false" allowSubType="true"/>
+            <field id="error_text" longname="error text" type="BaseType.U_LONGESTDESC" ref="SysDict.A.error_text" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="busi_batch_code" operate="selectOne updateOne selectOneWithLock"/>
+            <index id="odb2" type="index" fields="hash_value file_handling_status" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="apb_batch_request_idx1" type="primarykey" fields="busi_batch_code org_id">
+                <ddls/>
+            </index>
+            <index id="apb_batch_request_idx2" type="index" fields="file_handling_status hash_value org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="AppRootDirectory" name="app_root_directory" longname="file root directory define" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="dir_code" longname="directory code" type="BaseType.U_BYTE32" ref="SysDict.A.dir_code" primarykey="false" final="false" nullable="false" desc="目录编码" identity="false" allowSubType="true"/>
+            <field id="root_dir_id" longname="root directory id" type="BaseType.U_BYTE64" ref="SysDict.A.root_dir_id" primarykey="false" final="false" nullable="false" desc="根目录配置" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="dir_code" operate="selectOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_root_directory_idx1" type="primarykey" fields="dir_code org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="ApbFileReversal" name="apb_file_reversal" longname="file reversal detail" category="B" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="initiator_seq" longname="initiator sequence" type="BaseType.U_SEQNO" ref="SysDict.A.initiator_seq" primarykey="false" final="false" nullable="false" desc="调用流水" identity="false" allowSubType="true"/>
+            <field id="busi_seq" longname="buisness sequence" type="BaseType.U_SEQNO" ref="SysDict.A.busi_seq" primarykey="false" final="false" nullable="false" desc="业务流水" identity="false" allowSubType="true"/>
+            <field id="busi_batch_code" longname="batch business code" type="BaseType.U_BYTE32" ref="SysDict.A.busi_batch_code" primarykey="false" final="false" nullable="false" desc="文件批量号" identity="false" allowSubType="true"/>
+            <field id="original_trxn_seq" longname="original transaction sequence" type="BaseType.U_SEQNO" ref="SysDict.A.original_trxn_seq" primarykey="false" final="false" nullable="false" desc="原交易流水" identity="false" allowSubType="true"/>
+            <field id="reversal_type" longname="reversal type" type="MsEnumType.E_REVERSALTYPE" ref="SysDict.A.reversal_type" primarykey="false" final="false" nullable="true" desc="冲账分类" identity="false" allowSubType="true"/>
+            <field id="chrg_reversal_ind" longname="charge reversal indicator" type="MsEnumType.E_YESORNO" ref="SysDict.A.chrg_reversal_ind" primarykey="false" final="false" nullable="true" desc="手续费回冲标志" identity="false" allowSubType="true"/>
+            <field id="voch_reversal_ind" longname="voch reversal indicator" type="MsEnumType.E_YESORNO" ref="SysDict.A.voch_reversal_ind" primarykey="false" final="false" nullable="true" desc="凭证回冲标志" identity="false" allowSubType="true"/>
+            <field id="unfroze_reversal_ind" longname="unfroze reversal indicator" type="MsEnumType.E_YESORNO" ref="SysDict.A.unfroze_reversal_ind" primarykey="false" final="false" nullable="true" desc="解冻回冲标志" identity="false" allowSubType="true"/>
+            <field id="file_detail_handling_status" longname="file detail handling status" type="EnumType.E_FILEDETAILDEALSTATUS" ref="SysDict.A.file_detail_handling_status" primarykey="false" final="false" nullable="false" desc="文件明细处理状态" identity="false" allowSubType="true"/>
+            <field id="error_id" longname="error id" type="BaseType.U_SHORTDESC" ref="SysDict.A.error_id" primarykey="false" final="false" nullable="true" desc="错误ID" identity="false" allowSubType="true"/>
+            <field id="error_code" longname="error code " type="BaseType.U_SHORTDESC" ref="SysDict.A.error_code" primarykey="false" final="false" nullable="true" desc="错误代码" identity="false" allowSubType="true"/>
+            <field id="error_text" longname="error text" type="BaseType.U_LONGESTDESC" ref="SysDict.A.error_text" primarykey="false" final="false" nullable="true" desc="错误信息" identity="false" allowSubType="true"/>
+            <field id="hash_value" longname="hash value" type="BaseType.U_LONG" ref="SysDict.A.hash_value" primarykey="false" final="false" nullable="false" desc="散列值" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="initiator_seq" operate="selectOne updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="apb_file_reversal_idx" type="primarykey" fields="initiator_seq org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+</schema>

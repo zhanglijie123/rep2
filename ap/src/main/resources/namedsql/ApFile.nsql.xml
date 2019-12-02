@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ApFile" longname="file batch namedsql" package="cn.sunline.icore.ap.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <select cache="none" method="selectAll" type="sql" id="selGroupIdForRecv" longname="get hash value by file receive">
+        <sql><![CDATA[    	select
+    	    	distinct a.hash_value
+    	from
+    	    	apb_batch_receive a 
+    	where    	    	 
+              a.receive_ind = #receive_ind#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="receive_ind" ref="SysDict.A.receive_ind" jdbcType="VARCHAR" javaType="MsEnumType.E_YESORNO" mode="in" longname="receive indication" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApFile.ApDataGroupNo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selFileReceiveData" longname="file receive data">
+        <sql><![CDATA[    	select
+    	    	a.file_id ,a.file_name,a.file_server_path,a.file_local_path
+    	from
+    	    	apb_batch_receive a 
+    	where
+              a.hash_value = #hash_value#        
+              and a.receive_ind = #receive_ind# 
+		and a.fail_total_count < #fail_total_count# 
+       order by  a.recevice_count asc
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="hash_value" ref="SysDict.A.hash_value" jdbcType="VARCHAR" javaType="BaseType.U_LONG" mode="in" longname="hash value" parameterType="condition"/>
+            <parameter property="file_handling_status" ref="SysDict.A.file_handling_status" jdbcType="VARCHAR" javaType="EnumType.E_FILEDEALSTATUS" mode="in" longname="file deal status" parameterType="condition"/>
+            <parameter property="receive_ind" ref="SysDict.A.receive_ind" jdbcType="VARCHAR" javaType="MsEnumType.E_YESORNO" mode="in" longname="receive indication" parameterType="condition"/>
+            <parameter property="fail_total_count" ref="SysDict.A.fail_total_count" jdbcType="VARCHAR" javaType="BaseType.U_LONG" mode="in" longname="fail total count" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApFile.ApRecvFileIn"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selGroupIdForSend" longname="get hash value by file send">
+        <sql><![CDATA[    	select
+    	    	distinct a.hash_value
+    	from
+    	    	apb_batch_send a 
+    	where
+              a.send_ind = #send_ind#  ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="send_ind" ref="SysDict.A.send_ind" jdbcType="VARCHAR" javaType="MsEnumType.E_YESORNO" mode="in" longname="send indication" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApFile.ApDataGroupNo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selFileSendData" longname="file send data">
+        <sql><![CDATA[    	select
+    	    	a.file_id ,a.file_name,a.file_server_path,a.file_local_path,a.append_ok_ind
+    	from
+    	    	apb_batch_send a 
+    	where
+              a.hash_value = #hash_value# 
+              and a.send_ind = #send_ind# 
+       order  by  a.send_count  asc
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="hash_value" ref="SysDict.A.hash_value" jdbcType="VARCHAR" javaType="BaseType.U_LONG" mode="in" longname="hash value" parameterType="condition"/>
+            <parameter property="send_ind" ref="SysDict.A.send_ind" jdbcType="VARCHAR" javaType="MsEnumType.E_YESORNO" mode="in" longname="send indication" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApFile.ApSendFileIn"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selSyscBatchIdList" longname="get synchronization batch file list">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	app_batch 
+    	where
+    	    	file_proc_type = #file_proc_type# and file_recv_way = #file_recv_way#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="file_proc_type" ref="SysDict.A.file_proc_type" jdbcType="VARCHAR" javaType="EnumType.E_FILEPROCTYPE" mode="in" longname="file process type" parameterType="condition"/>
+            <parameter property="file_recv_way" ref="SysDict.A.file_recv_way" jdbcType="VARCHAR" javaType="EnumType.E_FILERECVWAY" mode="in" longname="file receive way" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="TabApFile.AppBatch"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selGroupIdForBatchLoad" longname="Query file batch import hash value">
+        <sql><![CDATA[
+    	select
+    	    	distinct a.hash_value 
+    	from
+    	    	apb_batch_request a 
+    	join
+    	    	apb_batch_receive b 
+    	on      a.request_file_id = b.file_id
+    	where
+              a.org_id = #org_id#
+    	  and a.busi_batch_type = #busi_batch_type# 
+    	  and a.file_handling_status = #file_handling_status#
+    	  and b.receive_ind = #receive_ind# 
+    	  
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="hash_value" ref="SysDict.A.hash_value" jdbcType="VARCHAR" javaType="BaseType.U_LONG" mode="in" longname="hash value" parameterType="condition"/>
+            <parameter property="busi_batch_type" ref="SysDict.A.busi_batch_type" jdbcType="VARCHAR" javaType="EnumType.E_BATCHTYPE" mode="in" longname="batch business type" parameterType="condition"/>
+            <parameter property="file_handling_status" ref="SysDict.A.file_handling_status" jdbcType="VARCHAR" javaType="EnumType.E_FILEDEALSTATUS" mode="in" longname="file deal status" parameterType="condition"/>
+            <parameter property="receive_ind" ref="SysDict.A.receive_ind" jdbcType="VARCHAR" javaType="MsEnumType.E_YESORNO" mode="in" longname="receive indication" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApFile.ApDataGroupNo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selBatchLoadData" longname="Query File Batch Import Data Set">
+        <sql><![CDATA[
+    	select
+    	    	a.busi_batch_code, b.file_id ,b.file_name ,b.file_local_path 
+    	from
+    	    	apb_batch_request a 
+    	join
+    	    	apb_batch_receive b 
+    	on      a.request_file_id = b.file_id
+    	where
+                a.org_id = #org_id# 
+    	    	and a.busi_batch_type = #busi_batch_type# 
+    	    	and a.file_handling_status = #file_handling_status#
+    	    	and b.receive_ind = #receive_ind# 
+    	    	
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="busi_batch_type" ref="SysDict.A.busi_batch_type" jdbcType="VARCHAR" javaType="EnumType.E_BATCHTYPE" mode="in" longname="batch business type" parameterType="condition"/>
+            <parameter property="file_handling_status" ref="SysDict.A.file_handling_status" jdbcType="VARCHAR" javaType="EnumType.E_FILEDEALSTATUS" mode="in" longname="file deal status" parameterType="condition"/>
+            <parameter property="receive_ind" ref="SysDict.A.receive_ind" jdbcType="VARCHAR" javaType="MsEnumType.E_YESORNO" mode="in" longname="receive indication" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApFile.ApBatchLoadData"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selFileReversalData" longname="Query file reversal data set">
+        <sql><![CDATA[  select b.*
+        from apb_batch_request a
+        join apb_file_reversal b
+          on a.org_id = b.org_id
+         and a.busi_batch_code = b.busi_batch_code
+       where a.org_id = #org_id#
+         and a.file_handling_status = #file_handling_status#
+         and (a.timing_process_ind = 'N' or
+             a.timing_process_time < #trxn_time#)
+         and b.file_detail_handling_status = #file_detail_handling_status#
+         and b.hash_value = #hash_value#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="file_handling_status" ref="SysDict.A.file_handling_status" jdbcType="VARCHAR" javaType="EnumType.E_FILEDEALSTATUS" mode="in" longname="file deal status" parameterType="condition"/>
+            <parameter property="trxn_time" ref="SysDict.A.trxn_time" jdbcType="VARCHAR" javaType="BaseType.U_DATETIME" mode="in" longname="transaction time" parameterType="condition"/>
+            <parameter property="file_detail_handling_status" ref="SysDict.A.file_detail_handling_status" jdbcType="VARCHAR" javaType="EnumType.E_FILEDETAILDEALSTATUS" mode="in" longname="file detail handling status" parameterType="condition"/>
+            <parameter property="hash_value" ref="SysDict.A.hash_value" jdbcType="VARCHAR" javaType="BaseType.U_LONG" mode="in" longname="hash value" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="TabApFile.ApbFileReversal"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selFileReversalResultData" longname="Query file reversal counteroffer to the processing batch number">
+        <sql><![CDATA[        select a.busi_batch_code
+               from apb_batch_request a
+              where not exists
+              (select 1
+                       from apb_file_reversal b
+                      where b.busi_batch_code = a.busi_batch_code
+                        and b.org_id = a.org_id
+                        and b.file_detail_handling_status =
+                            #file_detail_handling_status#)
+                and a.org_id = #org_id#
+                and a.file_handling_status = #file_handling_status#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="file_detail_handling_status" ref="SysDict.A.file_detail_handling_status" jdbcType="VARCHAR" javaType="EnumType.E_FILEDETAILDEALSTATUS" mode="in" longname="file detail handling status" parameterType="condition"/>
+            <parameter property="file_handling_status" ref="SysDict.A.file_handling_status" jdbcType="VARCHAR" javaType="EnumType.E_FILEDEALSTATUS" mode="in" longname="file deal status" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selGroupIdForFileReversal" longname="Query the file reversal accounting hash value">
+        <sql><![CDATA[  	select
+				distinct b.hash_value 
+    	from
+    	    	apb_batch_request a join 
+				apb_file_reversal b
+			on	a.org_id = b.org_id
+			and	a.busi_batch_code = b.busi_batch_code
+    	where  
+				a.org_id = #org_id#
+           and	a.file_handling_status = #file_handling_status#
+		   and	( a.timing_process_ind = 'N' or a.timing_process_time < #trxn_time#  )
+		   and	b.file_detail_handling_status = #file_detail_handling_status#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="file_handling_status" ref="SysDict.A.file_handling_status" jdbcType="VARCHAR" javaType="EnumType.E_FILEDEALSTATUS" mode="in" longname="file deal status" parameterType="condition"/>
+            <parameter property="trxn_time" ref="SysDict.A.trxn_time" jdbcType="VARCHAR" javaType="BaseType.U_DATETIME" mode="in" longname="transaction time" parameterType="condition"/>
+            <parameter property="file_detail_handling_status" ref="SysDict.A.file_detail_handling_status" jdbcType="VARCHAR" javaType="EnumType.E_FILEDETAILDEALSTATUS" mode="in" longname="file detail handling status" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApFile.ApDataGroupNo"/>
+    </select>
+    <update method="update" id="updDWHtable" longname="update DWH configuration table before unload data">
+        <sql><![CDATA[
+    	update
+    	    	app_unload_data 
+    	set
+    	    	proc_ind='N' 
+    	where
+    	    	valid_ind='Y'
+    	]]></sql>
+        <parameterMap class="java.util.Map"/>
+    </update>
+    <select cache="none" method="selectOne" type="sql" id="selSmallDateFromAccountingEvent" longname="select the minimum date of accounting enevt">
+        <sql><![CDATA[
+    	select
+    	    	nvl(MIN(A.TRXN_DATE), '20010101') as temp_data 
+    	from
+    	    	aps_accounting_event a 
+    	where
+    	    	a.data_sync_ind = 'N' and a.org_id = #org_id# 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	MIN(A.TRXN_DATE) as temp_data 
+    	from
+    	    	aps_accounting_event a 
+    	where
+    	    	a.data_sync_ind = 'N' and a.org_id = #org_id#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selMaxDateFromLedgerBal" longname="get the max date from ledger balace table">
+        <sql><![CDATA[
+    	select
+    	    	max(trxn_date) as trxn_date 
+    	from
+    	    	aps_ledger_bal a 
+    	where
+    	    	a.org_id = #org_id# and a.trxn_date < #trxn_date# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="trxn_date" ref="SysDict.A.trxn_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="transaction date" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selFileHeadFromAccure" longname="calculateing the file head data from acounting event">
+        <sql><![CDATA[
+    	select
+    	    	count(1) as head_total_count, nvl(sum(a.budget_inst_amt), 0.00) as head_total_amt 
+    	from
+    	    	aps_accrue_record a 
+    	where
+    	    	a.org_id = #org_id# and a.trxn_date=#last_date# 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[	select
+    	    	count(1) as head_total_count, ifnull(sum(a.budget_inst_amt), 0.00) as head_total_amt 
+    	from
+    	    	aps_accrue_record a 
+    	where
+    	    	a.org_id = #org_id# and a.trxn_date=#last_date# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="last_date" ref="SysDict.A.last_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="last date" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApFileInfo.ApFileHead"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selAccureData" longname="inquering data from accure table to write to file">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	aps_accrue_record a 
+    	where
+    	    	a.org_id=#org_id# and a.trxn_date=#last_date# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="last_date" ref="SysDict.A.last_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="last date" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApFileInfo.ApAccureDataCom"/>
+    </select>
+    <insert id="insAccureZero" longname="inster the zero record of accurue">
+        <sql><![CDATA[
+    	insert 
+    	into
+    	    	aps_accrue_record
+    	    	(
+    	    	    	org_id, trxn_date, accrue_type, acct_branch, accounting_alias, ccy_code, bal_attributes, budget_inst_amt 
+    	    	) select
+    	    	    	org_id, #trxn_date#, accrue_type, acct_branch, accounting_alias,
+    	    	    	ccy_code, bal_attributes, 0.00 
+    	    	from
+    	    	    	aps_accrue_record a 
+    	    	where
+    	    	    	a.trxn_date = #last_date# and a.org_id = #org_id# 
+    	    	    	and not exists(
+    	    	    	    	select
+    	    	    	    	    	1 
+    	    	    	    	from
+    	    	    	    	    	aps_accrue_record b 
+    	    	    	    	where
+    	    	    	    	    	b.trxn_date = #trxn_date# and b.accrue_type = a.accrue_type 
+    	    	    	    	    	and b.acct_branch = a.acct_branch and b.accounting_alias = a.accounting_alias 
+    	    	    	    	    	and b.ccy_code = a.ccy_code and b.bal_attributes = a.bal_attributes 
+    	    	    	    	    	and b.org_id = a.org_id 
+    	    	    	) 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="trxn_date" ref="SysDict.A.trxn_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="transaction date" parameterType="condition"/>
+            <parameter property="last_date" ref="SysDict.A.last_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="last date" parameterType="condition"/>
+        </parameterMap>
+    </insert>
+    <select cache="none" method="selectAll" type="sql" id="selLedgerBal" longname="getting the balance from ledger account">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	aps_ledger_bal a 
+    	where
+    	    	a.trxn_date=#last_date# and a.org_id=#org_id# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="last_date" ref="SysDict.A.last_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="last date" parameterType="condition"/>
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApFileInfo.ApLedgerBalCom"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selApsAccountingEventNoDataSync" longname="query accounting event not data sync">
+        <sql><![CDATA[
+    	select * from 
+    	    	aps_accounting_event
+    	where
+    	    	org_id = #org_id# and data_sync_ind = 'N'  and trxn_date = #trxn_date# limit #query_counts#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="query_counts" ref="SysDict.A.query_counts" jdbcType="VARCHAR" javaType="BaseType.U_LONG" mode="in" longname="query counts" parameterType="condition"/>
+            <parameter property="trxn_date" ref="SysDict.A.trxn_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="transaction date" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="TabApAccounting.ApsAccountingEvent"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selFileHeadFromAccountingEvent" longname="calculating file head information about accounting event">
+        <sql><![CDATA[
+    	select
+    	    	count(1) as head_total_count,nvl(sum(trxn_amt),0.00) as head_total_amt 
+    	from
+    	    	aps_accounting_event a 
+    	where
+    	    	a.data_sync_ind='Y' and a.data_sync_file_id=#data_sync_file_id# 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[select
+    	    	count(1) as head_total_count,sum(trxn_amt) as head_total_amt 
+    	from
+    	    	aps_accounting_event a 
+    	where
+    	    	a.data_sync_ind='Y' and a.data_sync_file_id=#data_sync_file_id#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="data_sync_file_id" ref="SysDict.A.data_sync_file_id" jdbcType="VARCHAR" javaType="BaseType.U_SHORTDESC" mode="in" longname="data synchronism file id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApFileInfo.ApFileHead"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selAccountingEvent" longname="inquering accounting event files">
+        <sql><![CDATA[
+    	select
+				 * 
+    	from
+    	    	aps_accounting_event a 
+    	where
+    	    	a.data_sync_ind='Y' and a.data_sync_file_id=#data_sync_file_id# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="data_sync_file_id" ref="SysDict.A.data_sync_file_id" jdbcType="VARCHAR" javaType="BaseType.U_SHORTDESC" mode="in" longname="data synchronism file id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="TabApAccounting.ApsAccountingEvent"/>
+    </select>
+    <insert id="insLedgerBalZero" longname="inster the zero record into the ledger balance table">
+        <sql><![CDATA[
+    	insert 
+    	into
+    	    	aps_ledger_bal
+    	    	(
+    	    	    	org_id, trxn_date, acct_branch, ccy_code, accounting_subject, 
+    	    	    	accounting_alias, bal_attributes, bal_type, acct_bal ,data_create_time,data_update_time,data_create_user
+    	    	) select
+    	    	    	org_id, #trxn_date#, acct_branch, ccy_code, accounting_subject,
+    	    	    	accounting_alias, bal_attributes, bal_type, 0.00 ,#data_create_time#,#data_create_time#,data_create_user
+    	    	from
+    	    	    	aps_ledger_bal a 
+    	    	where
+    	    	    	a.trxn_date = #last_date# and a.org_id = #org_id# 
+    	    	    	and not exists(
+    	    	    	    	select
+    	    	    	    	    	1 
+    	    	    	    	from
+    	    	    	    	    	aps_ledger_bal b 
+    	    	    	    	where
+    	    	    	    	    	b.trxn_date = #trxn_date# and b.acct_branch = a.acct_branch 
+    	    	    	    	    	and b.accounting_subject = a.accounting_subject and b.accounting_alias = a.accounting_alias 
+    	    	    	    	    	and b.ccy_code = a.ccy_code and b.bal_attributes = a.bal_attributes 
+    	    	    	    	    	and b.org_id = a.org_id 
+    	    	    	) 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="trxn_date" ref="SysDict.A.trxn_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="transaction date" parameterType="condition"/>
+            <parameter property="last_date" ref="SysDict.A.last_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="last date" parameterType="condition"/>
+            <parameter property="data_create_time" ref="SysDict.A.data_create_time" jdbcType="VARCHAR" javaType="BaseType.U_DATETIME" mode="in" longname="data create time" parameterType="condition"/>
+        </parameterMap>
+    </insert>
+    <select cache="none" method="selectAll" type="sql" id="selLedgerBalZero" longname="query the zero record into the ledger balance table">
+        <sql><![CDATA[    	
+        select
+    	    	    	org_id, #trxn_date# as trxn_date, acct_branch, ccy_code, accounting_subject,
+    	    	    	accounting_alias, bal_attributes, bal_type, 0.00 as acct_bal,
+    	    	    	#data_create_time# as data_create_time,#data_create_time# as data_update_time,data_create_user
+    	    	from
+    	    	    	aps_ledger_bal a 
+    	    	where
+    	    	    	a.trxn_date = #last_date# and a.org_id = #org_id# 
+    	    	    	and not exists(
+    	    	    	    	select
+    	    	    	    	    	1 
+    	    	    	    	from
+    	    	    	    	    	aps_ledger_bal b 
+    	    	    	    	where
+    	    	    	    	    	b.trxn_date = #trxn_date# and b.acct_branch = a.acct_branch 
+    	    	    	    	    	and b.accounting_subject = a.accounting_subject and b.accounting_alias = a.accounting_alias 
+    	    	    	    	    	and b.ccy_code = a.ccy_code and b.bal_attributes = a.bal_attributes 
+    	    	    	    	    	and b.org_id = a.org_id 
+    	    	    	) 
+        ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="trxn_date" ref="SysDict.A.trxn_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="transaction date" parameterType="condition"/>
+            <parameter property="last_date" ref="SysDict.A.last_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="last date" parameterType="condition"/>
+            <parameter property="data_create_time" ref="SysDict.A.data_create_time" jdbcType="VARCHAR" javaType="BaseType.U_DATETIME" mode="in" longname="data create time" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="TabApBillInfo.ApsLedgerBal"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selFileHeadFromLedgerBal" longname="select data from ledfer  balance">
+        <sql><![CDATA[
+    	select
+    	    	count(1) as head_total_count, nvl(sum(A.ACCT_BAL), 0.00) as head_total_amt 
+    	from
+    	    	aps_ledger_bal a 
+    	where
+    	    	a.org_id = #org_id# and a.trxn_date=#last_date# 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[select
+    	    	count(1) as head_total_count, sum(A.ACCT_BAL) as head_total_amt 
+    	from
+    	    	aps_ledger_bal a 
+    	where
+    	    	a.org_id = #org_id# and a.trxn_date=#last_date# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="last_date" ref="SysDict.A.last_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="last date" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApFileInfo.ApFileHead"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selFileHeadNumFromAccountingEvent" longname="calculating file head number information about accounting event">
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	count(1) as record_number,sum(trxn_amt) as total_amt 
+    	from
+    	    	aps_accounting_event a 
+    	where
+    	    	a.data_sync_ind='Y' and trxn_date=#trxn_date# and org_id=#org_id#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="trxn_date" ref="SysDict.A.trxn_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="transaction date" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApFileInfo.ApCheckRecord"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selsAccure" longname="selsAccure">
+        <sql><![CDATA[select
+    	    	    	org_id, #trxn_date# as trxn_date, accrue_type, acct_branch, accounting_alias,
+    	    	    	ccy_code, bal_attributes, 0.00 as budget_inst_amt
+    	    	from
+    	    	    	aps_accrue_record a 
+    	    	where
+    	    	    	a.trxn_date = #last_date# and a.org_id = #org_id# 
+    	    	    	and not exists(
+    	    	    	    	select
+    	    	    	    	    	1 
+    	    	    	    	from
+    	    	    	    	    	aps_accrue_record b 
+    	    	    	    	where
+    	    	    	    	    	b.trxn_date = #trxn_date# and b.accrue_type = a.accrue_type 
+    	    	    	    	    	and b.acct_branch = a.acct_branch and b.accounting_alias = a.accounting_alias 
+    	    	    	    	    	and b.ccy_code = a.ccy_code and b.bal_attributes = a.bal_attributes 
+    	    	    	    	    	and b.org_id = a.org_id 
+    	    	    	) ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="trxn_date" ref="SysDict.A.trxn_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="transaction date" parameterType="condition"/>
+            <parameter property="last_date" ref="SysDict.A.last_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="last date" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="TabApBillInfo.ApsAccrueRecord"/>
+    </select>
+</sqls>

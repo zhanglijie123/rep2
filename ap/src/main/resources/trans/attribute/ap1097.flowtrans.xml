@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1097" longname="inquiring accouting alias information" kind="Q" package="cn.sunline.edsp.busi.ap.trans.attribute" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.ap.trans.attribute.intf">
+        <input packMode="true">
+            <field id="accounting_alias" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="accounting alias" desc="核算别名" ref="SysDict.A.accounting_alias"/>
+            <field id="bal_attributes" type="BaseType.U_BYTE8" required="false" multi="false" array="false" longname="balance attributes" desc="余额属性" ref="SysDict.A.bal_attributes"/>
+            <field id="errer_ctrl_ind" type="MsEnumType.E_YESORNO" required="false" multi="false" array="false" longname="errer ctrol indication" desc="控制报错标志" ref="SysDict.A.errer_ctrl_ind"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="accounting_alias" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="accounting alias" desc="核算别名" ref="SysDict.A.accounting_alias"/>
+            <field id="bal_attributes" type="BaseType.U_BYTE8" required="false" multi="false" array="false" longname="balance attributes" desc="余额属性" ref="SysDict.A.bal_attributes"/>
+            <field id="remark" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="remark" desc="备注" ref="SysDict.A.remark"/>
+            <field id="ledger_check_ind" type="MsEnumType.E_YESORNO" required="false" multi="false" array="false" longname="ledger check indication" desc="总分核对标志" ref="SysDict.A.ledger_check_ind"/>
+            <field id="accounting_subject" type="EnumType.E_ACCOUNTINGSUBJECT" required="false" multi="false" array="false" longname="accounting subject" desc="会计主体" ref="SysDict.A.accounting_subject"/>
+            <field id="gl_code" type="BaseType.U_SUBJECTNO" required="false" multi="false" array="false" longname="gl code" desc="核算代码" ref="SysDict.A.gl_code"/>
+            <field id="data_version" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="data version" desc="数据版本号" ref="SysDict.A.data_version"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApAccouting.qryGlParmCtrl" id="qryGlParmCtrl" longname="query accounting alias information">
+            <in_mappings by_interface="true">
+                <mapping src="accounting_alias" dest="accounting_alias" by_interface="true" on_top="true"/>
+                <mapping src="bal_attributes" dest="bal_attributes" by_interface="true" on_top="true"/>
+                <mapping src="errer_ctrl_ind" dest="errer_ctrl_ind" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="apGlParaCtrl.accounting_alias" dest="accounting_alias" by_interface="true" on_top="true"/>
+                <mapping src="apGlParaCtrl.accounting_subject" dest="accounting_subject" by_interface="true" on_top="true"/>
+                <mapping src="apGlParaCtrl.bal_attributes" dest="bal_attributes" by_interface="true" on_top="true"/>
+                <mapping src="apGlParaCtrl.data_version" dest="data_version" by_interface="true" on_top="true"/>
+                <mapping src="apGlParaCtrl.gl_code" dest="gl_code" by_interface="true" on_top="true"/>
+                <mapping src="apGlParaCtrl.ledger_check_ind" dest="ledger_check_ind" by_interface="true" on_top="true"/>
+                <mapping src="apGlParaCtrl.remark" dest="remark" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<componentSchema id="TransExecutorImpl" package="cn.sunline.icore.ap.component" longname="外发服务组件实现定义" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <componentImplementation id="DefaultTransExecutor" longname="默认的外发服务组件实现" type="ApBaseComp.TransExecutor">
+        <implementation.java class="cn.sunline.icore.ap.component.DefaultTransExecutorImpl"/>
+        <properties/>
+    </componentImplementation>
+    <componentImplementation id="ApTransExecutorRemote" longname="远程调用版本" type="ApBaseComp.TransExecutor">
+        <implementation.java class="cn.sunline.icore.ap.component.executor.ApTransExecutorRemoteImpl"/>
+        <properties>
+            <property name="appcAbstId" type="string" longname="通讯抽象组件ID" desc="通讯抽象组件ID,当该属性为空时，表示调用本地交易"/>
+            <property name="pkgAbstId" type="string" longname="打包抽象组件的组件ID"/>
+            <property name="headerAbstId" type="string" longname="报文头处理抽象组件ID"/>
+        </properties>
+    </componentImplementation>
+</componentSchema>

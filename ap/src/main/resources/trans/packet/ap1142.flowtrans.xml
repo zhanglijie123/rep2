@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="ap1142" longname="Message range query" kind="Q" package="cn.sunline.icore.ap.trans.packet" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.icore.ap.trans.packet.intf">
+        <input packMode="true">
+            <field id="trxn_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="transaction date" desc="交易日期" ref="SysDict.A.trxn_date"/>
+            <field id="trxn_code" type="BaseType.U_TRXNCODE" required="false" multi="false" array="false" longname="transaction code" desc="交易码" ref="SysDict.A.trxn_code"/>
+            <field id="channel_id" type="BaseType.U_CHANNEL" required="false" multi="false" array="false" longname="channel id" desc="渠道ID" ref="SysDict.A.channel_id"/>
+            <field id="trxn_teller" type="BaseType.U_USERID" required="false" multi="false" array="false" longname="transaction teller" desc="交易柜员" ref="SysDict.A.trxn_teller"/>
+            <field id="begin_time" type="BaseType.U_DATETIME" required="false" multi="false" array="false" longname="begin time" desc="业务受理开始时间" ref="SysDict.A.begin_time"/>
+            <field id="end_time" type="BaseType.U_DATETIME" required="false" multi="false" array="false" longname="end time" desc="业务受理结束时间" ref="SysDict.A.end_time"/>
+            <field id="trxn_seq" type="BaseType.U_SEQNO" required="false" multi="false" array="false" longname="transaction sequence" desc="交易流水" ref="SysDict.A.trxn_seq"/>
+            <field id="initiator_seq" type="BaseType.U_SEQNO" required="false" multi="false" array="false" longname="initiator sequence" desc="调用流水" ref="SysDict.A.initiator_seq"/>
+            <field id="initiator_system" type="BaseType.U_SYSTEM" required="false" multi="false" array="false" longname="initiator system" desc="调用方系统编码" ref="SysDict.A.initiator_system"/>
+            <field id="return_code" type="BaseType.U_BYTE20" required="false" multi="false" array="false" longname="return code" desc="反回码" ref="SysDict.A.return_code"/>
+            <field id="counterparty_acct_no" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="counterparty account no" desc="对手方账号" ref="SysDict.A.counterparty_acct_no"/>
+            <field id="counterparty_acct_na" type="BaseType.U_ACCTNAME" required="false" multi="false" array="false" longname="counterparty account name" desc="对手方账户名称" ref="SysDict.A.counterparty_acct_na"/>
+            <field id="trxn_type" type="MsEnumType.E_TRXNTYPE" required="false" multi="false" array="false" longname="transaction type" desc="交易类型" ref="SysDict.A.trxn_type"/>
+            <field id="trxn_desc" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="transaction describe" desc="交易描述" ref="SysDict.A.trxn_desc"/>
+            <field id="trxn_acct_no" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="transaction account no" desc="交易方账号" ref="SysDict.A.trxn_acct_no"/>
+            <field id="trxn_acct_name" type="BaseType.U_ACCTNAME" required="false" multi="false" array="false" longname="transaction account name" desc="交易方账户名称" ref="SysDict.A.trxn_acct_name"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <fields id="list01" scope="ComApSystem.ApPacketBriefInfo" required="false" multi="true" longname="message brief information list" array="false">
+                <field id="trxn_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="transaction date" desc="交易日期" ref="SysDict.A.trxn_date"/>
+                <field id="trxn_seq" type="BaseType.U_SEQNO" required="false" multi="false" array="false" longname="transaction sequence" desc="交易流水" ref="SysDict.A.trxn_seq"/>
+                <field id="initiator_seq" type="BaseType.U_SEQNO" required="false" multi="false" array="false" longname="initiator sequence" desc="调用流水" ref="SysDict.A.initiator_seq"/>
+                <field id="begin_time" type="BaseType.U_DATETIME" required="false" multi="false" array="false" longname="begin time" desc="业务受理开始时间" ref="SysDict.A.begin_time"/>
+                <field id="end_time" type="BaseType.U_DATETIME" required="false" multi="false" array="false" longname="end time" desc="业务受理结束时间" ref="SysDict.A.end_time"/>
+                <field id="channel_id" type="BaseType.U_CHANNEL" required="false" multi="false" array="false" longname="channel id" desc="渠道ID" ref="SysDict.A.channel_id"/>
+                <field id="trxn_teller" type="BaseType.U_USERID" required="false" multi="false" array="false" longname="transaction teller" desc="交易柜员" ref="SysDict.A.trxn_teller"/>
+                <field id="branch_id" type="BaseType.U_BRANCHID" required="false" multi="false" array="false" longname="branch id" desc="交易机构" ref="SysDict.A.branch_id"/>
+                <field id="trxn_code" type="BaseType.U_TRXNCODE" required="false" multi="false" array="false" longname="transaction code" desc="交易码" ref="SysDict.A.trxn_code"/>
+                <field id="trxn_desc" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="transaction describe" desc="交易描述" ref="SysDict.A.trxn_desc"/>
+                <field id="trxn_type" type="MsEnumType.E_TRXNTYPE" required="false" multi="false" array="false" longname="transaction type" desc="交易类型" ref="SysDict.A.trxn_type"/>
+                <field id="initiator_system" type="BaseType.U_SYSTEM" required="false" multi="false" array="false" longname="initiator system" desc="调用方系统编码" ref="SysDict.A.initiator_system"/>
+                <field id="return_code" type="BaseType.U_BYTE20" required="false" multi="false" array="false" longname="return code" desc="反回码" ref="SysDict.A.return_code"/>
+                <field id="error_text" type="BaseType.U_LONGESTDESC" required="false" multi="false" array="false" longname="error text" desc="错误信息" ref="SysDict.A.error_text"/>
+                <field id="counterparty_acct_no" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="counterparty account no" desc="对手方账号" ref="SysDict.A.counterparty_acct_no"/>
+                <field id="counterparty_acct_na" type="BaseType.U_ACCTNAME" required="false" multi="false" array="false" longname="counterparty account name" desc="对手方账户名称" ref="SysDict.A.counterparty_acct_na"/>
+                <field id="debit_credit" type="MsEnumType.E_DEBITCREDIT" required="false" multi="false" array="false" longname="debit credit" desc="记账方向" ref="SysDict.A.debit_credit"/>
+                <field id="trxn_acct_no" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="transaction account no" desc="交易方账号" ref="SysDict.A.trxn_acct_no"/>
+                <field id="trxn_acct_name" type="BaseType.U_ACCTNAME" required="false" multi="false" array="false" longname="transaction account name" desc="交易方账户名称" ref="SysDict.A.trxn_acct_name"/>
+            </fields>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApPacketInfo.queryPacketBrief" id="SrvApPacketInfo.queryPacketBrief" longname="query packet brief information">
+            <in_mappings by_interface="true">
+                <mapping src="begin_time" dest="input.begin_time" by_interface="true" on_top="true"/>
+                <mapping src="channel_id" dest="input.channel_id" by_interface="true" on_top="true"/>
+                <mapping src="counterparty_acct_na" dest="input.counterparty_acct_na" by_interface="true" on_top="true"/>
+                <mapping src="counterparty_acct_no" dest="input.counterparty_acct_no" by_interface="true" on_top="true"/>
+                <mapping src="end_time" dest="input.end_time" by_interface="true" on_top="true"/>
+                <mapping src="initiator_seq" dest="input.initiator_seq" by_interface="true" on_top="true"/>
+                <mapping src="initiator_system" dest="input.initiator_system" by_interface="true" on_top="true"/>
+                <mapping src="return_code" dest="input.return_code" by_interface="true" on_top="true"/>
+                <mapping src="trxn_acct_name" dest="input.trxn_acct_name" by_interface="true" on_top="true"/>
+                <mapping src="trxn_acct_no" dest="input.trxn_acct_no" by_interface="true" on_top="true"/>
+                <mapping src="trxn_code" dest="input.trxn_code" by_interface="true" on_top="true"/>
+                <mapping src="trxn_date" dest="input.trxn_date" by_interface="true" on_top="true"/>
+                <mapping src="trxn_desc" dest="input.trxn_desc" by_interface="true" on_top="true"/>
+                <mapping src="trxn_seq" dest="input.trxn_seq" by_interface="true" on_top="true"/>
+                <mapping src="trxn_teller" dest="input.trxn_teller" by_interface="true" on_top="true"/>
+                <mapping src="trxn_type" dest="input.trxn_type" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="queryList" dest="list01" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

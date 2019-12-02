@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1154" longname="generate limit no" kind="P" package="cn.sunline.icore.ap.trans.limit" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.limit.intf">
+        <input packMode="true"/>
+        <output asParm="true" packMode="true">
+            <field id="limit_no" type="BaseType.U_LIMITNO" required="false" multi="false" array="false" longname="limit no" desc="限额编号" ref="SysDict.A.limit_no"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApLimitParam.genLimitNo" id="SrvApLimitParam.genLimitNo" longname="generate limit no">
+            <in_mappings by_interface="true"/>
+            <out_mappings by_interface="true">
+                <mapping src="limit_no" dest="limit_no" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<serviceType id="SrvApFuncAndParm" kind="business" longname="function and paramter query" package="cn.sunline.icore.ap.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <service id="queryInformation" name="queryInformation" longname="query information">
+        <interface>
+            <input packMode="false">
+                <field id="func_name" type="BaseType.U_BYTE64" required="false" multi="false" array="false" longname="function short name" desc="方法名称" ref="SysDict.A.func_name"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="queryFunc" type="ComApSystem.ApRuleFunc" required="false" multi="true" array="false" longname="query function and paramter"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

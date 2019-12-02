@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ComIoApPushMessage" package="cn.sunline.icore.iobus.type.ap" longname="push message complex type" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <complexType id="IoApPushDropListChangeIn" longname="push drop list change in" dict="false" abstract="false" introduct="false">
+        <element id="drop_list_type" longname="drop list type" type="BaseType.U_BYTE32" ref="SysDict.A.drop_list_type" required="false" desc="下拉字典类型" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="super_drop_list_type" longname="super drop list type" type="BaseType.U_BYTE32" ref="SysDict.A.super_drop_list_type" required="false" desc="上级下拉字典类型" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="drop_list_name" longname="drop list name " type="BaseType.U_SHORTDESC" ref="SysDict.A.drop_list_name" required="false" desc="下拉字典名称" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="drop_list_name2" longname="drop list name " type="BaseType.U_SHORTDESC" ref="SysDict.A.drop_list_name2" required="false" desc="下拉字典名称2" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="module" longname="module" type="BaseType.U_MODULE" ref="SysDict.A.module" required="false" desc="模块" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="diff_org_ind" longname="differentiate organization indicate" type="MsEnumType.E_YESORNO" ref="SysDict.A.diff_org_ind" required="false" desc="区分法人标志" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="operater_ind" longname="operater indicate" type="MsEnumType.E_DATAOPERATE" ref="SysDict.A.operater_ind" required="false" desc="操作标志" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="list01" longname="update drop list value" type="ComIoApPushMessage.IoApDetailDropListChange" required="true" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="IoApDetailDropListChange" longname="drop list detail information change" dict="false" abstract="false" introduct="false">
+        <element id="drop_list_value" longname="drop list value" type="BaseType.U_BYTE64" ref="SysDict.A.drop_list_value" required="true" desc="下拉字典值" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="super_drop_list_value" longname="super drop list value" type="BaseType.U_BYTE64" ref="SysDict.A.super_drop_list_value" required="false" desc="上级下拉字典值" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="drop_list_desc" longname="drop list describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.drop_list_desc" required="true" desc="下拉字典描述" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="drop_list_desc2" longname="drop list describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.drop_list_desc2" required="false" desc="下拉字典描述2" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dict_org_id" longname="dict org id" type="BaseType.U_ORGID" ref="SysDict.A.dict_org_id" required="false" desc="法人代码" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="rm_drop_list_value" longname="rm drop list value" type="BaseType.U_BYTE64" ref="SysDict.A.rm_drop_list_value" required="false" desc="rm下拉值" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_sort" longname="data sort" type="BaseType.U_LONG" ref="SysDict.A.data_sort" required="true" desc="数据序号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="enable_ind" longname="enable indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.enable_ind" required="true" desc="是否可用" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="operater_ind" longname="operater indicate" type="MsEnumType.E_DATAOPERATE" ref="SysDict.A.operater_ind" required="false" desc="操作标志" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="IoApPushDropListChangeOut" longname="push drop list change out" dict="false" abstract="false" introduct="false">
+        <element id="transCode" longname="transaction code" type="BaseType.U_BYTE64" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="rcode" longname="return code" type="BaseType.U_BYTE32" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="rtime" longname="return date time" type="BaseType.U_BYTE32" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="msg" longname="return message" type="BaseType.U_BYTE256" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="transSeq" longname="app transaction seq" type="BaseType.U_BYTE32" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="robj" longname="return object json" type="BaseType.U_BYTE512" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="IoApFileList" longname="file list" dict="false" abstract="false" introduct="false">
+        <element id="filenm" longname="file name" type="BaseType.U_MIDDESC" ref="SysDict.A.filenm" required="false" desc="文件名" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="flpath" longname="file path" type="BaseType.U_MIDDESC" ref="SysDict.A.flpath" required="false" desc="文件路径" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="filemd" longname="file md5" type="BaseType.U_LONGDESC" ref="SysDict.A.filemd" required="false" desc="文件MD5" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="IoApFileNoticeIn" longname="file notice in" dict="false" abstract="false" introduct="false">
+        <element id="source" longname="source" type="BaseType.U_BYTE32" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="filetp" longname="file type" type="BaseType.U_LONGDESC" ref="SysDict.A.filetp" required="false" desc="文件类型" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="params" longname="extra info" type="string" required="false" desc="文件路径" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="fileList" longname="file list" type="ComIoApPushMessage.IoApFileList" required="false" desc="文件MD5" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_code" longname="transaction code" type="BaseType.U_TRXNCODE" ref="SysDict.A.trxn_code" required="false" desc="交易码" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="IoApFileNoticeOut" longname="file notice out" dict="false" abstract="false" introduct="false">
+        <element id="transCode" longname="transaction code" type="BaseType.U_BYTE64" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="rcode" longname="return code" type="BaseType.U_BYTE32" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="rtime" longname="return date time" type="BaseType.U_BYTE32" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="msg" longname="return message" type="BaseType.U_BYTE256" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="transSeq" longname="app transaction seq" type="BaseType.U_BYTE32" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="robj" longname="return object json" type="BaseType.U_BYTE512" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApMessageDefineContents" longname="message self define contents" dict="false" abstract="false" introduct="false">
+        <element id="id" longname="Indonesian content" type="ComIoApPushMessage.ApMessageSelfDefine" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="en" longname="english content" type="ComIoApPushMessage.ApMessageSelfDefine" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApMessageParm" longname="cont" dict="false" abstract="false" introduct="false">
+        <element id="data" longname="data" type="map" ref="SysDict.A.data" required="false" desc="推送信息内容" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApMessageSelfDefine" longname="message self define" dict="false" abstract="false" introduct="false">
+        <element id="title" longname="title" type="BaseType.U_TITLE" ref="SysDict.A.title" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="content" longname="content" type="BaseType.U_LONGESTDESC" ref="SysDict.A.content" required="false" desc="信息内容" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="DataLinkFileInfo" longname="数据交互文件集合信息" dict="false" abstract="false" introduct="false">
+        <element id="file_name" longname="file name" type="MsType.U_MIDDESC" ref="MsDict.Comm.file_name" required="false" desc="请求文件名" default="''" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_md" longname="文件MD5标识" type="MsType.U_BYTE40" required="false" default="''" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="file_path" longname="文件路径" type="MsType.U_BYTE100" required="false" default="''" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="params" longname="附加参数" type="MsType.U_BYTE2000" required="false" default="''" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+</schema>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1130" longname="query system date" kind="Q" package="cn.sunline.icore.ap.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.intf">
+        <input packMode="true"/>
+        <output asParm="true" packMode="true">
+            <field id="trxn_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="transaction date" ref="SysDict.A.trxn_date"/>
+            <field id="last_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="last date" ref="SysDict.A.last_date"/>
+            <field id="next_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="next date" ref="SysDict.A.next_date"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApDate.querySystemDate" longname="query system date">
+            <in_mappings by_interface="true"/>
+            <out_mappings by_interface="true">
+                <mapping src="result.last_date" dest="last_date" by_interface="true" on_top="true"/>
+                <mapping src="result.next_date" dest="next_date" by_interface="true" on_top="true"/>
+                <mapping src="result.trxn_date" dest="trxn_date" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

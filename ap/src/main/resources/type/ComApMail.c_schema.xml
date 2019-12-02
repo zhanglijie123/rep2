@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ComApMail" package="cn.sunline.icore.ap.type" longname="ap mail" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <complexType id="ApAssembleEmailInfo" longname="assemble email information" dict="false" abstract="false" introduct="false">
+        <element id="cust_no" longname="customer number" type="BaseType.U_CUSTNO" ref="SysDict.A.cust_no" required="false" desc="客户号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mail_template_no" longname="mail template number" type="BaseType.U_BYTE30" ref="SysDict.A.mail_template_no" required="false" desc="邮件模板号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mailData" longname="mail data map" type="map" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="attachListInfo" longname="attachement list info" type="ComApMail.ApMailAttachement" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="e_mail" longname="E-mail" type="BaseType.U_EMAIL" ref="SysDict.A.e_mail" required="false" desc="电子邮箱" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_event_id" longname="transaction event id" type="BaseType.U_EVENT" ref="SysDict.A.trxn_event_id" required="false" desc="交易事件ID" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApMailAttachement" longname="attachement information" dict="false" abstract="false" introduct="false">
+        <element id="file_name" longname="file name" type="BaseType.U_MIDDESC" ref="SysDict.A.file_name" required="false" desc="请求文件名" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="local_file_path" longname="local file path" type="BaseType.U_LONGDESC" ref="SysDict.A.local_file_path" required="false" desc="本地文件路径" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApMailInfoToSend" longname="send main information" dict="false" abstract="false" introduct="false">
+        <element id="mail_template_no" longname="mail template number" type="BaseType.U_BYTE30" ref="SysDict.A.mail_template_no" required="false" desc="邮件模板号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mail_topic" longname="mail topic" type="BaseType.U_SHORTDESC" ref="SysDict.A.mail_topic" required="false" desc="邮件主题" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mail_content" longname="mail content" type="BaseType.U_BYTE4000" ref="SysDict.A.mail_content" required="false" desc="邮件内容" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="e_mail" longname="E-mail" type="BaseType.U_EMAIL" ref="SysDict.A.e_mail" required="false" desc="电子邮箱" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="serial_no" longname="serial no" type="BaseType.U_LONG" ref="SysDict.A.serial_no" required="false" desc="序号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="attachment_name" longname="attachment name" type="BaseType.U_LONGDESC" ref="SysDict.A.attachment_name" required="false" desc="附件名称" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+</schema>

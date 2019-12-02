@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="TabApDataSync" package="cn.sunline.icore.ap.tables" longname="data synchronization" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <table id="app_data_sync_system" name="app_data_sync_system" longname="data synchronization system define" param="true" category="P" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="receive_system_id" longname="receive system id" type="BaseType.U_BYTE16" ref="SysDict.A.receive_system_id" primarykey="false" final="false" nullable="false" desc="接收系统id" identity="false" allowSubType="true"/>
+            <field id="service_node_no" longname="service node number" type="BaseType.U_SHORTDESC" ref="SysDict.A.service_node_no" primarykey="false" final="false" nullable="false" desc="服务节点号" identity="false" allowSubType="true"/>
+            <field id="system_status" longname="system status" type="MsEnumType.E_YESORNO" ref="SysDict.A.system_status" primarykey="false" final="false" nullable="false" desc="系统状态" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="index" fields="system_status" operate="selectAll"/>
+            <index id="odb2" type="primarykey" fields="receive_system_id" operate="selectOne deleteOne updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_data_sync_system_idx1" type="primarykey" fields="receive_system_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="apb_data_operate" name="apb_data_operate" longname="data operate book" category="B" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="data_operate_id" longname="data operate id" type="BaseType.U_SEQNO" ref="SysDict.A.data_operate_id" primarykey="false" final="false" nullable="false" desc="数据操作id" identity="false" allowSubType="true"/>
+            <field id="data_operate_dml" longname="data operate dml" type="BaseType.U_BYTE2000" ref="SysDict.A.data_operate_dml" primarykey="false" final="false" nullable="false" desc="数据操作的dml语句" identity="false" allowSubType="true"/>
+            <field id="data_operate_type" longname="data operate type" type="MsEnumType.E_DATAOPERATE" ref="SysDict.A.data_operate_type" primarykey="false" final="false" nullable="false" desc="数据操作类型" identity="false" allowSubType="true"/>
+            <field id="trxn_seq" longname="transaction sequence" type="BaseType.U_SEQNO" ref="SysDict.A.trxn_seq" primarykey="false" final="false" nullable="false" desc="交易流水" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes/>
+        <indexes>
+            <index id="apb_data_operate_idx1" type="primarykey" fields="data_operate_id org_id">
+                <ddls/>
+            </index>
+            <index id="apb_data_operate_idx2" type="index" fields="trxn_seq org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="aps_data_sync" name="aps_data_sync" longname="data synchronization sequence" category="B" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="trxn_seq" longname="transaction sequence" type="BaseType.U_SEQNO" ref="SysDict.A.trxn_seq" primarykey="false" final="false" nullable="false" desc="交易流水" identity="false" allowSubType="true"/>
+            <field id="receive_system_id" longname="receive system id" type="BaseType.U_BYTE16" ref="SysDict.A.receive_system_id" primarykey="false" final="false" nullable="false" desc="接收系统id" identity="false" allowSubType="true"/>
+            <field id="service_node_no" longname="service node number" type="BaseType.U_SHORTDESC" ref="SysDict.A.service_node_no" primarykey="false" final="false" nullable="false" desc="服务节点号" identity="false" allowSubType="true"/>
+            <field id="data_sync_status" longname="data synchronization status" type="MsEnumType.E_YESORNO" ref="SysDict.A.data_sync_status" primarykey="false" final="false" nullable="false" desc="参数同步状态" identity="false" allowSubType="true"/>
+            <field id="batch_no" longname="batch number" type="BaseType.U_SEQNO" ref="SysDict.A.batch_no" primarykey="false" final="false" nullable="true" desc="批次号" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="trxn_seq receive_system_id" operate="selectOne deleteOne updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="aps_data_sync_idx1" type="primarykey" fields="trxn_seq receive_system_id org_id">
+                <ddls/>
+            </index>
+            <index id="aps_data_sync_idx2" type="index" fields="batch_no org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="apb_parameter_sync" name="apb_parameter_sync" longname="parameter synchronization" param="true" category="P" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="para_type" longname="parameter type" type="EnumType.E_PARAMETERTYPE" ref="SysDict.A.para_type" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="data_sync_status" longname="data synchronization status" type="MsEnumType.E_YESORNO" ref="SysDict.A.data_sync_status" primarykey="false" final="false" nullable="false" desc="参数同步状态" identity="false" allowSubType="true"/>
+            <field id="latest_update_date" longname="latest update date" type="BaseType.U_DATE" ref="SysDict.A.latest_update_date" primarykey="false" final="false" nullable="true" desc="最近更新日期" identity="false" allowSubType="true"/>
+            <field id="serial_no" longname="serial no" type="BaseType.U_LONG" ref="SysDict.A.serial_no" primarykey="false" final="false" nullable="true" desc="序号" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="para_type" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+        </odbindexes>
+        <indexes>
+            <index id="apb_parameter_sync_idx1" type="primarykey" fields="para_type">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_parameter_value" name="app_parameter_value" longname="parameter value" param="true" category="P" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="para_type" longname="parameter type" type="EnumType.E_PARAMETERTYPE" ref="SysDict.A.para_type" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="para_id" longname="parameter id" type="BaseType.U_BYTE20" ref="SysDict.A.para_id" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="para_type para_id" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+            <index id="odb2" type="index" fields="para_type" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="apb_parameter_sync_idx1" type="primarykey" fields="para_type para_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+</schema>

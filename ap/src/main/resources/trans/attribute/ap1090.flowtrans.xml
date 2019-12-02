@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1090" longname="query attribute information" kind="Q" package="cn.sunline.icore.ap.trans.attribute" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.attribute.intf">
+        <input packMode="false">
+            <field id="attr_level" type="EnumType.E_OWNERLEVEL" required="false" multi="false" array="false" longname="attribute level" ref="SysDict.A.attr_level"/>
+        </input>
+        <output asParm="true" packMode="false">
+            <fields id="list01" required="false" multi="true" longname="attribute bit definition information" array="false">
+                <field id="attr_position" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="attribute position" ref="SysDict.A.attr_position"/>
+                <field id="attr_desc" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="attribute describe" ref="SysDict.A.attr_desc"/>
+                <field id="attr_expiry_ind" type="MsEnumType.E_YESORNO" required="false" multi="false" array="false" longname="attribute expiry indication" ref="SysDict.A.attr_expiry_ind"/>
+                <field id="ref_drop_list" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="refence drop_list" ref="SysDict.A.ref_drop_list"/>
+                <field id="default_value" type="BaseType.U_BYTE1" required="false" multi="false" array="false" longname="default value" ref="SysDict.A.default_value"/>
+                <field id="data_version" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="data version" ref="SysDict.A.data_version"/>
+            </fields>
+            <fields id="list02" required="false" multi="true" longname="attribute bit mutex information" array="false">
+                <field id="attr_mutex_id" type="BaseType.U_BYTE16" required="false" multi="false" array="false" longname="attribute mutex id" ref="SysDict.A.attr_mutex_id"/>
+                <field id="attr_mutex_desc" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="attribute mutex describe" ref="SysDict.A.attr_mutex_desc"/>
+                <field id="mapping_expression" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="mapping expression" ref="SysDict.A.mapping_expression"/>
+                <field id="show_error_info" type="BaseType.U_MIDDESC" required="false" multi="false" array="false" longname="show error infomation" ref="SysDict.A.show_error_info"/>
+                <field id="data_version" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="data version" ref="SysDict.A.data_version"/>
+            </fields>
+            <fields id="list03" required="false" multi="true" longname="attribute bit control information" array="false">
+                <field id="attr_ctrl_id" type="BaseType.U_BYTE16" required="false" multi="false" array="false" longname="attribute control id" ref="SysDict.A.attr_ctrl_id"/>
+                <field id="attr_ctrl_desc" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="attribute control describe" ref="SysDict.A.attr_ctrl_desc"/>
+                <field id="mapping_expression" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="mapping expression" ref="SysDict.A.mapping_expression"/>
+                <field id="attr_ctrl_run_cond" type="BaseType.U_RULEID" required="false" multi="false" array="false" longname="attribute control run condtion" ref="SysDict.A.attr_ctrl_run_cond"/>
+                <field id="show_error_info" type="BaseType.U_MIDDESC" required="false" multi="false" array="false" longname="show error infomation" ref="SysDict.A.show_error_info"/>
+                <field id="data_version" type="BaseType.U_LONG" required="false" multi="false" array="false" longname="data version" ref="SysDict.A.data_version"/>
+            </fields>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApAttr.queryAttrInfo" longname="query attribute information">
+            <in_mappings by_interface="true">
+                <mapping src="attr_level" dest="attr_level" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="queryResult.attrInfo" dest="list01" by_interface="true" on_top="true"/>
+                <mapping src="queryResult.attrMutexInfo" dest="list02" by_interface="true" on_top="true"/>
+                <mapping src="queryResult.attrCtlInfo" dest="list03" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="TabApBranch" package="cn.sunline.icore.ap.tables" longname="branch infomation" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <table id="app_branch_relation" name="app_branch_relation" longname="branch relation define" category="P" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="brch_relation_code" longname="branch relation code" type="BaseType.U_BYTE8" ref="SysDict.A.brch_relation_code" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="brch_relation_desc" longname="branch relation describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.brch_relation_desc" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="diff_ccy_ind" longname="different currency indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.diff_ccy_ind" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="relation_ref_self" longname="relation data refrence self" type="MsEnumType.E_YESORNO" ref="SysDict.A.relation_ref_self" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="brch_refer_scope" longname="branch refer scope" type="EnumType.E_BRCHSCOPE" ref="SysDict.A.brch_refer_scope" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="brch_relation_code" operate="selectOne deleteOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_branch_relation_idx1" type="primarykey" fields="brch_relation_code">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="apb_branch" name="apb_branch" longname="branch infomation" category="B" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="branch_id" longname="branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.branch_id" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="branch_name" longname="branch name" type="BaseType.U_SHORTDESC" ref="SysDict.A.branch_name" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="real_branch_ind" longname="real branch indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.real_branch_ind" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="branch_address" longname="branch_address" type="BaseType.U_MIDDESC" ref="SysDict.A.branch_address" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="branch_phone" longname="branch phone" type="BaseType.U_PHONENO" ref="SysDict.A.branch_phone" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="branch_mail" longname="Branch E-mail" type="BaseType.U_EMAIL" ref="SysDict.A.branch_mail" primarykey="false" final="false" nullable="true" desc="机构电子邮箱" identity="false" allowSubType="true"/>
+            <field id="postcode" longname="postcode" type="BaseType.U_BYTE10" ref="SysDict.A.postcode" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="contacts_name" longname="contact name" type="BaseType.U_SHORTDESC" ref="SysDict.A.contacts_name" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="contacts_phone" longname="contacts phone" type="BaseType.U_PHONENO" ref="SysDict.A.contacts_phone" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="contacts_mail" longname="Contacts E-mail" type="BaseType.U_EMAIL" ref="SysDict.A.contacts_mail" primarykey="false" final="false" nullable="true" desc="联系电子邮箱" identity="false" allowSubType="true"/>
+            <field id="branch_function_class" longname="branch function clase" type="BaseType.U_BYTE8" ref="SysDict.A.branch_function_class" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="swift_no" longname="swift_no" type="BaseType.U_BYTE32" ref="SysDict.A.swift_no" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="holiday_code" longname="holiday code" type="BaseType.U_BYTE8" ref="SysDict.A.holiday_code" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="branch_id" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+        </odbindexes>
+        <indexes>
+            <index id="apb_branch_idx1" type="primarykey" fields="branch_id org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="apb_branch_relation" name="apb_branch_relation" longname="branch relation data" category="B" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="branch_id" longname="branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.branch_id" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="brch_relation_code" longname="branch relation code" type="BaseType.U_BYTE8" ref="SysDict.A.brch_relation_code" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="ccy_code" longname="currency code" type="BaseType.U_CURRENCY" ref="SysDict.A.ccy_code" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="parent_brch_id" longname="parent branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.parent_brch_id" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="branch_id brch_relation_code ccy_code" operate="selectOne deleteOne updateOne"/>
+            <index id="odb2" type="index" fields="brch_relation_code" operate="selectAll"/>
+            <index id="odb3" type="index" fields="branch_id" operate="delete"/>
+        </odbindexes>
+        <indexes>
+            <index id="apb_branch_relation_idx1" type="primarykey" fields="branch_id brch_relation_code ccy_code org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="apb_branch_junior" name="apb_branch_junior" longname="branch relation data by junior" category="B" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="branch_id" longname="branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.branch_id" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="brch_relation_code" longname="branch relation code" type="BaseType.U_BYTE8" ref="SysDict.A.brch_relation_code" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="ccy_code" longname="currency code" type="BaseType.U_CURRENCY" ref="SysDict.A.ccy_code" primarykey="false" final="false" nullable="false" desc="不区分时，填写*" identity="false" allowSubType="true"/>
+            <field id="child_brch_id" longname="child branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.child_brch_id" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="branch_name" longname="branch name" type="BaseType.U_SHORTDESC" ref="SysDict.A.branch_name" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="brch_level" longname="branch level" type="BaseType.U_LONG" ref="SysDict.A.brch_level" primarykey="false" final="false" nullable="false" desc="自己=0，直接下级=1，以此类推" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="index" fields="branch_id brch_relation_code ccy_code" operate="selectAll"/>
+            <index id="odb2" type="index" fields="brch_relation_code" operate="delete"/>
+            <index id="odb3" type="index" fields="branch_id brch_relation_code ccy_code" operate="delete"/>
+        </odbindexes>
+        <indexes>
+            <index id="apb_branch_junior_idx1" type="primarykey" fields="branch_id brch_relation_code ccy_code child_brch_id org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="apb_branch_senior" name="apb_branch_senior" longname="branch relation data by senior" category="B" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="branch_id" longname="branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.branch_id" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="brch_relation_code" longname="branch relation code" type="BaseType.U_BYTE8" ref="SysDict.A.brch_relation_code" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="ccy_code" longname="currency code" type="BaseType.U_CURRENCY" ref="SysDict.A.ccy_code" primarykey="false" final="false" nullable="false" desc="不区分时，填写*" identity="false" allowSubType="true"/>
+            <field id="parent_brch_id" longname="parent branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.parent_brch_id" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="branch_name" longname="branch name" type="BaseType.U_SHORTDESC" ref="SysDict.A.branch_name" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="brch_level" longname="branch level" type="BaseType.U_LONG" ref="SysDict.A.brch_level" primarykey="false" final="false" nullable="false" desc="自己=0，直接上级=1，以此类推" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="index" fields="branch_id brch_relation_code ccy_code" operate="selectAll"/>
+            <index id="odb2" type="primarykey" fields="branch_id brch_relation_code ccy_code parent_brch_id" operate="selectOne"/>
+            <index id="odb3" type="index" fields="brch_relation_code" operate="delete"/>
+            <index id="odb4" type="index" fields="branch_id brch_relation_code ccy_code" operate="delete"/>
+        </odbindexes>
+        <indexes>
+            <index id="apb_branch_senior_idx1" type="primarykey" fields="branch_id brch_relation_code ccy_code parent_brch_id org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+</schema>

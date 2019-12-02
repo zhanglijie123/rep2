@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<componentSchema id="ApPkgHeaderCompImpl" package="cn.sunline.icore.ap.component" longname="报文头处理组件实现定义" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <componentImplementation id="LttsPkgHeader" longname="Ltts报文头处理组件实现 " type="ApBaseComp.PkgHeader">
+        <implementation.java class="cn.sunline.icore.ap.component.pkgheader.LttsPkgHeaderImpl"/>
+        <properties>
+            <property name="encoding" type="string" default="utf-8" longname="字符集"/>
+        </properties>
+    </componentImplementation>
+</componentSchema>

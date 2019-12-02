@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1110TranFlowReport" longname="Transaction Flow Report" jaspertemplate="ap1110TranFlowReport" namepattern="transactionflow.pdf" dataItem="ComApReport.ApTranFlowReportOut" assDataItem="ComApReport.ApTileOfTranFlow" pageWidth="0" pageHeight="0" package="cn.sunline.icore.ap.report.trans" reportType="pdf" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.report.intf">
+        <input packMode="true">
+            <field id="trxn_seq" type="BaseType.U_SEQNO" required="false" multi="false" array="false" longname="transaction sequence" ref="SysDict.A.trxn_seq"/>
+            <field id="busi_seq" type="BaseType.U_SEQNO" required="false" multi="false" array="false" longname="buisness sequence" ref="SysDict.A.busi_seq"/>
+            <field id="trxn_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="transaction date" ref="SysDict.A.trxn_date"/>
+            <field id="channel_id" type="BaseType.U_CHANNEL" required="false" multi="false" array="false" longname="channel id" ref="SysDict.A.channel_id"/>
+            <field id="trxn_teller" type="BaseType.U_USERID" required="false" multi="false" array="false" longname="transaction teller" ref="SysDict.A.trxn_teller"/>
+            <field id="branch_id" type="BaseType.U_BRANCHID" required="false" multi="false" array="false" longname="branch id" ref="SysDict.A.branch_id"/>
+            <field id="trxn_code" type="BaseType.U_TRXNCODE" required="false" multi="false" array="false" longname="transaction code" ref="SysDict.A.trxn_code"/>
+            <field id="recon_code" type="BaseType.U_BYTE32" required="false" multi="false" array="false" longname="recon code" ref="SysDict.A.recon_code"/>
+            <field id="cash_trxn_ind" type="MsEnumType.E_CASHTRXN" required="false" multi="false" array="false" longname="cash or trxn" ref="SysDict.A.cash_trxn_ind"/>
+            <field id="trxn_ccy" type="BaseType.U_CURRENCY" required="false" multi="false" array="false" longname="transaction ccy" ref="SysDict.A.trxn_ccy"/>
+            <field id="trxn_amt" type="BaseType.U_MONEY" required="false" multi="false" array="false" longname="transaction amount" ref="SysDict.A.trxn_amt"/>
+            <field id="trxn_acct_no" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="transaction account no" ref="SysDict.A.trxn_acct_no"/>
+            <field id="trxn_status" type="MsEnumType.E_TRXNSTATUS" required="false" multi="false" array="false" longname="transaction status" ref="SysDict.A.trxn_status"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+</report>

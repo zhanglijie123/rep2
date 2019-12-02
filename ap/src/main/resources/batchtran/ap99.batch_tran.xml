@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<batch_transaction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap99" longname="Trade System EOD complete." package="cn.sunline.icore.ap.batchtran" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.batchtran.intf">
+        <input packMode="true">
+            <field id="tran_flow_id" type="KBaseType.U_PLJYLCBS" required="false" multi="false" array="false" longname="批量交易流程ID" ref="KsDict.BtDict.tran_flow_id"/>
+            <field id="corporate_code" type="KBaseType.U_FARENDMA" required="false" multi="false" array="false" longname="法人代码" desc="法人代码" ref="KsDict.CommDict.corporate_code"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+</batch_transaction>

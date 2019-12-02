@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<componentSchema id="ApSendMessageCompImpl" package="cn.sunline.icore.ap.component" longname="短信通知组件实现定义" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <componentImplementation id="LFSendMessageComp" longname="廊坊短信通知实现((直连短信平台))" type="ApBaseComp.SendMessage">
+        <implementation.java class="cn.sunline.icore.ap.component.note.LFSendMessageCompImpl"/>
+        <properties>
+            <property name="ip" type="string" longname="短信平台地址"/>
+            <property name="port" type="int" longname="实时发送端口号"/>
+            <property name="filePort" type="int" longname="文件发送端口号"/>
+            <property name="branchno" type="string" longname="请求所在机构号"/>
+            <property name="transcode" type="string" longname="渠道交易码"/>
+            <property name="channo" type="string" longname="请求渠道号"/>
+            <property name="connectTimeoutInMs" type="int" default="5000" longname="连接超时时间"/>
+            <property name="sendTimeoutInMs" type="int" default="5000" longname="发送超时时间"/>
+            <property name="recvTimeoutInMs" type="int" default="30000" longname="接收超时时间"/>
+            <property name="lengthPrefixLength" type="int" default="4" longname="长度域字段长度"/>
+            <property name="encoding" type="string" default="UTF-8" longname="字符集"/>
+            <property name="paddingChar" type="string" default="0" longname="填充字符"/>
+            <property name="leftPadding" type="boolean" default="true" longname="是否左填充"/>
+        </properties>
+    </componentImplementation>
+</componentSchema>

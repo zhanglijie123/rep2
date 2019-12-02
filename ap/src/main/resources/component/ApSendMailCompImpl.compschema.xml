@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<componentSchema id="ApSendMailCompImpl" package="cn.sunline.icore.ap.component" longname="mail send component impl definition" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <componentImplementation id="SendMailComp" longname="mail send impl" type="ApBaseComp.SendMail">
+        <implementation.java class="cn.sunline.icore.ap.component.mail.SendMailCompImpl"/>
+        <properties>
+            <property name="smtpServer" type="string" longname="邮件服务器"/>
+            <property name="port" type="int" longname="端口"/>
+            <property name="userId" type="string" longname="用户名"/>
+            <property name="passWord" type="string" longname="密码"/>
+            <property name="ssl" type="boolean" longname="协议认证"/>
+            <property name="connectionTimeOut" type="int" longname="连接超时时间"/>
+            <property name="timeOut" type="int" longname="超时时间"/>
+            <property name="workPath" type="string" longname="附件相对路径"/>
+            <property name="encoding" type="string" default="UTF-8" longname="字符集"/>
+        </properties>
+    </componentImplementation>
+</componentSchema>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SrvApDate" kind="business" longname="system date service" package="cn.sunline.icore.ap.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <service id="querySystemDate" name="querySystemDate" longname="query system date">
+        <interface>
+            <input packMode="false"/>
+            <output asParm="true" packMode="true">
+                <field id="result" type="ComApSystem.ApDateInfo" required="false" multi="false" array="false" longname="date info"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="queryNextWorkDate" name="queryNextWorkDate" longname="query next work date">
+        <interface>
+            <input packMode="false">
+                <field id="trxn_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="transaction date" ref="SysDict.A.trxn_date"/>
+                <field id="branch_id" type="BaseType.U_BRANCHID" required="false" multi="false" array="false" longname="branch id" ref="SysDict.A.branch_id"/>
+                <field id="cust_type" type="EnumType.E_CUSTOMERTYPE" required="false" multi="false" array="false" longname="customer type" ref="SysDict.A.cust_type"/>
+            </input>
+            <output asParm="true" packMode="true">
+                <field id="next_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="next date" ref="SysDict.A.next_date"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="queryDueDate" name="queryDueDate" longname="query due date">
+        <interface>
+            <input packMode="false">
+                <field id="start_inst_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="starting  interest date" desc="起息日期" ref="SysDict.A.start_inst_date"/>
+                <field id="term_code" type="BaseType.U_CYCLE" required="false" multi="false" array="false" longname="term code" desc="存期" ref="SysDict.A.term_code"/>
+            </input>
+            <output asParm="true" packMode="true">
+                <field id="due_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="due date" desc="到期日" ref="SysDict.A.due_date"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

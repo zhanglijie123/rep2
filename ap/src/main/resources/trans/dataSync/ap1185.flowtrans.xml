@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1185" longname="data sync" kind="M" package="cn.sunline.icore.ap.trans.dataSync" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.dataSync.intf">
+        <input packMode="true">
+            <field id="data_operate_dml" type="BaseType.U_BYTE2000" required="false" multi="true" array="false" longname="data operate dml" desc="数据操作的dml语句" ref="SysDict.A.data_operate_dml"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApDataSync.execDml" longname="data sync">
+            <in_mappings by_interface="true">
+                <mapping src="data_operate_dml" dest="data_operate_dml" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+</flowtran>

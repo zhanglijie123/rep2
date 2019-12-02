@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<batch_transaction id="apf01" longname="reversal documents are imported" dataItem="ComApFile.ApDataGroupNo" jobDataItem="ComApFile.ApBatchLoadData" package="cn.sunline.icore.ap.batchtran" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.icore.ap.batchtran.intf">
+        <input packMode="true"/>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</batch_transaction>

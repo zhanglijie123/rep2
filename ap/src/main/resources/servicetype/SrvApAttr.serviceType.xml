@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SrvApAttr" kind="business" longname="attribute information maintenance" package="cn.sunline.icore.ap.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <service id="queryAttrInfo" name="queryAttrInfo" longname="query attribute information">
+        <interface>
+            <input packMode="false">
+                <field id="attr_level" type="EnumType.E_OWNERLEVEL" required="false" multi="false" array="false" longname="attribute level" ref="SysDict.A.attr_level"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="queryResult" type="ComApAttr.ApAttrInfoResult" required="false" multi="false" array="false" longname="attribute result"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="modifyAttrInfo" name="modifyAttrInfo" longname="maintenance attribute information">
+        <interface>
+            <input packMode="false">
+                <field id="attr_level" type="EnumType.E_OWNERLEVEL" required="false" multi="false" array="false" longname="attribute level" ref="SysDict.A.attr_level"/>
+                <field id="attrInfo" type="ComApAttr.ApAttrInfoWithInd" required="false" multi="false" array="false" longname="attribute bit information" desc="属性位信息"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="modifyAttrMutexInfo" name="modifyAttrMutexInfo" longname="maintenance attribute mutex define information">
+        <interface>
+            <input packMode="false">
+                <field id="attr_level" type="EnumType.E_OWNERLEVEL" required="false" multi="false" array="false" longname="attribute level" desc="属性层级" ref="SysDict.A.attr_level"/>
+                <field id="attrMetx" type="ComApAttr.ApAttrMutexInfoWithInd" required="false" multi="false" array="false" longname="属性互斥信息"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

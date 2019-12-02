@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1160" longname="query report flow" kind="Q" package="cn.sunline.icore.ap.trans.report" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.report.intf">
+        <input packMode="true">
+            <field id="trxn_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="transaction date" ref="SysDict.A.trxn_date"/>
+            <field id="branch_id" type="BaseType.U_BRANCHID" required="false" multi="false" array="false" longname="branch id" ref="SysDict.A.branch_id"/>
+            <field id="report_name" type="BaseType.U_MIDDESC" required="false" multi="false" array="false" longname="report name" ref="SysDict.A.report_name"/>
+            <field id="report_id" type="BaseType.U_BYTE64" required="false" multi="false" array="false" longname="report id" ref="SysDict.A.report_id"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <fields id="list01" scope="ComApBook.ApQueryReportOut" required="false" multi="true" longname="report flow output" array="false">
+                <field id="trxn_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="transaction date" ref="SysDict.A.trxn_date"/>
+                <field id="branch_id" type="BaseType.U_BRANCHID" required="false" multi="false" array="false" longname="branch id" ref="SysDict.A.branch_id"/>
+                <field id="report_id" type="BaseType.U_BYTE64" required="false" multi="false" array="false" longname="report id" ref="SysDict.A.report_id"/>
+                <field id="report_name" type="BaseType.U_MIDDESC" required="false" multi="false" array="false" longname="report name" ref="SysDict.A.report_name"/>
+                <field id="remote_file_path" type="BaseType.U_LONGDESC" required="false" multi="false" array="false" longname="remote file path" ref="SysDict.A.remote_file_path"/>
+                <field id="local_file_path" type="BaseType.U_LONGDESC" required="false" multi="false" array="false" longname="local file path" ref="SysDict.A.local_file_path"/>
+                <field id="relative_path" type="BaseType.U_LONGDESC" required="false" multi="false" array="false" longname="relative path" ref="SysDict.A.relative_path"/>
+            </fields>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApTrxn.searchReport" id="searchReport" longname="query report flow">
+            <in_mappings by_interface="true">
+                <mapping src="branch_id" dest="branch_id" by_interface="true" on_top="true"/>
+                <mapping src="report_name" dest="report_name" by_interface="true" on_top="true"/>
+                <mapping src="trxn_date" dest="trxn_date" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="list01" dest="list01" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

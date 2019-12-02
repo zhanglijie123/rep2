@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="ComApReport" package="cn.sunline.icore.ap.type" longname="ap report" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <complexType id="ApTranFlowReportOut" longname="transaction flow report out" dict="false" abstract="false" introduct="false">
+        <element id="trxn_seq" longname="transaction sequence" type="BaseType.U_SEQNO" ref="SysDict.A.trxn_seq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_date" longname="transaction date" type="BaseType.U_DATE" ref="SysDict.A.trxn_date" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="busi_seq" longname="buisness sequence" type="BaseType.U_SEQNO" ref="SysDict.A.busi_seq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_code" longname="transaction code" type="BaseType.U_TRXNCODE" ref="SysDict.A.trxn_code" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_desc" longname="transaction describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.trxn_desc" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sponsor_system" longname="sponsor system" type="BaseType.U_SYSTEM" ref="SysDict.A.sponsor_system" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="initiator_system" longname="initiator system" type="BaseType.U_SYSTEM" ref="SysDict.A.initiator_system" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="channel_id" longname="channel id" type="BaseType.U_CHANNEL" ref="SysDict.A.channel_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="recon_code" longname="recon code" type="BaseType.U_BYTE32" ref="SysDict.A.recon_code" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_teller" longname="transaction teller" type="BaseType.U_USERID" ref="SysDict.A.trxn_teller" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="branch_id" longname="branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.branch_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cash_trxn_ind" longname="cash or trxn" type="MsEnumType.E_CASHTRXN" ref="SysDict.A.cash_trxn_ind" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_ccy" longname="transaction ccy" type="BaseType.U_CURRENCY" ref="SysDict.A.trxn_ccy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_amt" longname="transaction amount" type="BaseType.U_MONEY" ref="SysDict.A.trxn_amt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_acct_no" longname="transaction account no" type="BaseType.U_ACCTNO" ref="SysDict.A.trxn_acct_no" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_acct_name" longname="transaction account name" type="BaseType.U_ACCTNAME" ref="SysDict.A.trxn_acct_name" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="debit_credit" longname="debit credit" type="MsEnumType.E_DEBITCREDIT" ref="SysDict.A.debit_credit" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="counterparty_acct_no" longname="counterparty account no" type="BaseType.U_ACCTNO" ref="SysDict.A.counterparty_acct_no" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="counterparty_acct_na" longname="counterparty account name" type="BaseType.U_ACCTNAME" ref="SysDict.A.counterparty_acct_na" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_remark" longname="transaction remark" type="BaseType.U_SHORTDESC" ref="SysDict.A.trxn_remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="customer_remark" longname="customer remark" type="BaseType.U_SHORTDESC" ref="SysDict.A.customer_remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_status" longname="transaction status" type="MsEnumType.E_TRXNSTATUS" ref="SysDict.A.trxn_status" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="reversal_ind" longname="reversal indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.reversal_ind" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="agent_org_id" longname="agent organization id" type="BaseType.U_ORGID" ref="SysDict.A.agent_org_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="reversal_exception_count" longname="reversal exception counts" type="BaseType.U_LONG" ref="SysDict.A.reversal_exception_count" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApTileOfTranFlow" longname="title of transaction flow" dict="false" abstract="false" introduct="false"/>
+</schema>

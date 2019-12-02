@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="ComApBasic" package="cn.sunline.icore.ap.type" longname="application platform common mechanism related compound type" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <complexType id="ApHolidayQueryOut" longname="holiday information" dict="false" abstract="false" introduct="false">
+        <element id="holiday_code" longname="holiday code" type="BaseType.U_BYTE8" ref="SysDict.A.holiday_code" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="holiday_class" longname="holiday class" type="EnumType.E_HOLIDAYCLASS" ref="SysDict.A.holiday_class" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="holiday_date" longname="holiday date" type="BaseType.U_DATE" ref="SysDict.A.holiday_date" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="holiday_ind" longname="holiday indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.holiday_ind" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="remark" type="BaseType.U_SHORTDESC" ref="SysDict.A.remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApIdentityInfo" longname="identity type information" extension="ComApCommField.ApFieldNormal" dict="false" abstract="false" introduct="false">
+        <element id="doc_type" longname="identity document type" type="BaseType.U_IDTYPE" ref="SysDict.A.doc_type" required="true" desc="证件种类" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="doc_desc" longname="identity document desc" type="BaseType.U_SHORTDESC" ref="SysDict.A.doc_desc" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="check_rules1" longname="check rules1" type="BaseType.U_MIDDESC" ref="SysDict.A.check_rules1" required="false" desc="填写正则表达式，不满足其中一个则报错" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="check_rules2" longname="check rules2" type="BaseType.U_MIDDESC" ref="SysDict.A.check_rules2" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="check_rules3" longname="check rules3" type="BaseType.U_MIDDESC" ref="SysDict.A.check_rules3" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="check_bit_rule" longname="check bit rule" type="EnumType.E_CHECKBITTYPE" ref="SysDict.A.check_bit_rule" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="suit_cust_type" longname="suitable customer type" type="EnumType.E_SUITABLECUSTTYPE" ref="SysDict.A.suit_cust_type" required="false" desc="适用客户类型" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="must_provide_ind" longname="must provide indicator" type="MsEnumType.E_YESORNO" ref="SysDict.A.must_provide_ind" required="false" desc="必输标志" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApCurrencyInfo" longname="currency parameter information" extension="ComApCommField.ApFieldNormal" dict="false" abstract="false" introduct="false">
+        <element id="ccy_code" longname="currency code" type="BaseType.U_CURRENCY" ref="SysDict.A.ccy_code" required="true" desc="USD、CNY" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ccy_name" longname="currency name" type="BaseType.U_SHORTDESC" ref="SysDict.A.ccy_name" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ccy_num_code" longname="currency numeric code" type="BaseType.U_BYTE3" ref="SysDict.A.ccy_num_code" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="country_code" longname="country code" type="BaseType.U_COUNTRY" ref="SysDict.A.country_code" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ccy_minor_unit" longname="currency minor unit" type="BaseType.U_LONG" ref="SysDict.A.ccy_minor_unit" required="true" desc="2表示最小单位为分,部分国家为0、3甚至是4。" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cale_interest_unit" longname="cale interest unit" type="BaseType.U_LONG" ref="SysDict.A.cale_interest_unit" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ccy_change_unit" longname="currency change unit" type="BaseType.U_MONEY" ref="SysDict.A.ccy_change_unit" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="accrual_base_day" longname="accrual base day" type="EnumType.E_ACCRUALBASEDAY" ref="SysDict.A.accrual_base_day" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApCurrencyInfoMnt" longname="currency parameter information maintence" extension="ComApCommField.ApFieldNormal" dict="false" abstract="false" introduct="false">
+        <element id="ccy_code" longname="currency code" type="BaseType.U_CURRENCY" ref="SysDict.A.ccy_code" required="true" desc="USD、CNY" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ccy_name" longname="currency name" type="BaseType.U_SHORTDESC" ref="SysDict.A.ccy_name" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ccy_num_code" longname="currency numeric code" type="BaseType.U_BYTE3" ref="SysDict.A.ccy_num_code" required="true" desc="货币数字代码" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="country_code" longname="country code" type="BaseType.U_COUNTRY" ref="SysDict.A.country_code" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ccy_minor_unit" longname="currency minor unit" type="BaseType.U_LONG" ref="SysDict.A.ccy_minor_unit" required="true" desc="2表示最小单位为分,部分国家为0、3甚至是4。" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cale_interest_unit" longname="cale interest unit" type="BaseType.U_LONG" ref="SysDict.A.cale_interest_unit" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ccy_change_unit" longname="currency change unit" type="BaseType.U_MONEY" ref="SysDict.A.ccy_change_unit" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="accrual_base_day" longname="accrual base day" type="EnumType.E_ACCRUALBASEDAY" ref="SysDict.A.accrual_base_day" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_version" longname="data version" type="BaseType.U_LONG" ref="SysDict.A.data_version" required="false" desc="数据版本号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="operater_ind" longname="operater indicate" type="MsEnumType.E_DATAOPERATE" ref="SysDict.A.operater_ind" required="false" desc="操作标志" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApHolidayInfo" longname="holiday information" extension="ComApCommField.ApFieldOther" dict="false" abstract="false" introduct="false">
+        <element id="holiday_code" longname="holiday code" type="BaseType.U_BYTE8" ref="SysDict.A.holiday_code" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="holiday_class" longname="holiday class" type="EnumType.E_HOLIDAYCLASS" ref="SysDict.A.holiday_class" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="holiday_date" longname="holiday date" type="BaseType.U_DATE" ref="SysDict.A.holiday_date" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="holiday_ind" longname="holiday indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.holiday_ind" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="remark" type="BaseType.U_SHORTDESC" ref="SysDict.A.remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApHolidayWithInd" longname="holiday information and operation indicate" extension="ComApBasic.ApHolidayInfo" dict="false" abstract="false" introduct="false">
+        <element id="operater_ind" longname="operater indicate" type="MsEnumType.E_DATAOPERATE" ref="SysDict.A.operater_ind" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApSplitString" longname="interception of the string" dict="false" abstract="false" introduct="false">
+        <element id="first_Sub_Str" longname="first string" type="BaseType.U_VOUCHERNO" ref="SysDict.A.first_Sub_Str" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="last_Sub_Str" longname="last string" type="BaseType.U_VOUCHERNO" ref="SysDict.A.last_Sub_Str" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="first_str_length" longname="first string length" type="BaseType.U_LONG" ref="SysDict.A.first_str_length" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="last_str_length" longname="last string length" type="BaseType.U_LONG" ref="SysDict.A.last_str_length" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApDynamicList" longname="dynamic droplist list" extension="MsBizBasicComplexType.MsDynamicList" dict="false" abstract="false" introduct="false"/>
+    <complexType id="ApRuleIdList" longname="rule id list" dict="false" abstract="false" introduct="false">
+        <element id="rule_id" longname="rule id" type="BaseType.U_RULEID" ref="SysDict.A.rule_id" required="false" desc="规则ID" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="rule_desc" longname="rule_describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.rule_desc" required="false" desc="规则描述" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApTrxnControl" longname="transaction control info" dict="false" abstract="false" introduct="false">
+        <element id="trxn_event_id" longname="transaction event id" type="BaseType.U_EVENT" ref="SysDict.A.trxn_event_id" required="false" desc="交易事件ID" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_ctrl_run_cond" longname="transaction control run condtion" type="BaseType.U_RULESID" ref="SysDict.A.trxn_ctrl_run_cond" required="false" desc="交易控制运行条件" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_ctrl_desc" longname="transaction control describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.trxn_ctrl_desc" required="false" desc="交易控制描述" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_ctrl_type" longname="transaction control type" type="EnumType.E_TRXNCTRLTYPE" ref="SysDict.A.trxn_ctrl_type" required="false" desc="交易控制类型" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="hint_text" longname="hint text" type="BaseType.U_MIDDESC" ref="SysDict.A.hint_text" required="false" desc="提示文本" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="hint_data_mart" longname="hint data mart" type="BaseType.U_TABLENAME" ref="SysDict.A.hint_data_mart" required="false" desc="提示信息数据集" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="hint_field_name" longname="hint field name" type="BaseType.U_FIELDNAME" ref="SysDict.A.hint_field_name" required="false" desc="提示信息字段名" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="scene_auth_id" longname="scene authorization id" type="BaseType.U_BYTE32" ref="SysDict.A.scene_auth_id" required="false" desc="场景授权ID" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="return_code" longname="return code" type="BaseType.U_BYTE20" ref="SysDict.A.return_code" required="false" desc="反回码" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_version" longname="data version" type="BaseType.U_LONG" ref="SysDict.A.data_version" required="false" desc="数据版本号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApTrxnCtrlInput" longname="transaction control query input" dict="false" abstract="false" introduct="false">
+        <element id="trxn_event_id" longname="transaction event id" type="BaseType.U_EVENT" ref="SysDict.A.trxn_event_id" required="false" desc="交易事件ID" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_ctrl_type" longname="transaction control type" type="EnumType.E_TRXNCTRLTYPE" ref="SysDict.A.trxn_ctrl_type" required="false" desc="交易控制类型" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApWorkdayInfo" longname="get work date" dict="false" abstract="false" introduct="false">
+        <element id="trxn_date" longname="transaction date" type="BaseType.U_DATE" ref="SysDict.A.trxn_date" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="branch_id" longname="branch id" type="BaseType.U_BRANCHID" ref="SysDict.A.branch_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="holiday_code" longname="holiday code" type="BaseType.U_BYTE8" ref="SysDict.A.holiday_code" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="holiday_class" longname="holiday class" type="EnumType.E_HOLIDAYCLASS" ref="SysDict.A.holiday_class" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="assign_days" longname="assign days" type="BaseType.U_LONG" ref="SysDict.A.assign_days" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApTrxnCtrlMntInfo" longname="maintain transaction control info" dict="false" abstract="false" introduct="false">
+        <element id="operater_ind" longname="operater indicate" type="MsEnumType.E_DATAOPERATE" ref="SysDict.A.operater_ind" required="false" desc="操作标志" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_event_id" longname="transaction event id" type="BaseType.U_EVENT" ref="SysDict.A.trxn_event_id" required="false" desc="交易事件ID" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_ctrl_desc" longname="transaction control describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.trxn_ctrl_desc" required="false" desc="交易控制描述" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_ctrl_type" longname="transaction control type" type="EnumType.E_TRXNCTRLTYPE" ref="SysDict.A.trxn_ctrl_type" required="false" desc="交易控制类型" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_ctrl_run_cond" longname="transaction control run condtion" type="BaseType.U_RULESID" ref="SysDict.A.trxn_ctrl_run_cond" required="false" desc="交易控制运行条件" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="hint_text" longname="hint text" type="BaseType.U_MIDDESC" ref="SysDict.A.hint_text" required="false" desc="提示文本" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="hint_data_mart" longname="hint data mart" type="BaseType.U_TABLENAME" ref="SysDict.A.hint_data_mart" required="false" desc="提示信息数据集" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="hint_field_name" longname="hint field name" type="BaseType.U_FIELDNAME" ref="SysDict.A.hint_field_name" required="false" desc="提示信息字段名" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="scene_auth_id" longname="scene authorization id" type="BaseType.U_BYTE32" ref="SysDict.A.scene_auth_id" required="false" desc="场景授权ID" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="return_code" longname="return code" type="BaseType.U_BYTE20" ref="SysDict.A.return_code" required="false" desc="反回码" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_version" longname="data version" type="BaseType.U_LONG" ref="SysDict.A.data_version" required="false" desc="数据版本号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApSceneAuthInfo" longname="scene authorization query input" dict="false" abstract="false" introduct="false">
+        <element id="operater_ind" longname="operater indicate" type="MsEnumType.E_DATAOPERATE" ref="SysDict.A.operater_ind" required="false" desc="操作标志" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="scene_auth_id" longname="scene authorization id" type="BaseType.U_BYTE32" ref="SysDict.A.scene_auth_id" required="false" desc="场景授权ID" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="role_id" longname="role id" type="BaseType.U_ROLEID" ref="SysDict.A.role_id" required="false" desc="角色id" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_version" longname="data version" type="BaseType.U_LONG" ref="SysDict.A.data_version" required="false" desc="数据版本号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApSystemDate" longname="system date" dict="false" abstract="false" introduct="false">
+        <element id="busi_org_id" longname="organization id" type="BaseType.U_ORGID" ref="SysDict.A.busi_org_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="physical_date" longname="physical date" type="BaseType.U_DATE" ref="SysDict.A.physical_date" required="false" desc="物理日期" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="last_date" longname="last date" type="BaseType.U_DATE" ref="SysDict.A.last_date" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trxn_date" longname="transaction date" type="BaseType.U_DATE" ref="SysDict.A.trxn_date" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="next_date" longname="next date" type="BaseType.U_DATE" ref="SysDict.A.next_date" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bal_sheet_date" longname="balance sheet date" type="BaseType.U_DATE" ref="SysDict.A.bal_sheet_date" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_create_user" longname="data create user" type="BaseType.U_USERID" ref="SysDict.A.data_create_user" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_create_time" longname="data create time" type="BaseType.U_DATETIME" ref="SysDict.A.data_create_time" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_update_user" longname="data update user" type="BaseType.U_USERID" ref="SysDict.A.data_update_user" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_update_time" longname="data update time" type="BaseType.U_DATETIME" ref="SysDict.A.data_update_time" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_version" longname="data version" type="BaseType.U_LONG" ref="SysDict.A.data_version" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApAccountRouteInfo" longname="Account route information" dict="false" abstract="false" introduct="false">
+        <element id="gl_ref_code" longname="gl reference code" type="BaseType.U_BYTE32" ref="SysDict.A.gl_ref_code" required="false" desc="业务编码" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acct_no" longname="account no" type="BaseType.U_ACCTNO" ref="SysDict.A.acct_no" required="false" desc="账号" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acct_analy" longname="capital accounting  analysis result" type="EnumType.E_ACCOUTANALY" ref="SysDict.A.acct_analy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApSummaryControlInfo" longname="Summary code control information" dict="false" abstract="false" introduct="false">
+        <element id="summary_code" longname="summary code" type="BaseType.U_BYTE8" ref="SysDict.A.summary_code" required="false" desc="摘要代码" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="default_ind" longname="default indication" type="MsEnumType.E_YESORNO" ref="SysDict.A.default_ind" required="false" desc="缺省账户标志" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+	<complexType id="ApSummaryOptionalList" longname="Summary code Optional list information"  dict="false" abstract="false" introduct="false">
+        <element id="summary_code" longname="summary code" type="BaseType.U_BYTE8" ref="SysDict.A.summary_code" required="false" desc="摘要代码" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="summary_text" longname="summary text" type="BaseType.U_BYTE64" ref="SysDict.A.summary_text" required="false" desc="摘要文字" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+</schema>

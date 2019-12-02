@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ap1104" longname="query holiday information" kind="Q" package="cn.sunline.icore.ap.trans.holiday" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.icore.ap.trans.holiday.intf">
+        <input packMode="true">
+            <field id="holiday_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="holiday date" desc="假日日期" ref="SysDict.A.holiday_date"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="holiday_date" type="BaseType.U_DATE" required="false" multi="false" array="false" longname="holiday date" desc="假日日期" ref="SysDict.A.holiday_date"/>
+            <field id="holiday_code" type="BaseType.U_BYTE8" required="false" multi="false" array="false" longname="holiday code" ref="SysDict.A.holiday_code"/>
+            <field id="holiday_class" type="EnumType.E_HOLIDAYCLASS" required="false" multi="false" array="false" longname="holiday class" ref="SysDict.A.holiday_class"/>
+            <field id="holiday_ind" type="MsEnumType.E_YESORNO" required="false" multi="false" array="false" longname="holiday indication" ref="SysDict.A.holiday_ind"/>
+            <field id="remark" type="BaseType.U_SHORTDESC" required="false" multi="false" array="false" longname="remark" ref="SysDict.A.remark"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="SrvApHoliday.queryHoliday" longname="query holiday information">
+            <in_mappings by_interface="true">
+                <mapping src="holiday_date" dest="holiday_date" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="queryList.holiday_class" dest="holiday_class" by_interface="true" on_top="true"/>
+                <mapping src="queryList.holiday_code" dest="holiday_code" by_interface="true" on_top="true"/>
+                <mapping src="queryList.holiday_date" dest="holiday_date" by_interface="true" on_top="true"/>
+                <mapping src="queryList.holiday_ind" dest="holiday_ind" by_interface="true" on_top="true"/>
+                <mapping src="queryList.remark" dest="remark" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

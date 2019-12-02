@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<serviceImpl id="SrvApIdentityImpl" longname="identity type parameter maintenance" serviceType="SrvApIdentity" package="cn.sunline.icore.ap.serviceimpl" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[证件种类参数维护]]></description>
+</serviceImpl>

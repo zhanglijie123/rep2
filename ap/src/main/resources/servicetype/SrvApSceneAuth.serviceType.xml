@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<serviceType id="SrvApSceneAuth" kind="business" longname="scene auth service" package="cn.sunline.icore.ap.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <service id="querySceneAuth" name="querySceneAuthInfo" longname="querySceneAuth">
+        <interface>
+            <input packMode="false">
+                <field id="queryIn" type="ComApBasic.ApSceneAuthInfo" required="false" multi="false" array="false" longname="query input"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="queryOut" type="ComApBasic.ApSceneAuthInfo" required="false" multi="true" array="false" longname="query out"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="mntSceneAuth" name="mntmntSceneAuthInfo" longname="mntmntSceneAuthInfo">
+        <interface>
+            <input packMode="false">
+                <field id="modifyIn" type="ComApBasic.ApSceneAuthInfo" required="false" multi="false" array="false" longname="modifyIn"/>
+            </input>
+            <output asParm="true" packMode="true"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

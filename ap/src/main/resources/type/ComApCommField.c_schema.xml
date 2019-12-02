@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ComApCommField" package="cn.sunline.icore.ap.type" longname="common field compound type" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <complexType id="ApFieldNormal" longname="organization related common field" dict="false" abstract="false" introduct="false">
+        <element id="org_id" longname="organization id" type="BaseType.U_ORGID" ref="SysDict.A.org_id" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_create_user" longname="data create user" type="BaseType.U_USERID" ref="SysDict.A.data_create_user" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_create_time" longname="data create time" type="BaseType.U_DATETIME" ref="SysDict.A.data_create_time" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_update_user" longname="data update user" type="BaseType.U_USERID" ref="SysDict.A.data_update_user" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_update_time" longname="data update time" type="BaseType.U_DATETIME" ref="SysDict.A.data_update_time" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_version" longname="data version" type="BaseType.U_LONG" ref="SysDict.A.data_version" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ApFieldOther" longname="organization no related common field" dict="false" abstract="false" introduct="false">
+        <element id="data_create_user" longname="data create user" type="BaseType.U_USERID" ref="SysDict.A.data_create_user" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_create_time" longname="data create time" type="BaseType.U_DATETIME" ref="SysDict.A.data_create_time" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_update_user" longname="data update user" type="BaseType.U_USERID" ref="SysDict.A.data_update_user" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_update_time" longname="data update time" type="BaseType.U_DATETIME" ref="SysDict.A.data_update_time" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="data_version" longname="data version" type="BaseType.U_LONG" ref="SysDict.A.data_version" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+</schema>

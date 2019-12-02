@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls id="ApSystem" longname="application basic namedsql" package="cn.sunline.icore.ap.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="selTrxnReconListCount" longname="query transaction flow reconciliation count">
+        <parameterMap class="java.util.Map">
+            <parameter property="initiator_start_date" ref="SysDict.A.initiator_start_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="initiator start date" parameterType="condition"/>
+            <parameter property="initiator_end_date" ref="SysDict.A.initiator_end_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="initiator end date" parameterType="condition"/>
+            <parameter property="recon_code" ref="SysDict.A.recon_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE32" mode="in" longname="recon code" parameterType="condition"/>
+            <parameter property="channel_id" ref="SysDict.A.channel_id" jdbcType="VARCHAR" javaType="BaseType.U_CHANNEL" mode="in" longname="channel id" parameterType="condition"/>
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.Long"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select count(*) from mss_transaction ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[org_id = #org_id#]]></str>
+                    <if test="channel_id!=null &amp;&amp; channel_id!=''" type="If">
+                        <str type="Str"><![CDATA[channel_id = #channel_id#]]></str>
+                    </if>
+                    <if test="recon_code!=null &amp;&amp; recon_code!=''" type="If">
+                        <str type="Str"><![CDATA[recon_code = #recon_code#]]></str>
+                    </if>
+                    <if test="initiator_start_date!=null &amp;&amp; initiator_start_date!=''" type="If">
+                        <str type="Str"><![CDATA[initiator_date >= #initiator_start_date#]]></str>
+                    </if>
+                    <if test="initiator_end_date!=null &amp;&amp; initiator_end_date!=''" type="If">
+                        <str type="Str"><![CDATA[initiator_date <= #initiator_end_date#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selTrxnReconList" longname="query transaction flow reconciliation">
+        <parameterMap class="java.util.Map">
+            <parameter property="initiator_start_date" ref="SysDict.A.initiator_start_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="initiator start date" parameterType="condition"/>
+            <parameter property="initiator_end_date" ref="SysDict.A.initiator_end_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="initiator end date" parameterType="condition"/>
+            <parameter property="recon_code" ref="SysDict.A.recon_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE32" mode="in" longname="recon code" parameterType="condition"/>
+            <parameter property="channel_id" ref="SysDict.A.channel_id" jdbcType="VARCHAR" javaType="BaseType.U_CHANNEL" mode="in" longname="channel id" parameterType="condition"/>
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBook.ApTransReconInfo"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select * from mss_transaction ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[org_id = #org_id#]]></str>
+                    <if test="channel_id!=null &amp;&amp; channel_id!=''" type="If">
+                        <str type="Str"><![CDATA[channel_id = #channel_id#]]></str>
+                    </if>
+                    <if test="recon_code!=null &amp;&amp; recon_code!=''" type="If">
+                        <str type="Str"><![CDATA[recon_code = #recon_code#]]></str>
+                    </if>
+                    <if test="initiator_start_date!=null &amp;&amp; initiator_start_date!=''" type="If">
+                        <str type="Str"><![CDATA[initiator_date >= #initiator_start_date#]]></str>
+                    </if>
+                    <if test="initiator_end_date!=null &amp;&amp; initiator_end_date!=''" type="If">
+                        <str type="Str"><![CDATA[initiator_date <= #initiator_end_date#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by initiator_date asc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectPageWithCount" type="sql" id="selAppDataCleanList" longname="query data clean list">
+        <sql><![CDATA[    	
+       	select table_name,table_desc,data_clean_strategy,del_impl_class,data_reserve_days,data_version
+    	from
+    	    	app_data_clean order by table_name]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="ComApSystem.AppDataCleanInfo"/>
+    </select>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selPacketList" longname="query message range information">
+        <parameterMap class="java.util.Map">
+            <parameter property="trxn_date" ref="SysDict.A.trxn_date" jdbcType="VARCHAR" javaType="BaseType.U_DATE" mode="in" longname="transaction date" parameterType="condition"/>
+            <parameter property="trxn_code" ref="SysDict.A.trxn_code" jdbcType="VARCHAR" javaType="BaseType.U_TRXNCODE" mode="in" longname="transaction code" parameterType="condition"/>
+            <parameter property="channel_id" ref="SysDict.A.channel_id" jdbcType="VARCHAR" javaType="BaseType.U_CHANNEL" mode="in" longname="channel id" parameterType="condition"/>
+            <parameter property="trxn_teller" ref="SysDict.A.trxn_teller" jdbcType="VARCHAR" javaType="BaseType.U_USERID" mode="in" longname="transaction teller" parameterType="condition"/>
+            <parameter property="begin_time" ref="SysDict.A.begin_time" jdbcType="VARCHAR" javaType="BaseType.U_DATETIME" mode="in" longname="begin time" parameterType="condition"/>
+            <parameter property="end_time" ref="SysDict.A.end_time" jdbcType="VARCHAR" javaType="BaseType.U_DATETIME" mode="in" longname="end time" parameterType="condition"/>
+            <parameter property="trxn_seq" ref="SysDict.A.trxn_seq" jdbcType="VARCHAR" javaType="BaseType.U_SEQNO" mode="in" longname="transaction sequence" parameterType="condition"/>
+            <parameter property="initiator_seq" ref="SysDict.A.initiator_seq" jdbcType="VARCHAR" javaType="BaseType.U_SEQNO" mode="in" longname="initiator sequence" parameterType="condition"/>
+            <parameter property="initiator_system" ref="SysDict.A.initiator_system" jdbcType="VARCHAR" javaType="BaseType.U_SYSTEM" mode="in" longname="initiator system" parameterType="condition"/>
+            <parameter property="return_code" ref="SysDict.A.return_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE20" mode="in" longname="return code" parameterType="condition"/>
+            <parameter property="trxn_type" ref="SysDict.A.trxn_type" jdbcType="VARCHAR" javaType="MsEnumType.E_TRXNTYPE" mode="in" longname="transaction type" parameterType="condition"/>
+            <parameter property="trxn_desc" ref="SysDict.A.trxn_desc" jdbcType="VARCHAR" javaType="BaseType.U_SHORTDESC" mode="in" longname="transaction describe" parameterType="condition"/>
+            <parameter property="counterparty_acct_no" ref="SysDict.A.counterparty_acct_no" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="counterparty account no" parameterType="condition"/>
+            <parameter property="counterparty_acct_na" ref="SysDict.A.counterparty_acct_na" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNAME" mode="in" longname="counterparty account name" parameterType="condition"/>
+            <parameter property="trxn_acct_no" ref="SysDict.A.trxn_acct_no" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="transaction account no" parameterType="condition"/>
+            <parameter property="trxn_acct_name" ref="SysDict.A.trxn_acct_name" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNAME" mode="in" longname="transaction account name" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApSystem.ApPacketBriefInfo"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[		
+select 
+	  SUBSTR(b.trxn_seq, 1, 8) trxn_date,
+		b.trxn_seq,
+		b.initiator_seq,
+		b.begin_time,
+		b.end_time,
+		b.channel_id,
+		b.trxn_teller,
+		b.branch_id,
+		b.trxn_code,
+		b.trxn_desc,
+		a.trxn_type,
+		b.initiator_system,
+		b.return_code,
+		b.error_text,
+		c.counterparty_acct_no,
+		c.counterparty_acct_na,
+		c.debit_credit,
+		c.trxn_acct_no,
+		c.trxn_acct_name
+		from msp_transaction a join mss_packet b on a.trxn_code = b.trxn_code
+    left join mss_transaction c on b.trxn_seq = c.trxn_seq ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[b.trxn_seq like concat(#trxn_date#, '%')]]></str>
+                    <if test="trxn_code!=null &amp;&amp; trxn_code!=''" type="If">
+                        <str type="Str"><![CDATA[b.trxn_code=#trxn_code#]]></str>
+                    </if>
+                    <if test="channel_id!=null &amp;&amp; channel_id!=''" type="If">
+                        <str type="Str"><![CDATA[b.channel_id=#channel_id#]]></str>
+                    </if>
+                    <if test="trxn_teller!=null &amp;&amp; trxn_teller!=''" type="If">
+                        <str type="Str"><![CDATA[b.trxn_teller=#trxn_teller#]]></str>
+                    </if>
+                    <if test="begin_time!=null &amp;&amp; begin_time!=''" type="If">
+                        <str type="Str"><![CDATA[b.begin_time>=#begin_time#]]></str>
+                    </if>
+                    <if test="end_time!=null &amp;&amp; end_time!=''" type="If">
+                        <str type="Str"><![CDATA[b.end_time<=#end_time#]]></str>
+                    </if>
+                    <if test="initiator_seq!=null &amp;&amp; initiator_seq!=''" type="If">
+                        <str type="Str"><![CDATA[b.initiator_seq=#initiator_seq#]]></str>
+                    </if>
+                    <if test="initiator_system!=null &amp;&amp; initiator_system!=''" type="If">
+                        <str type="Str"><![CDATA[b.initiator_system=#initiator_system#]]></str>
+                    </if>
+                    <if test="return_code!=null &amp;&amp;return_code.toString() == '0000'.toString()" type="If">
+                        <str type="Str"><![CDATA[b.return_code ='0000']]></str>
+                    </if>
+                    <if test="return_code!=null &amp;&amp; return_code.toString() == '9999'.toString()" type="If">
+                        <str type="Str"><![CDATA[b.return_code != '0000']]></str>
+                    </if>
+                    <if test="trxn_type!=null" type="If">
+                        <str type="Str"><![CDATA[a.trxn_type=#trxn_type#]]></str>
+                    </if>
+                    <if test="trxn_desc!=null &amp;&amp; trxn_desc!=''" type="If">
+                        <str type="Str"><![CDATA[b.trxn_desc like concat('%' , concat(#trxn_desc# , '%')) ]]></str>
+                    </if>
+                    <if test="counterparty_acct_no!=null &amp;&amp; counterparty_acct_no!=''" type="If">
+                        <str type="Str"><![CDATA[c.counterparty_acct_no=#counterparty_acct_no#]]></str>
+                    </if>
+                    <if test="counterparty_acct_na!=null &amp;&amp; counterparty_acct_na!=''" type="If">
+                        <str type="Str"><![CDATA[c.counterparty_acct_na like concat('%' , concat(#counterparty_acct_na# , '%'))]]></str>
+                    </if>
+                    <if test="trxn_acct_no!=null &amp;&amp; trxn_acct_no!=''" type="If">
+                        <str type="Str"><![CDATA[c.trxn_acct_no=#trxn_acct_no#]]></str>
+                    </if>
+                    <if test="trxn_acct_name!=null &amp;&amp; trxn_acct_name!=''" type="If">
+                        <str type="Str"><![CDATA[c.trxn_acct_name like concat('%' , concat(#trxn_acct_name# , '%'))  ]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by b.trxn_seq desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selPacketDetail" longname="query message detail information">
+        <sql><![CDATA[
+  SELECT
+	SUBSTR(b.trxn_seq, 1, 8) trxn_date,
+	b.trxn_seq,
+	b.initiator_system,
+	b.initiator_seq,
+	c.busi_seq,
+	b.begin_time,
+	b.end_time,
+	b.channel_id,
+	b.trxn_teller,
+	b.branch_id,
+	b.request,
+	b.return_code,
+	b.error_text,
+	b.trxn_code,
+	b.trxn_desc,
+	a.trxn_type,
+	c.trxn_acct_no,
+	c.trxn_acct_name,
+	c.ccy_code,
+	c.trxn_amt,
+	c.debit_credit,
+	c.cash_trxn_ind,
+	c.trxn_status,
+	c.reversal_ind,
+	c.trxn_remark,
+	c.counterparty_acct_no,
+	c.counterparty_acct_na
+from msp_transaction a join mss_packet b on a.trxn_code = b.trxn_code
+    left join mss_transaction c on b.trxn_seq = c.trxn_seq
+WHERE
+	b.trxn_seq = #trxn_seq# ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trxn_seq" ref="SysDict.A.trxn_seq" jdbcType="VARCHAR" javaType="BaseType.U_SEQNO" mode="in" longname="transaction sequence" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApSystem.ApPacketInfo"/>
+    </select>
+</sqls>

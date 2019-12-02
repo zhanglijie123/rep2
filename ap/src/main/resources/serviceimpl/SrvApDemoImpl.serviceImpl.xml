@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<serviceImpl id="SrvApDemoImpl" longname="demo service" serviceType="SrvApDemo" package="cn.sunline.icore.ap.serviceimpl" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[示例服务]]></description>
+</serviceImpl>

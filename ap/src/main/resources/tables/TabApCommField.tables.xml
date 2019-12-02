@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="TabApCommField" package="cn.sunline.icore.ap.tables" longname="common field" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <table id="apb_field_normal" name="apb_field_normal" longname="organization related public field table" param="false" category="B" virtual="false" extension="MsComTable.MsbFieldNormal" abstract="true">
+        <fields/>
+        <ddls/>
+        <description><![CDATA[法人相关的表需要引用该表作为公共字段]]></description>
+    </table>
+    <table id="apb_field_other" name="apb_field_other" longname="organization no related public field table" category="B" virtual="false" extension="MsComTable.MsbFieldOther" abstract="true">
+        <fields>
+            </fields>
+        <ddls/>
+    </table>
+</schema>

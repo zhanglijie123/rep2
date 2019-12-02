@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<componentSchema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="BlackListAppcImpl" package="cn.sunline.icore.ap.component.component" longname="black list communication components implementation definition" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <componentImplementation id="ApacheBlackListAppc" longname="Apache black list communication components" type="ApBaseComp.Appc">
+        <implementation.java class="cn.sunline.icore.ap.component.appc.ApacheBlackListAppcImpl"/>
+        <properties>
+            <property name="ip" type="string" default="10.22.60.8" longname="ftp address" desc="ftp地址"/>
+            <property name="port" type="int" default="8355" longname="ftp port" desc="ftp端口"/>
+            <property name="sendTimeoutInMs" type="int" default="5000" longname="send timeout" desc="发送超时时间"/>
+            <property name="recvTimeoutInMs" type="int" default="5000" longname="recive timeout" desc="接受超时时间"/>
+            <property name="connectTimeoutInMs" type="int" default="30000" longname="connection timeout" desc="连接超时时间"/>
+            <property name="encoding" type="string" default="utf-8" longname="encoding" desc="字符集"/>
+        </properties>
+    </componentImplementation>
+</componentSchema>

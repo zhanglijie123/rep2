@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<plugin id="batch_trans_custom_cbs" displayName="batch transation custom cbs" activator="cn.sunline.icore.ap.plugin.BatchTransCustomPlugin" order="3000" enable="true" failOnInitError="true" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <extension-points/>
+    <extensions/>
+    <components/>
+</plugin>

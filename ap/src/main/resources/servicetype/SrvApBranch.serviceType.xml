@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="SrvApBranch" kind="business" longname="branch information maintenance" package="cn.sunline.icore.ap.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <service id="addBranch" name="addBranch" longname="added branch">
+        <interface>
+            <input packMode="false">
+                <field id="branch" type="ComApBranch.ApBranchInfo" required="false" multi="false" array="false" longname="branch information"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="modifyBranch" name="modifyBranch" longname="branch information changes">
+        <interface>
+            <input packMode="false">
+                <field id="operater_ind" type="MsEnumType.E_DATAOPERATE" required="false" multi="false" array="false" longname="operater indicate" ref="SysDict.A.operater_ind"/>
+                <field id="branch" type="ComApBranch.ApBranchInfo" required="false" multi="false" array="false" longname="branch information"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="modifyBranchRelation" name="modifyBranchRelation" longname="branch relationship maintenance">
+        <interface>
+            <input packMode="false">
+                <field id="brch_relation_code" type="BaseType.U_BYTE8" required="false" multi="false" array="false" longname="branch relation code" ref="SysDict.A.brch_relation_code"/>
+                <field id="ccy_code" type="BaseType.U_CURRENCY" required="false" multi="false" array="false" longname="currency code" ref="SysDict.A.ccy_code"/>
+                <field id="relations" type="ComApBranch.ApBranchRelSubWithOper" required="false" multi="true" array="false" longname="branch relationship list"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="mergeBranch" name="mergeBranch" longname="revoke the branch">
+        <interface>
+            <input packMode="false">
+                <field id="srcBranchId" type="BaseType.U_BRANCHID" required="true" multi="false" array="false" longname="revoke the branch"/>
+                <field id="destBranchId" type="BaseType.U_BRANCHID" required="true" multi="false" array="false" longname="incorporated branch"/>
+                <field id="effectDate" type="BaseType.U_DATE" required="true" multi="false" array="false" longname="effective date"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="queryBranchList" name="queryBranchList" longname="query branch list">
+        <interface>
+            <input packMode="false">
+                <field id="condition" type="ComApBranch.ApBranchParmCondtion" required="false" multi="false" array="false" longname="the conditions of querying branch"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="queryList" type="ComApBranch.ApBranchInfo" required="false" multi="true" array="false" longname="branch information list"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="queryBranchRelation" name="queryBranchRelation" longname="query branch relationship information">
+        <interface>
+            <input packMode="false">
+                <field id="brch_relation_code" type="BaseType.U_BYTE8" required="false" multi="false" array="false" longname="branch relation code" ref="SysDict.A.brch_relation_code"/>
+                <field id="ccy_code" type="BaseType.U_CURRENCY" required="false" multi="false" array="false" longname="currency code" ref="SysDict.A.ccy_code"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="queryList" type="ComApBranch.ApBranchRelation" required="false" multi="true" array="false" longname="the list of branch relationship"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

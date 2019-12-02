@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="TabApDataMigration" package="cn.sunline.icore.ap.tables" longname="data migration tables" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <table id="app_ofile_def" name="app_ofile_def" longname="export data file property definition" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="exp_scheme_no" longname="export scheme no" type="BaseType.U_SEQNO" ref="SysDict.A.exp_scheme_no" primarykey="false" final="false" nullable="false" desc="卸数方案" identity="false" allowSubType="true"/>
+            <field id="file_encoding" longname="file encoding" type="EnumType.E_FILECODING" ref="SysDict.A.file_encoding" primarykey="false" final="false" default="UTF-8" nullable="false" desc="文件编码" identity="false" allowSubType="true"/>
+            <field id="field_separator" longname="field separator" type="BaseType.U_BYTE3" ref="SysDict.A.field_separator" primarykey="false" final="false" nullable="true" desc="字段间隔符" identity="false" allowSubType="true"/>
+            <field id="rows_limit" longname="file rows limit" type="BaseType.U_LONG" ref="SysDict.A.rows_limit" primarykey="false" final="false" nullable="true" desc="行数限制" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="exp_scheme_no" operate="selectOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_ofile_def_idx1" type="primarykey" fields="exp_scheme_no org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_ofctt_def" name="app_ofctt_def" longname="export data file content definition" category="P" virtual="false" extension="TabApCommField.apb_field_normal" abstract="false">
+        <fields>
+            <field id="exp_scheme_no" longname="export scheme no" type="BaseType.U_SEQNO" ref="SysDict.A.exp_scheme_no" primarykey="false" final="false" nullable="false" desc="卸数方案" identity="false" allowSubType="true"/>
+            <field id="content_type" longname="file head tail indicator" type="EnumType.E_FILECONTENTTYPE" ref="SysDict.A.content_type" primarykey="false" final="false" nullable="false" desc="内容类别" identity="false" allowSubType="true"/>
+            <field id="content_sort" longname="content sort" type="BaseType.U_LONG" ref="SysDict.A.content_sort" primarykey="false" final="false" default="1" nullable="false" desc="配置内容序号" identity="false" allowSubType="true"/>
+            <field id="field_sort" longname="field sort" type="BaseType.U_LONG" ref="SysDict.A.field_sort" primarykey="false" final="false" nullable="false" desc="字段序号" identity="false" allowSubType="true"/>
+            <field id="field_name" longname="field name" type="BaseType.U_FIELDNAME" ref="SysDict.A.field_name" primarykey="false" final="false" nullable="false" desc="字段名" identity="false" allowSubType="true"/>
+            <field id="field_desc" longname="field describe" type="BaseType.U_SHORTDESC" ref="SysDict.A.field_desc" primarykey="false" final="false" nullable="true" desc="字段描述" identity="false" allowSubType="true"/>
+            <field id="field_default_value" longname="field default value" type="BaseType.U_LONGDESC" ref="SysDict.A.field_default_value" primarykey="false" final="false" nullable="true" desc="字段默认值" identity="false" allowSubType="true"/>
+            <field id="field_padding_mode" longname="field padding mode" type="EnumType.E_FIELDPADDINGMODE" ref="SysDict.A.field_padding_mode" primarykey="false" final="false" nullable="true" desc="字段填充方案" identity="false" allowSubType="true"/>
+            <field id="field_fix_length" longname="field fix length" type="BaseType.U_BYTE12" ref="SysDict.A.field_fix_length" primarykey="false" final="false" nullable="true" desc="字段固定长度" identity="false" allowSubType="true"/>
+            <field id="padding_value" longname="padding value" type="BaseType.U_BYTE1" ref="SysDict.A.padding_value" primarykey="false" final="false" nullable="true" desc="补位值" identity="false" allowSubType="true"/>
+            <field id="field_max_length" longname="field max length" type="BaseType.U_LONG" ref="SysDict.A.field_max_length" primarykey="false" final="false" nullable="true" desc="字段最大长度" identity="false" allowSubType="true"/>
+            <field id="field_trunc_type" longname="field truncation type" type="EnumType.E_FIELDCUTTYPE" ref="SysDict.A.field_trunc_type" primarykey="false" final="false" nullable="true" desc="字段超长截取方案" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="primarykey" fields="exp_scheme_no content_type content_sort field_sort" operate="selectOne"/>
+            <index id="odb2" type="unique" fields="exp_scheme_no content_type content_sort field_name" operate="selectOne"/>
+            <index id="odb3" type="index" fields="exp_scheme_no content_type" sort="content_sort, field_sort" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_ofctt_def_idx1" type="primarykey" fields="exp_scheme_no content_type content_sort field_sort org_id">
+                <ddls/>
+            </index>
+            <index id="app_ofctt_def_idx2" type="unique" fields="exp_scheme_no content_type content_sort field_name org_id">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="app_unload_data" name="app_unload_data" longname="export date file by specific SQL" category="P" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="table_name" longname="db table name" type="BaseType.U_TABLENAME" ref="SysDict.A.table_name" primarykey="false" final="false" nullable="false" desc="数据库表名" identity="false" allowSubType="true"/>
+            <field id="proc_statement" longname="process SQL statement" type="BaseType.U_TEXT" ref="SysDict.A.proc_statement" primarykey="false" final="false" nullable="true" desc="process SQL statement" identity="false" allowSubType="true"/>
+            <field id="unload_data_type" longname="unload data type" type="EnumType.E_UNLOAD_DATA_TYPE" ref="SysDict.A.unload_data_type" primarykey="false" final="false" nullable="true" desc="unload data type" identity="false" allowSubType="true"/>
+            <field id="proc_ind" longname="processed indicator" type="MsEnumType.E_YESORNO" ref="SysDict.A.proc_ind" primarykey="false" final="false" nullable="true" desc="已处理标志" identity="false" allowSubType="true"/>
+            <field id="valid_ind" longname="valid indicator" type="MsEnumType.E_YESORNO" ref="SysDict.A.valid_ind" primarykey="false" final="false" nullable="true" desc="valid indicator" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="table_name" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+        </odbindexes>
+        <indexes>
+            <index id="app_unload_data_idx1" type="primarykey" fields="table_name">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="apl_unload_data" name="apl_unload_data" longname="unload data log" category="B" virtual="false" extension="TabApCommField.apb_field_other" abstract="false">
+        <fields>
+            <field id="table_name" longname="db table name" type="BaseType.U_TABLENAME" ref="SysDict.A.table_name" primarykey="false" final="false" nullable="false" desc="数据库表名" identity="false" allowSubType="true"/>
+            <field id="unload_data_date" longname="unload data date" type="BaseType.U_DATE" ref="SysDict.A.unload_data_date" primarykey="false" final="false" nullable="false" desc="unload data date" identity="false" allowSubType="true"/>
+            <field id="unload_times" longname="unload times" type="BaseType.U_LONG" ref="SysDict.A.unload_times" primarykey="false" final="false" default="1" nullable="true" desc="unload times" identity="false" allowSubType="true"/>
+            <field id="proc_statement" longname="process SQL statement" type="BaseType.U_TEXT" ref="SysDict.A.proc_statement" primarykey="false" final="false" nullable="false" desc="process SQL statement" identity="false" allowSubType="true"/>
+            <field id="upload_date" longname="unload date" type="BaseType.U_DATE" ref="SysDict.A.upload_date" primarykey="false" final="false" nullable="false" desc="上传日期" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="table_name unload_data_date unload_times" operate="selectOne"/>
+            <index id="odb2" type="index" fields="table_name unload_data_date" sort="unload_times desc" operate="selectFirst"/>
+        </odbindexes>
+        <indexes>
+            <index id="apl_unload_data_idx1" type="primarykey" fields="table_name unload_data_date unload_times">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+</schema>

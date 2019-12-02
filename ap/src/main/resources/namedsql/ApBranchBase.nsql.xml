@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls id="ApBranchBase" longname="branch base namedsql" package="cn.sunline.icore.ap.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <select cache="none" method="selectOne" type="sql" id="selBranchByOrgAndBrchId" longname="branch inquire by organization and branch id">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	apb_branch 
+    	where
+    	    	branch_id=#branch_id# and org_id=#org_id#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="branch_id" ref="SysDict.A.branch_id" jdbcType="VARCHAR" javaType="BaseType.U_BRANCHID" mode="in" longname="branch id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.util.Map"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selBranchJunior" longname="branch junior inquire">
+        <sql><![CDATA[
+    	select
+    	    	a.child_brch_id 
+    	from
+    	    	apb_branch_junior a 
+    	where
+    	    	a.org_id = #org_id# and a.branch_id = #branch_id# 
+    	    	and a.brch_relation_code = #brch_relation_code# and a.ccy_code = #ccy_code# 
+    	    	and a.brch_level = 1 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="branch_id" ref="SysDict.A.branch_id" jdbcType="VARCHAR" javaType="BaseType.U_BRANCHID" mode="in" longname="branch id" parameterType="condition"/>
+            <parameter property="brch_relation_code" ref="SysDict.A.brch_relation_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE8" mode="in" longname="branch relation code" parameterType="condition"/>
+            <parameter property="ccy_code" ref="SysDict.A.ccy_code" jdbcType="VARCHAR" javaType="BaseType.U_CURRENCY" mode="in" longname="currency code" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selBranchRoot" longname="root branch inquire">
+        <sql><![CDATA[
+    	select
+    	    	branch_id 
+    	from
+    	    	apb_branch_relation 
+    	where
+    	    	org_id=#org_id# and brch_relation_code=#brch_relation_code# 
+    	    	and ccy_code=#ccy_code# and (
+    	    	    	parent_brch_id is null or parent_brch_id = ''
+    	    	) 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="brch_relation_code" ref="SysDict.A.brch_relation_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE8" mode="in" longname="branch relation code" parameterType="condition"/>
+            <parameter property="ccy_code" ref="SysDict.A.ccy_code" jdbcType="VARCHAR" javaType="BaseType.U_CURRENCY" mode="in" longname="currency code" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selRealBranchList" longname="real branch list">
+        <sql><![CDATA[
+    	select
+    	    	a.branch_id 
+    	from
+    	    	apb_branch a 
+    	where
+    	    	a.org_id = #org_id# and a.real_branch_ind = 'Y'
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+</sqls>

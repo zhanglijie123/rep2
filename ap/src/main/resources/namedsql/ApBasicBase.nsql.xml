@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls id="ApBasicBase" longname="basic base namedsql" package="cn.sunline.icore.ap.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <dynamicSelect cache="none" method="selectPageWithCount selectAll" type="sql" id="selCurrencyList" longname="currency parameter list inquire">
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="ccy_code" ref="SysDict.A.ccy_code" jdbcType="VARCHAR" javaType="BaseType.U_CURRENCY" mode="in" longname="currency code" parameterType="condition"/>
+            <parameter property="ccy_name" ref="SysDict.A.ccy_name" jdbcType="VARCHAR" javaType="BaseType.U_SHORTDESC" mode="in" longname="currency name" parameterType="condition"/>
+            <parameter property="country_code" ref="SysDict.A.country_code" jdbcType="VARCHAR" javaType="BaseType.U_COUNTRY" mode="in" longname="country code" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBasic.ApCurrencyInfo"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select * from app_currency]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="ccy_code!=null &amp;&amp; ccy_code!=''" type="If">
+                        <str type="Str"><![CDATA[ccy_code like concat('%' , concat(#ccy_code# , '%'))]]></str>
+                    </if>
+                    <if test="ccy_name!=null &amp;&amp; ccy_name!=''" type="If">
+                        <str type="Str"><![CDATA[ccy_name like concat('%' , concat(#ccy_name# , '%'))]]></str>
+                    </if>
+                    <if test="country_code!=null &amp;&amp; country_code!=''" type="If">
+                        <str type="Str"><![CDATA[country_code like concat('%' , concat(#country_code# , '%'))]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[org_id=#org_id#]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by ccy_code]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selSystemDate" longname="inquery system date">
+        <sql type="mysql"><![CDATA[select date_format(now(), '%Y%m%d') physical_date, busi_org_id, last_date, trxn_date, next_date, bal_sheet_date, data_create_user, data_create_time, data_update_user, data_update_time, data_version 
+from app_date
+where busi_org_id = #busi_org_id#]]></sql>
+        <sql type="oracle"><![CDATA[select to_char(sysdate, 'yyyymmdd') physical_date, busi_org_id, last_date, trxn_date, next_date, bal_sheet_date, data_create_user, data_create_time, data_update_user, data_update_time, data_version 
+from app_date
+where busi_org_id = #busi_org_id#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="busi_org_id" ref="SysDict.A.busi_org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="business organization id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBasic.ApSystemDate"/>
+    </select>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selIdTypeListByProvideInd" longname="customer identity list inquiry">
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="suit_cust_type" ref="SysDict.A.suit_cust_type" jdbcType="VARCHAR" javaType="EnumType.E_SUITABLECUSTTYPE" mode="in" longname="suitable customer type" parameterType="condition"/>
+            <parameter property="must_provide_ind" ref="SysDict.A.must_provide_ind" jdbcType="VARCHAR" javaType="MsEnumType.E_YESORNO" mode="in" longname="must provide indicator" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBasic.ApIdentityInfo"/>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select * from app_identity]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="suit_cust_type!=null" type="If">
+                        <str type="Str"><![CDATA[suit_cust_type = #suit_cust_type# or suit_cust_type='3']]></str>
+                    </if>
+                    <if test="must_provide_ind!=null" type="If">
+                        <str type="Str"><![CDATA[must_provide_ind = #must_provide_ind#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[org_id=#org_id#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selIdentityTypeList" longname="identity type drop list inquiry">
+        <parameterMap class="java.util.Map">
+            <parameter property="suit_cust_type" ref="SysDict.A.suit_cust_type" jdbcType="VARCHAR" javaType="EnumType.E_SUITABLECUSTTYPE" mode="in" longname="suitable customer type" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBasic.ApDynamicList"/>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select doc_type as drop_list_value,doc_desc as drop_list_desc from app_identity]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="suit_cust_type!=null" type="If">
+                        <str type="Str"><![CDATA[suit_cust_type = #suit_cust_type# or suit_cust_type='3']]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectAll" type="sql" id="selFrozeReason" longname="drop list inquire">
+        <sql><![CDATA[select * from msp_drop_list where drop_list_type='FROZE_REASON' order by drop_list_type, data_sort, drop_list_value]]></sql>
+        <parameterMap class="MsCoreComplexType.MsDropListInfo"/>
+        <resultMap class="java.util.Map"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selSummaryControlList" longname="summary code control list inquiry">
+        <sql><![CDATA[select distinct summary_code, default_ind from app_summary_control
+                       where trxn_code = #trxn_code#
+                         and (recon_code = #recon_code# or recon_code = '*')
+                         and (channel_id = #channel_id# or channel_id = '*')
+                         and (instr(#external_scene_code#, external_scene_code) > 0 or external_scene_code = '*')
+                         order by default_ind desc, data_sort asc]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trxn_code" ref="MsDict.Comm.trxn_code" jdbcType="VARCHAR" javaType="MsType.U_TRXNCODE" mode="in" longname="transaction code" parameterType="condition"/>
+            <parameter property="recon_code" ref="MsDict.Comm.recon_code" jdbcType="VARCHAR" javaType="MsType.U_BYTE32" mode="in" longname="recon code" parameterType="condition"/>
+            <parameter property="channel_id" ref="MsDict.Comm.channel_id" jdbcType="VARCHAR" javaType="MsType.U_CHANNEL" mode="in" longname="channel id" parameterType="condition"/>
+            <parameter property="external_scene_code" ref="SysDict.A.external_scene_code" jdbcType="VARCHAR" javaType="BaseType.U_BYTE64" mode="in" longname="external scene code" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApBasic.ApSummaryControlInfo"/>
+    </select>
+</sqls>

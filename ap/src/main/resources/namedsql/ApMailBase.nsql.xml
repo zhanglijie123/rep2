@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ApMailBase" longname="mail namedsql" package="cn.sunline.icore.ap.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <select cache="none" method="selectAll" type="sql" id="selSendMailInfo" longname="query mail information">
+        <sql><![CDATA[
+    	select
+    	    	a.mail_template_no,a.mail_content,b.mail_topic,a.e_mail,a.serial_no,a.attachment_name 
+    	from
+    	    	apb_mail_book a 
+    	join
+    	    	app_mail_template b 
+    	    	    	on a.mail_template_no=b.mail_template_no 
+    	where
+    	    	a.org_id=#org_id# and a.trxn_seq=#trxn_seq# and a.mail_send_status=#mail_send_status#
+    	order by
+    	    	a.serial_no
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="trxn_seq" ref="SysDict.A.trxn_seq" jdbcType="VARCHAR" javaType="BaseType.U_SEQNO" mode="in" longname="transaction sequence" parameterType="condition"/>
+            <parameter property="mail_send_status" ref="SysDict.A.mail_send_status" jdbcType="VARCHAR" javaType="EnumType.E_MAILSENDSTATUS" mode="in" longname="mail send status" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ComApMail.ApMailInfoToSend"/>
+    </select>
+    <update method="update" id="updateMailSendStatus" longname="update mail send status">
+        <sql><![CDATA[
+    	update
+    	    	apb_mail_book 
+    	set
+    	    	mail_send_status=#mail_send_status# 
+    	where
+    	    	org_id=#org_id# and trxn_seq=#trxn_seq# 
+    	    	and serial_no=#serial_no# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+            <parameter property="mail_send_status" ref="SysDict.A.mail_send_status" jdbcType="VARCHAR" javaType="EnumType.E_MAILSENDSTATUS" mode="in" longname="mail send status" parameterType="condition"/>
+            <parameter property="trxn_seq" ref="SysDict.A.trxn_seq" jdbcType="VARCHAR" javaType="BaseType.U_SEQNO" mode="in" longname="transaction sequence" parameterType="condition"/>
+            <parameter property="serial_no" ref="SysDict.A.serial_no" jdbcType="VARCHAR" javaType="BaseType.U_LONG" mode="in" longname="serial no" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectAll" type="sql" id="selUnSendMailInfo" longname="query unsent mail information">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	apb_mail_book a 
+    	where
+    	    	a.org_id=#org_id# and a.mail_send_status='0' 
+    	order by
+    	    	a.data_create_time asc
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="org_id" ref="SysDict.A.org_id" jdbcType="VARCHAR" javaType="BaseType.U_ORGID" mode="in" longname="organization id" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="TabApMail.apb_mail_book"/>
+    </select>
+</sqls>
